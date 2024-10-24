@@ -32,56 +32,110 @@ const ParticlesBackground = () => {
             },
             onHover: {
               enable: true,
-              mode: "repulse",
+              mode: "connect",
             },
             resize: true,
           },
           modes: {
             push: {
-              quantity: 2,
+              quantity: 4,
+              particles: {
+                opacity: {
+                  value: 0.5,
+                  animation: {
+                    enable: true,
+                    speed: 1,
+                    sync: false,
+                    startValue: "max",
+                    destroy: "min",
+                  },
+                },
+              },
             },
-            repulse: {
-              distance: 100,
-              duration: 0.4,
+            connect: {
+              distance: 150,
+              radius: 200,
+              links: {
+                opacity: 0.3,
+              },
             },
           },
         },
         particles: {
           color: {
-            value: "#60A5FA",
+            value: ["#60A5FA", "#3B82F6", "#2563EB"],
           },
           links: {
             color: "#60A5FA",
             distance: 150,
             enable: true,
-            opacity: 0.6,
+            opacity: 0.3,
             width: 1,
+            triangles: {
+              enable: true,
+              opacity: 0.05,
+            },
           },
           move: {
-            direction: "none",
             enable: true,
+            speed: 1,
+            direction: "none",
+            random: true,
+            straight: false,
             outModes: {
               default: "bounce",
+              bottom: "bounce",
+              left: "bounce",
+              right: "bounce",
+              top: "bounce",
             },
-            random: false,
-            speed: 0.8,
-            straight: false,
+            attract: {
+              enable: true,
+              rotateX: 600,
+              rotateY: 1200,
+            },
           },
           number: {
             density: {
               enable: true,
-              area: 1200,
+              area: 800,
             },
-            value: 40,
+            value: 60,
           },
           opacity: {
-            value: 0.2,
+            value: 0.3,
+            random: true,
+            animation: {
+              enable: true,
+              speed: 1,
+              minimumValue: 0.1,
+              sync: false,
+            },
           },
           shape: {
             type: "circle",
           },
           size: {
-            value: { min: 1, max: 2 },
+            value: { min: 1, max: 3 },
+            random: true,
+            animation: {
+              enable: true,
+              speed: 2,
+              minimumValue: 0.1,
+              sync: false,
+            },
+          },
+          twinkle: {
+            particles: {
+              enable: true,
+              frequency: 0.05,
+              opacity: 1,
+            },
+            lines: {
+              enable: true,
+              frequency: 0.05,
+              opacity: 1,
+            },
           },
         },
         detectRetina: true,
