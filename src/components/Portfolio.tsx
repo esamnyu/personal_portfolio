@@ -1,21 +1,8 @@
-"use client";
-
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Github, Linkedin, Mail, Shield, Brain } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim";
-import type { Container, Engine } from "tsparticles-engine";
 
 const Portfolio = () => {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine);
-  }, []);
-
-  const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    console.log("Particles loaded", container);
-  }, []);
-
   const projects = [
     {
       title: "CSAW LLM Attack CTF",
@@ -61,142 +48,79 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        loaded={particlesLoaded}
-        options={{
-          background: {
-            opacity: 0,
-          },
-          fpsLimit: 120,
-          interactivity: {
-            events: {
-              onClick: {
-                enable: true,
-                mode: "push",
-              },
-              onHover: {
-                enable: true,
-                mode: "repulse",
-              },
-              resize: true,
-            },
-            modes: {
-              push: {
-                quantity: 4,
-              },
-              repulse: {
-                distance: 150,
-                duration: 0.4,
-              },
-            },
-          },
-          particles: {
-            color: {
-              value: "#60A5FA",
-            },
-            links: {
-              color: "#60A5FA",
-              distance: 150,
-              enable: true,
-              opacity: 0.3,
-              width: 1,
-            },
-            move: {
-              direction: "none",
-              enable: true,
-              outModes: {
-                default: "bounce",
-              },
-              random: false,
-              speed: 1.5,
-              straight: false,
-            },
-            number: {
-              density: {
-                enable: true,
-                area: 1000,
-              },
-              value: 80,
-            },
-            opacity: {
-              value: 0.4,
-            },
-            shape: {
-              type: "circle",
-            },
-            size: {
-              value: { min: 1, max: 3 },
-            },
-          },
-          detectRetina: true,
-        }}
-        className="absolute inset-0 -z-10"
-      />
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="relative z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-900/0 to-transparent"></div>
+        
+        <header className="relative section-container text-center py-24">
+          <div className="space-y-4">
+            <h1 className="text-4xl md:text-6xl font-bold text-white">Ethan Sam</h1>
+            <p className="text-xl md:text-2xl text-blue-300">AI & Cybersecurity Engineer</p>
+            <div className="flex justify-center gap-6 pt-4">
+              <a href="https://github.com/esamnyu" 
+                className="text-blue-300 hover:text-blue-400 transition-colors" 
+                target="_blank" 
+                rel="noopener noreferrer">
+                <Github className="w-6 h-6" />
+              </a>
+              <a href="https://linkedin.com/in/ethansam" 
+                className="text-blue-300 hover:text-blue-400 transition-colors" 
+                target="_blank" 
+                rel="noopener noreferrer">
+                <Linkedin className="w-6 h-6" />
+              </a>
+              <a href="mailto:es5888@nyu.edu" 
+                className="text-blue-300 hover:text-blue-400 transition-colors">
+                <Mail className="w-6 h-6" />
+              </a>
+            </div>
+          </div>
+        </header>
 
-<div className="relative z-10">
-  <header className="section-container text-center py-24">
-    <h1 className="hero-title animate-fade-in">Ethan Sam</h1>
-    <p className="hero-subtitle animate-fade-in-delay">AI & Cybersecurity Engineer</p>
-    <div className="flex justify-center gap-6 animate-fade-in-delay-2">
-      <a href="https://github.com/ethan0446" className="social-link" target="_blank" rel="noopener noreferrer">
-        <Github className="social-icon" />
-      </a>
-      <a href="https://linkedin.com/in/ethansam" className="social-link" target="_blank" rel="noopener noreferrer">
-        <Linkedin className="social-icon" />
-      </a>
-      <a href="mailto:ethan.sam@example.com" className="social-link">
-        <Mail className="social-icon" />
-      </a>
-    </div>
-  </header>
-</div>
-
-
-        <section className="section-container mb-24">
-          <h2 className="section-title">
-            <Shield className="section-icon" />
+        <section className="relative px-6 md:px-12 lg:px-24 mb-24">
+          <h2 className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8">
+            <Shield className="w-6 h-6 text-blue-400" />
             Projects
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projects.map((project, index) => (
               <Card 
                 key={index} 
-                className="project-card border hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300"
+                className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300"
               >
                 <CardHeader>
-                  <CardTitle className="project-title">{project.title}</CardTitle>
-                  <CardDescription className="project-description">{project.description}</CardDescription>
+                  <CardTitle className="text-white">{project.title}</CardTitle>
+                  <CardDescription className="text-slate-300">{project.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tech.map((tech, i) => (
-                      <span key={i} className="tech-tag">{tech}</span>
+                      <span key={i} className="px-2 py-1 rounded-full text-sm bg-blue-500/20 text-blue-300">
+                        {tech}
+                      </span>
                     ))}
                   </div>
-                  <p className="metric-text">{project.metrics}</p>
+                  <p className="text-blue-400">{project.metrics}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
         </section>
 
-        <section className="section-container pb-24">
-          <h2 className="section-title">
-            <Brain className="section-icon" />
+        <section className="relative px-6 md:px-12 lg:px-24 pb-24">
+          <h2 className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8">
+            <Brain className="w-6 h-6 text-blue-400" />
             Experience
           </h2>
           <div className="space-y-8">
             {experiences.map((exp, index) => (
               <Card 
                 key={index} 
-                className="project-card border hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300"
+                className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300"
               >
                 <CardHeader>
-                  <CardTitle className="project-title">{exp.company}</CardTitle>
-                  <CardDescription className="project-description">
+                  <CardTitle className="text-white">{exp.company}</CardTitle>
+                  <CardDescription className="text-slate-300">
                     {exp.role} • {exp.date}
                   </CardDescription>
                 </CardHeader>
