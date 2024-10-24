@@ -54,7 +54,7 @@ const ParticlesBackground = () => {
             color: "#60A5FA",
             distance: 150,
             enable: true,
-            opacity: 0.2,
+            opacity: 0.6,
             width: 1,
           },
           move: {
