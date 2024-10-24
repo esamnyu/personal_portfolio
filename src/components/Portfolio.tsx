@@ -136,22 +136,24 @@ const Portfolio = () => {
         className="absolute inset-0 -z-10"
       />
 
-      <div className="relative z-10">
-        <header className="section-container text-center py-24">
-          <h1 className="hero-title animate-fade-in">Ethan Sam </h1>
-          <p className="hero-subtitle animate-fade-in-delay">AI & Cybersecurity Engineer</p>
-          <div className="flex justify-center gap-6 animate-fade-in-delay-2">
-            <a href="https://github.com/yourusername" className="social-link" target="_blank" rel="noopener noreferrer">
-              <Github className="social-icon" />
-            </a>
-            <a href="https://linkedin.com/in/yourusername" className="social-link" target="_blank" rel="noopener noreferrer">
-              <Linkedin className="social-icon" />
-            </a>
-            <a href="mailto:your.email@example.com" className="social-link">
-              <Mail className="social-icon" />
-            </a>
-          </div>
-        </header>
+<div className="relative z-10">
+  <header className="section-container text-center py-24">
+    <h1 className="hero-title animate-fade-in">Ethan Sam</h1>
+    <p className="hero-subtitle animate-fade-in-delay">AI & Cybersecurity Engineer</p>
+    <div className="flex justify-center gap-6 animate-fade-in-delay-2">
+      <a href="https://github.com/ethan0446" className="social-link" target="_blank" rel="noopener noreferrer">
+        <Github className="social-icon" />
+      </a>
+      <a href="https://linkedin.com/in/ethansam" className="social-link" target="_blank" rel="noopener noreferrer">
+        <Linkedin className="social-icon" />
+      </a>
+      <a href="mailto:ethan.sam@example.com" className="social-link">
+        <Mail className="social-icon" />
+      </a>
+    </div>
+  </header>
+</div>
+
 
         <section className="section-container mb-24">
           <h2 className="section-title">
