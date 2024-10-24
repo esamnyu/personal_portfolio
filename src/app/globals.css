@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen;
+  }
+}
+
+@layer components {
+  .hero-title {
+    @apply text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-violet-400;
+  }
+
+  .hero-subtitle {
+    @apply text-2xl text-slate-300 mb-8;
+  }
+
+  .social-link {
+    @apply transform hover:scale-110 transition-transform duration-200;
+  }
+
+  .social-icon {
+    @apply w-8 h-8 hover:text-blue-400;
+  }
+
+  .section-container {
+    @apply max-w-5xl mx-auto px-6;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold mb-12 flex items-center gap-3 border-b border-slate-700 pb-4;
+  }
+
+  .section-icon {
+    @apply w-8 h-8 text-blue-400;
+  }
+
+  .project-card {
+    @apply bg-slate-800/50 backdrop-blur border-slate-700 hover:border-blue-500/50 transition-all duration-300;
+  }
+
+  .project-title {
+    @apply text-xl font-bold text-blue-400;
+  }
+
+  .project-description {
+    @apply text-slate-300;
+  }
+
+  .tech-tag {
+    @apply px-3 py-1 bg-slate-700 rounded-full text-sm font-medium text-blue-300;
+  }
+
+  .metric-text {
+    @apply text-emerald-400 font-semibold;
+  }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .animate-fade-in-delay {
+    animation: fadeIn 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+  
+  .animate-fade-in-delay-2 {
+    animation: fadeIn 0.6s ease-out 0.4s forwards;
+    opacity: 0;
+  }
