@@ -1,6 +1,7 @@
 import React from 'react';
 import { Github, Linkedin, Mail, Shield, Brain } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import ParticlesBackground from './ParticlesBackground';
 
 const Portfolio = () => {
   const projects = [
@@ -48,8 +49,9 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      <div className="relative z-10">
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <ParticlesBackground />
+      <div className="relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-900/0 to-transparent"></div>
         
         <header className="relative section-container text-center py-24">
