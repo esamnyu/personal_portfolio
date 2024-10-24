@@ -138,7 +138,7 @@ const Portfolio = () => {
 
       <div className="relative z-10">
         <header className="section-container text-center py-24">
-          <h1 className="hero-title animate-fade-in">Your Name</h1>
+          <h1 className="hero-title animate-fade-in">Ethan Sam </h1>
           <p className="hero-subtitle animate-fade-in-delay">AI & Cybersecurity Engineer</p>
           <div className="flex justify-center gap-6 animate-fade-in-delay-2">
             <a href="https://github.com/yourusername" className="social-link" target="_blank" rel="noopener noreferrer">
