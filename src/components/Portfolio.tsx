@@ -18,22 +18,22 @@ const Portfolio = () => {
 
   const projects = [
     {
-      title: "AI Security Chatbot",
-      description: "Developed an enterprise AI chatbot for GRC automation using GPT-3.5",
-      tech: ["PyTorch", "React", "Node.js"],
-      metrics: "30% reduction in manual queries"
+      title: "CSAW LLM Attack CTF",
+      description: "Led the team in developing advanced attack vectors using machine learning techniques for LLM security testing",
+      tech: ["LLMs", "Machine Learning", "Security Testing", "Python"],
+      metrics: "2nd Place Winner"
+    },
+    {
+      title: "CSAW Phishing Detection Game",
+      description: "Co-developed CNN-based phishing detection simulator with GPT-3 powered chatbot for cybersecurity CTF",
+      tech: ["TensorFlow", "PyTorch", "Docker", "GPT-3"],
+      metrics: "Best Challenge Award, 300+ participants"
     },
     {
       title: "Roomies App",
-      description: "Mobile application for roommate management and conflict resolution",
+      description: "Led development of mobile application addressing real-time data synchronization and user experience design challenges",
       tech: ["React Native", "Firestore", "Firebase"],
-      metrics: "40% reduction in disputes"
-    },
-    {
-      title: "CSAW CTF Challenge",
-      description: "Created ML-based phishing detection game and GPT-3 powered chatbot",
-      tech: ["TensorFlow", "Docker", "Python"],
-      metrics: "Best Challenge Award"
+      metrics: "40% dispute reduction, 30% task completion improvement"
     }
   ];
 
@@ -43,9 +43,9 @@ const Portfolio = () => {
       role: "AI & Cybersecurity Intern",
       date: "May 2024 - August 2024",
       highlights: [
-        "Developed AI chatbot for GRC automation",
-        "Enhanced threat detection by 40%",
-        "Optimized incident response workflows"
+        "Developed AI Chatbot reducing manual policy queries by 30% and enhancing infrastructure security by 25%",
+        "Enhanced threat detection by 40% using Crowdstrike Falcon & IBM QRadar, improving accuracy by 20%",
+        "Optimized Cortex XSoar playbooks and integrated EnCase forensics, improving response efficiency by 15%"
       ]
     },
     {
@@ -53,9 +53,9 @@ const Portfolio = () => {
       role: "Cybersecurity Auditor",
       date: "December 2021 - August 2023",
       highlights: [
-        "Led ICS security assessments",
-        "Remediated 100+ vulnerabilities",
-        "Improved compliance by 20%"
+        "Administered ICS security assessments across 50+ mission-critical OT/ICS systems using NIST frameworks",
+        "Identified and remediated 100+ cybersecurity vulnerabilities across NYC agencies",
+        "Improved compliance by 20% and reduced audit time by 20% through standardized processes"
       ]
     }
   ];
