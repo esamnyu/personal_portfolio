@@ -4,6 +4,29 @@ import React from 'react';
 import { Github, Linkedin, Mail, Shield, Brain } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import ParticlesBackground from './ParticlesBackground';
+import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+
+// Animated card component
+const AnimatedCard = ({ children, index = 0 }) => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: -100 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.1,
+        ease: "easeOut"
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 const Portfolio = () => {
   const projects = [
@@ -98,168 +121,206 @@ const Portfolio = () => {
       <div className="relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-900/0 to-transparent"></div>
         
-        <header className="relative section-container text-center py-24">
+        <motion.header 
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative section-container text-center py-24"
+        >
           <div className="space-y-4">
             <h1 className="text-4xl md:text-6xl font-bold text-white">Ethan Sam</h1>
             <p className="text-xl md:text-2xl text-blue-300">AI & Cybersecurity Engineer</p>
             <p className="text-lg text-blue-300/80">Security Engineer/Software Developer specializing in AI-driven solutions and system resilience</p>
             <div className="flex justify-center gap-6 pt-4">
-              <a href="https://github.com/esamnyu" 
+              <motion.a 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                href="https://github.com/esamnyu" 
                 className="text-blue-300 hover:text-blue-400 transition-colors" 
                 target="_blank" 
-                rel="noopener noreferrer">
+                rel="noopener noreferrer"
+              >
                 <Github className="w-6 h-6" />
-              </a>
-              <a href="https://linkedin.com/in/ethansam" 
+              </motion.a>
+              <motion.a 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                href="https://linkedin.com/in/ethansam" 
                 className="text-blue-300 hover:text-blue-400 transition-colors" 
                 target="_blank" 
-                rel="noopener noreferrer">
+                rel="noopener noreferrer"
+              >
                 <Linkedin className="w-6 h-6" />
-              </a>
-              <a href="mailto:es5888@nyu.edu" 
-                className="text-blue-300 hover:text-blue-400 transition-colors">
+              </motion.a>
+              <motion.a 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                href="mailto:es5888@nyu.edu" 
+                className="text-blue-300 hover:text-blue-400 transition-colors"
+              >
                 <Mail className="w-6 h-6" />
-              </a>
+              </motion.a>
             </div>
           </div>
-        </header>
+        </motion.header>
 
         <section className="relative px-6 md:px-12 lg:px-24 mb-24">
-          <h2 className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8">
+          <motion.h2 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8"
+          >
             <Shield className="w-6 h-6 text-blue-400" />
             Projects
-          </h2>
+          </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projects.map((project, index) => (
-              <Card 
-                key={index} 
-                className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300"
-              >
-                <CardHeader>
-                  <CardTitle className="text-white">{project.title}</CardTitle>
-                  <CardDescription className="text-slate-300">{project.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech, i) => (
-                      <span key={i} className="px-2 py-1 rounded-full text-sm bg-blue-500/20 text-blue-300">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="text-blue-400">{project.metrics}</p>
-                </CardContent>
-              </Card>
+              <AnimatedCard key={index} index={index}>
+                <Card className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300">
+                  <CardHeader>
+                    <CardTitle className="text-white">{project.title}</CardTitle>
+                    <CardDescription className="text-slate-300">{project.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tech.map((tech, i) => (
+                        <span key={i} className="px-2 py-1 rounded-full text-sm bg-blue-500/20 text-blue-300">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-blue-400">{project.metrics}</p>
+                  </CardContent>
+                </Card>
+              </AnimatedCard>
             ))}
           </div>
         </section>
 
         <section className="relative px-6 md:px-12 lg:px-24 pb-24">
-          <h2 className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8">
+          <motion.h2 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8"
+          >
             <Brain className="w-6 h-6 text-blue-400" />
             Experience
-          </h2>
+          </motion.h2>
           <div className="space-y-8">
             {experiences.map((exp, index) => (
-              <Card 
-                key={index} 
-                className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300"
-              >
-                <CardHeader>
-                  <CardTitle className="text-white">{exp.company}</CardTitle>
-                  <CardDescription className="text-slate-300">
-                    {exp.role} • {exp.date}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3 text-slate-300">
-                    {exp.highlights.map((highlight, i) => (
-                      <li key={i} className="flex items-start">
-                        <span className="mr-2 text-blue-400">•</span>
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
+              <AnimatedCard key={index} index={index}>
+                <Card className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300">
+                  <CardHeader>
+                    <CardTitle className="text-white">{exp.company}</CardTitle>
+                    <CardDescription className="text-slate-300">
+                      {exp.role} • {exp.date}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-3 text-slate-300">
+                      {exp.highlights.map((highlight, i) => (
+                        <li key={i} className="flex items-start">
+                          <span className="mr-2 text-blue-400">•</span>
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </AnimatedCard>
             ))}
           </div>
         </section>
 
         <section className="relative px-6 md:px-12 lg:px-24 pb-24">
-          <h2 className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8">
+          <motion.h2 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8"
+          >
             <Brain className="w-6 h-6 text-blue-400" />
             Education
-          </h2>
+          </motion.h2>
           <div className="space-y-8">
             {education.map((edu, index) => (
-              <Card 
-                key={index} 
-                className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300"
-              >
-                <CardHeader>
-                  <CardTitle className="text-white">{edu.school}</CardTitle>
-                  <CardDescription className="text-slate-300">
-                    {edu.degree} • {edu.date}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3 text-slate-300">
-                    {edu.highlights.map((highlight, i) => (
-                      <li key={i} className="flex items-start">
-                        <span className="mr-2 text-blue-400">•</span>
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
+              <AnimatedCard key={index} index={index}>
+                <Card className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300">
+                  <CardHeader>
+                    <CardTitle className="text-white">{edu.school}</CardTitle>
+                    <CardDescription className="text-slate-300">
+                      {edu.degree} • {edu.date}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-3 text-slate-300">
+                      {edu.highlights.map((highlight, i) => (
+                        <li key={i} className="flex items-start">
+                          <span className="mr-2 text-blue-400">•</span>
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </AnimatedCard>
             ))}
           </div>
         </section>
 
         <section className="relative px-6 md:px-12 lg:px-24 pb-24">
-          <h2 className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8">
+          <motion.h2 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8"
+          >
             <Shield className="w-6 h-6 text-blue-400" />
             Skills & Achievements
-          </h2>
+          </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300">
-              <CardHeader>
-                <CardTitle className="text-white">Technical Skills</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {Object.entries(skills).map(([category, items]) => (
-                    <div key={category}>
-                      <h3 className="text-blue-300 mb-2 capitalize">{category.replace('_', ' ')}</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {items.map((item, i) => (
-                          <span key={i} className="px-2 py-1 rounded-full text-sm bg-blue-500/20 text-blue-300">
-                            {item}
-                          </span>
-                        ))}
+            <AnimatedCard index={0}>
+              <Card className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300">
+                <CardHeader>
+                  <CardTitle className="text-white">Technical Skills</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {Object.entries(skills).map(([category, items]) => (
+                      <div key={category}>
+                        <h3 className="text-blue-300 mb-2 capitalize">{category.replace('_', ' ')}</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {items.map((item, i) => (
+                            <span key={i} className="px-2 py-1 rounded-full text-sm bg-blue-500/20 text-blue-300">
+                              {item}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300">
-              <CardHeader>
-                <CardTitle className="text-white">Achievements</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-slate-300">
-                  {achievements.map((achievement, i) => (
-                    <li key={i} className="flex items-start">
-                      <span className="mr-2 text-blue-400">•</span>
-                      {achievement}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </AnimatedCard>
+            <AnimatedCard index={1}>
+              <Card className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300">
+                <CardHeader>
+                  <CardTitle className="text-white">Achievements</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3 text-slate-300">
+                    {achievements.map((achievement, i) => (
+                      <li key={i} className="flex items-start">
+                        <span className="mr-2 text-blue-400">•</span>
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </AnimatedCard>
           </div>
         </section>
       </div>
