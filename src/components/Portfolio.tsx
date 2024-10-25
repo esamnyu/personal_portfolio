@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { Github, Linkedin, Mail, Shield, Brain } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -45,7 +47,49 @@ const Portfolio = () => {
         "Identified and remediated 100+ cybersecurity vulnerabilities across NYC agencies",
         "Improved compliance by 20% and reduced audit time by 20% through standardized processes"
       ]
+    },
+    {
+      company: "NYC Cyber Command",
+      role: "Cybersecurity Analyst Intern",
+      date: "June 2021 - August 2021",
+      highlights: [
+        "Evaluated 10+ NYC agencies' cybersecurity programs, improving compliance by 15%",
+        "Developed internal Audit Guide reducing audit time by 20% and enhancing compliance by 10%",
+        "Contributed to privacy and data protection discussions, participating in mock trials for agency responses"
+      ]
     }
+  ];
+
+  const education = [
+    {
+      school: "New York University, Tandon School of Engineering",
+      degree: "M.S. Cybersecurity",
+      date: "Expected December 2024",
+      highlights: [
+        "GPA: 3.96",
+        "Key Coursework: Network Security, Digital Forensics, Cloud Security, Applied Cryptography",
+        "Advanced Studies: Penetration Testing, Vulnerability Analysis, Threat Intelligence, AI & ML"
+      ]
+    },
+    {
+      school: "City University of New York: Hunter College",
+      degree: "B.S. Computer Science",
+      date: "May 2021",
+      highlights: []
+    }
+  ];
+
+  const skills = {
+    languages: ["Python", "JavaScript", "C++", "SQL", "Bash"],
+    security_tools: ["CrowdStrike Falcon", "IBM QRadar", "Splunk", "Cortex XSoar", "EnCase", "Wireshark"],
+    frameworks: ["React Native", "TensorFlow", "PyTorch", "Docker", "Firestore"],
+    standards: ["NIST CSF", "NIST SP-800-53"]
+  };
+
+  const achievements = [
+    "CSAW LLM Attack CTF – 2nd Place Winner",
+    "ISACA/National Cyber League CTF Scholarship Awardee",
+    "180 Christian Fellowship – President (Fall 2024)"
   ];
 
   return (
@@ -58,6 +102,7 @@ const Portfolio = () => {
           <div className="space-y-4">
             <h1 className="text-4xl md:text-6xl font-bold text-white">Ethan Sam</h1>
             <p className="text-xl md:text-2xl text-blue-300">AI & Cybersecurity Engineer</p>
+            <p className="text-lg text-blue-300/80">Security Engineer/Software Developer specializing in AI-driven solutions and system resilience</p>
             <div className="flex justify-center gap-6 pt-4">
               <a href="https://github.com/esamnyu" 
                 className="text-blue-300 hover:text-blue-400 transition-colors" 
@@ -138,6 +183,83 @@ const Portfolio = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </section>
+
+        <section className="relative px-6 md:px-12 lg:px-24 pb-24">
+          <h2 className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8">
+            <Brain className="w-6 h-6 text-blue-400" />
+            Education
+          </h2>
+          <div className="space-y-8">
+            {education.map((edu, index) => (
+              <Card 
+                key={index} 
+                className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300"
+              >
+                <CardHeader>
+                  <CardTitle className="text-white">{edu.school}</CardTitle>
+                  <CardDescription className="text-slate-300">
+                    {edu.degree} • {edu.date}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3 text-slate-300">
+                    {edu.highlights.map((highlight, i) => (
+                      <li key={i} className="flex items-start">
+                        <span className="mr-2 text-blue-400">•</span>
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="relative px-6 md:px-12 lg:px-24 pb-24">
+          <h2 className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-white mb-8">
+            <Shield className="w-6 h-6 text-blue-400" />
+            Skills & Achievements
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Card className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300">
+              <CardHeader>
+                <CardTitle className="text-white">Technical Skills</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {Object.entries(skills).map(([category, items]) => (
+                    <div key={category}>
+                      <h3 className="text-blue-300 mb-2 capitalize">{category.replace('_', ' ')}</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {items.map((item, i) => (
+                          <span key={i} className="px-2 py-1 rounded-full text-sm bg-blue-500/20 text-blue-300">
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-colors duration-300">
+              <CardHeader>
+                <CardTitle className="text-white">Achievements</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 text-slate-300">
+                  {achievements.map((achievement, i) => (
+                    <li key={i} className="flex items-start">
+                      <span className="mr-2 text-blue-400">•</span>
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
           </div>
         </section>
       </div>
