@@ -163,9 +163,9 @@ const Portfolio: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
-              David Chen
+              Ethan Sam
             </h1>
-            <p className="text-xl sm:text-2xl text-gray-300 mb-8">
+            <p className="text-xl sm:text-2xl text-gray-300 mb-8">   
               Cybersecurity Engineer | AI Enthusiast | CTF Player
             </p>
             <div className="flex justify-center space-x-6">
