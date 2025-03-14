@@ -205,7 +205,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
         <div className="space-y-2">
           <p>Searching for flag...</p>
           <p className="text-yellow-300">Congratulations! You found an Easter egg!</p>
-          <p>Flag: CTF{y0u_f0und_m3_n1c3_w0rk_h4ck3r}</p>
+          <p>Flag: CTF{"y0u_f0und_m3_n1c3_w0rk_h4ck3r"}</p>
           <p className="mt-2 text-gray-400">This is just one of several hidden features in this terminal. Keep exploring!</p>
         </div>
       );

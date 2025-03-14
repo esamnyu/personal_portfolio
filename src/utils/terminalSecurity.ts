@@ -1,207 +1,150 @@
-// src/utils/terminalSecurity.ts
+// Utility functions for Terminal security and functionality
 
 /**
- * Sanitizes user input to prevent XSS attacks
- * @param input User input string
- * @returns Sanitized string
+ * Sanitizes input to prevent XSS attacks
  */
 export const sanitizeInput = (input: string): string => {
-    if (!input) return '';
-    
-    // Remove HTML tags to prevent XSS
-    const sanitized = input.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    
-    // Limit command length
-    return sanitized.slice(0, 100);
+    // Simple sanitization - remove script tags and other potential XSS vectors
+    return input
+      .replace(/<script.*?>.*?<\/script>/gi, '')
+      .replace(/<.*?on\w+=".*?"/gi, '')
+      .replace(/<iframe.*?>.*?<\/iframe>/gi, '');
   };
   
   /**
-   * Rate limiting for command execution
-   */
-  export class CommandRateLimiter {
-    private lastCommandTime: number = 0;
-    private commandCount: number = 0;
-    private readonly resetTime: number = 10000; // 10 seconds
-    private readonly maxCommands: number = 20; // Max 20 commands per 10 seconds
-    
-    /**
-     * Checks if a command can be executed based on rate limits
-     * @returns boolean indicating if command execution is allowed
-     */
-    canExecuteCommand(): boolean {
-      const now = Date.now();
-      
-      // Reset counter if resetTime has passed
-      if (now - this.lastCommandTime > this.resetTime) {
-        this.commandCount = 0;
-        this.lastCommandTime = now;
-        return true;
-      }
-      
-      // Increment counter and check if over limit
-      this.commandCount++;
-      if (this.commandCount > this.maxCommands) {
-        return false;
-      }
-      
-      this.lastCommandTime = now;
-      return true;
-    }
-    
-    /**
-     * Get remaining commands allowed in current time window
-     */
-    getRemainingCommands(): number {
-      // Reset if time window has passed
-      if (Date.now() - this.lastCommandTime > this.resetTime) {
-        this.commandCount = 0;
-        return this.maxCommands;
-      }
-      return Math.max(0, this.maxCommands - this.commandCount);
-    }
-  }
-  
-  /**
-   * Secure storage for terminal state
-   */
-  export class SecureTerminalStorage {
-    private readonly visitedKey = 'terminal_has_visited';
-    private readonly historyKey = 'terminal_command_history';
-    
-    /**
-     * Safely checks if user has visited before
-     */
-    hasVisitedBefore(): boolean {
-      try {
-        return localStorage.getItem(this.visitedKey) === 'true';
-      } catch (error) {
-        // In case of private browsing mode or localStorage errors
-        console.warn('Unable to access localStorage', error);
-        return false;
-      }
-    }
-    
-    /**
-     * Safely marks user as having visited
-     */
-    markAsVisited(): void {
-      try {
-        localStorage.setItem(this.visitedKey, 'true');
-      } catch (error) {
-        console.warn('Unable to write to localStorage', error);
-      }
-    }
-    
-    /**
-     * Safely stores command history (limited to prevent localStorage abuse)
-     */
-    saveCommandHistory(commands: string[]): void {
-      try {
-        // Only store the last 20 commands to prevent storage abuse
-        const limitedCommands = commands.slice(-20);
-        localStorage.setItem(this.historyKey, JSON.stringify(limitedCommands));
-      } catch (error) {
-        console.warn('Unable to write command history to localStorage', error);
-      }
-    }
-    
-    /**
-     * Safely retrieves command history
-     */
-    getCommandHistory(): string[] {
-      try {
-        const history = localStorage.getItem(this.historyKey);
-        return history ? JSON.parse(history) : [];
-      } catch (error) {
-        console.warn('Unable to read command history from localStorage', error);
-        return [];
-      }
-    }
-    
-    /**
-     * Clears all terminal-related data
-     */
-    clearTerminalData(): void {
-      try {
-        localStorage.removeItem(this.visitedKey);
-        localStorage.removeItem(this.historyKey);
-      } catch (error) {
-        console.warn('Unable to clear localStorage', error);
-      }
-    }
-  }
-  
-  /**
-   * Validates command arguments to ensure they meet expected format
-   * @param command The command being executed
-   * @param args The arguments for the command
-   * @returns Validated and normalized arguments
+   * Validates command arguments based on command type
    */
   export const validateCommandArgs = (command: string, args: string): string => {
-    // Trim and lowercase for consistent handling
-    const normalizedArgs = args.trim();
+    // Implement simple validation logic
+    // For now, just a basic trim and limit to reasonable length
+    if (!args) return '';
     
-    // Command-specific validation
-    switch (command) {
-      case 'project':
-        // Only allow alphanumeric chars, spaces, and hyphens in project names
-        return normalizedArgs.replace(/[^a-zA-Z0-9\s-]/g, '');
-      case 'email':
-        // Only allow email-like formats
-        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(normalizedArgs)) {
-          return '';
-        }
-        return normalizedArgs;
-      default:
-        return normalizedArgs;
-    }
+    const trimmed = args.trim();
+    // Limit to 100 characters as a basic precaution
+    return trimmed.length > 100 ? trimmed.substring(0, 100) + '...' : trimmed;
   };
   
   /**
-   * Security logger for tracking suspicious terminal activity
+   * Logger for potentially suspicious commands
    */
-  export class SecurityLogger {
-    private suspiciousCommands: string[] = [
-      'sudo', 'rm', 'chmod', 'ssh', 'curl', 'wget', 'eval', 'exec', 'command injection'
-    ];
-    
+  export const securityLogger = {
+    // List of potentially suspicious patterns
+    suspiciousPatterns: [
+      /rm\s+-rf/i,
+      /sudo/i,
+      /chmod/i,
+      /eval\(/i,
+      /system\(/i,
+      /exec\(/i,
+      /\bdrop\b/i,
+      /\bdelete\b/i,
+      /\bshutdown\b/i,
+      /\breboot\b/i,
+    ],
+  
     /**
-     * Checks if a command is suspicious and logs it
-     * @param command The command to check
-     * @returns Whether the command is suspicious
+     * Log command and check if it's suspicious
      */
     logCommand(command: string): boolean {
-      const lowerCommand = command.toLowerCase();
+      if (!command) return false;
       
-      // Check for suspicious commands
-      const isSuspicious = this.suspiciousCommands.some(cmd => lowerCommand.includes(cmd));
+      // Check against suspicious patterns
+      const isSuspicious = this.suspiciousPatterns.some(pattern => 
+        pattern.test(command)
+      );
       
+      // In a real app, you'd log this to a service or analytics
       if (isSuspicious) {
-        console.warn(`Suspicious terminal command detected: ${command}`);
-        
-        // In a real implementation, you might want to log this to your analytics
-        // or security monitoring system
-        this.trackSuspiciousActivity(command);
+        console.warn(`Potentially suspicious command detected: ${command}`);
       }
       
       return isSuspicious;
     }
+  };
+  
+  /**
+   * Storage utility for terminal command history using localStorage
+   */
+  export const terminalStorage = {
+    STORAGE_KEY: 'terminal_command_history',
+    MAX_HISTORY: 50,
     
     /**
-     * Tracks suspicious activity (would integrate with your analytics in production)
+     * Get saved command history
      */
-    private trackSuspiciousActivity(command: string): void {
-      // In a production environment, this could send data to your analytics or security monitoring
-      // For now, we'll just log to console
-      console.info('Security event tracked', {
-        type: 'suspicious_terminal_command',
-        command,
-        timestamp: new Date().toISOString()
-      });
+    getCommandHistory(): string[] {
+      if (typeof window === 'undefined') return [];
+      
+      try {
+        const storedHistory = localStorage.getItem(this.STORAGE_KEY);
+        return storedHistory ? JSON.parse(storedHistory) : [];
+      } catch (error) {
+        console.error('Error reading terminal history from storage:', error);
+        return [];
+      }
+    },
+    
+    /**
+     * Save command history
+     */
+    saveCommandHistory(commands: string[]): void {
+      if (typeof window === 'undefined') return;
+      
+      try {
+        // Keep only the most recent commands up to MAX_HISTORY
+        const limitedCommands = commands.slice(-this.MAX_HISTORY);
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(limitedCommands));
+      } catch (error) {
+        console.error('Error saving terminal history to storage:', error);
+      }
+    },
+    
+    /**
+     * Clear all command history
+     */
+    clearCommandHistory(): void {
+      if (typeof window === 'undefined') return;
+      
+      try {
+        localStorage.removeItem(this.STORAGE_KEY);
+      } catch (error) {
+        console.error('Error clearing terminal history from storage:', error);
+      }
     }
-  }
+  };
   
-  // Export a single instance for use throughout the app
-  export const securityLogger = new SecurityLogger();
-  export const terminalStorage = new SecureTerminalStorage();
-  export const rateLimiter = new CommandRateLimiter();
+  /**
+   * Simple rate limiter to prevent too many commands in quick succession
+   */
+  export const rateLimiter = {
+    MAX_COMMANDS: 10,
+    TIME_WINDOW_MS: 5000, // 5 seconds
+    commandTimes: [] as number[],
+    
+    /**
+     * Check if a command can be executed based on rate limiting rules
+     */
+    canExecuteCommand(): boolean {
+      const now = Date.now();
+      
+      // Remove commands outside the time window
+      this.commandTimes = this.commandTimes.filter(
+        time => now - time < this.TIME_WINDOW_MS
+      );
+      
+      // If we're under the limit, allow the command
+      if (this.commandTimes.length < this.MAX_COMMANDS) {
+        this.commandTimes.push(now);
+        return true;
+      }
+      
+      return false;
+    },
+    
+    /**
+     * Reset the rate limiter
+     */
+    reset(): void {
+      this.commandTimes = [];
+    }
+  };
