@@ -1,10 +1,14 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Shield, Brain, Download, ExternalLink, Code } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import ParticlesBackground from './ParticlesBackground';
 import ContactForm from '@/components/ContactForm';
+import Terminal from './Terminal';
+import TerminalButton from './TerminalButton';
+import TerminalIntro from './TerminalIntro';
+import { terminalStorage } from '@/utils/terminalSecurity';
 
 // Define interfaces for data structures
 interface Project {
@@ -39,6 +43,68 @@ interface Skills {
 
 const Portfolio: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>("home");
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [showTerminalTip, setShowTerminalTip] = useState(false);
+  const [showIntro, setShowIntro] = useState(false);
+  
+  // Check if this is the user's first visit using secure storage
+  useEffect(() => {
+    // Check if user has visited before using secure storage
+    const hasVisitedBefore = terminalStorage.hasVisitedBefore();
+    
+    if (!hasVisitedBefore) {
+      // First-time visitor, show intro after a short delay
+      const timer = setTimeout(() => {
+        setShowIntro(true);
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, []);
+  
+  // Handle terminal intro completion
+  const handleIntroComplete = () => {
+    setShowIntro(false);
+    setIsTerminalOpen(true);
+    terminalStorage.markAsVisited();
+  };
+  
+  // Handle terminal intro skip
+  const handleIntroSkip = () => {
+    setShowIntro(false);
+    terminalStorage.markAsVisited();
+    
+    // Show terminal tip later
+    setTimeout(() => {
+      setShowTerminalTip(true);
+      
+      // Hide the tip after 5 seconds
+      setTimeout(() => {
+        setShowTerminalTip(false);
+      }, 5000);
+    }, 10000);
+  };
+  
+  // After 3 seconds of page load, show terminal tip if terminal hasn't been opened
+  // and it's not the first visit (intro was skipped)
+  useEffect(() => {
+    const hasVisitedBefore = terminalStorage.hasVisitedBefore();
+    
+    if (hasVisitedBefore && !isTerminalOpen && !showIntro) {
+      const timer = setTimeout(() => {
+        setShowTerminalTip(true);
+        
+        // Hide the tip after 5 seconds
+        const hideTimer = setTimeout(() => {
+          setShowTerminalTip(false);
+        }, 5000);
+        
+        return () => clearTimeout(hideTimer);
+      }, 3000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isTerminalOpen, showIntro]);
   
   // Handle scroll to section
   const scrollToSection = (sectionId: string) => {
@@ -159,6 +225,28 @@ const Portfolio: React.FC = () => {
     <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <ParticlesBackground />
       
+      {/* Terminal Intro for first-time visitors */}
+      {showIntro && (
+        <TerminalIntro 
+          onComplete={handleIntroComplete} 
+          onSkip={handleIntroSkip} 
+        />
+      )}
+      
+      {/* Terminal Button */}
+      <TerminalButton onClick={() => setIsTerminalOpen(true)} />
+      
+      {/* Terminal Tip Message */}
+      {showTerminalTip && (
+        <div className="fixed bottom-20 right-6 z-40 max-w-xs bg-black bg-opacity-90 text-green-400 p-4 rounded-lg border border-green-500 shadow-lg font-mono text-sm animate-pulse">
+          <p>Psst! Try the terminal for a more interactive experience...</p>
+          <div className="absolute w-4 h-4 bg-black border-r border-b border-green-500 transform rotate-45 -bottom-2 right-6"></div>
+        </div>
+      )}
+      
+      {/* Terminal Component */}
+      <Terminal isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />
+      
       {/* Navigation Bar */}
       <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -213,18 +301,29 @@ const Portfolio: React.FC = () => {
                 <Mail className="w-6 h-6" />
               </a>
             </div>
-            <a 
-              href="/resume.pdf" 
-              className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-300"
-              download
-            >
-              <Download className="w-5 h-5 mr-2" />
-              Download Resume
-            </a>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a 
+                href="/resume.pdf" 
+                className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-300"
+                download
+              >
+                <Download className="w-5 h-5 mr-2" />
+                Download Resume
+              </a>
+              
+              <button 
+                onClick={() => setIsTerminalOpen(true)}
+                className="inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md transition-colors duration-300"
+              >
+                <Terminal className="w-5 h-5 mr-2" />
+                Access Terminal
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* All other sections remain the same */}
       {/* Projects Section */}
       <section id="projects" className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -293,6 +392,7 @@ const Portfolio: React.FC = () => {
 
       {/* Experience Section */}
       <section id="experience" className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-800/30">
+        {/* Content remains the same */}
         <div className="max-w-7xl mx-auto">
           <div className="animate-fade-in">
             <h2 className="text-3xl font-bold text-white mb-4 text-center">
@@ -333,6 +433,7 @@ const Portfolio: React.FC = () => {
 
       {/* Education Section */}
       <section id="education" className="py-24 px-4 sm:px-6 lg:px-8">
+        {/* Content remains the same */}
         <div className="max-w-7xl mx-auto">
           <div className="animate-fade-in">
             <h2 className="text-3xl font-bold text-white mb-4 text-center">
@@ -375,6 +476,7 @@ const Portfolio: React.FC = () => {
 
       {/* Skills Section */}
       <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-800/30">
+        {/* Content remains the same */}
         <div className="max-w-7xl mx-auto">
           <div className="animate-fade-in">
             <h2 className="text-3xl font-bold text-white mb-4 text-center">
@@ -454,6 +556,7 @@ const Portfolio: React.FC = () => {
 
       {/* Achievements Section */}
       <section id="achievements" className="py-24 px-4 sm:px-6 lg:px-8">
+        {/* Content remains the same */}
         <div className="max-w-7xl mx-auto">
           <div className="animate-fade-in">
             <h2 className="text-3xl font-bold text-white mb-4 text-center">
@@ -484,6 +587,7 @@ const Portfolio: React.FC = () => {
 
       {/* Contact Section */}
       <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-800/30">
+        {/* Content remains the same */}
         <div className="max-w-7xl mx-auto">
           <div className="animate-fade-in">
             <h2 className="text-3xl font-bold text-white mb-4 text-center">
@@ -515,6 +619,9 @@ const Portfolio: React.FC = () => {
           </div>
           <p className="text-gray-400 text-sm">
             © {new Date().getFullYear()} Ethan Sam. All rights reserved.
+          </p>
+          <p className="text-gray-500 text-xs mt-2">
+            Try the terminal to discover hidden Easter eggs!
           </p>
         </div>
       </footer>
