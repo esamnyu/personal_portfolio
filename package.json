@@ -13,7 +13,7 @@
         "@radix-ui/react-slot": "^1.0.2",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
-        "framer-motion": "^11.0.3",
+        "framer-motion": "^12.5.0",
         "lucide-react": "^0.290.0",
         "next": "^14.2.16",
         "react": "18.2.0",
@@ -25,9 +25,9 @@
         "tsparticles-slim": "^2.12.0"
     },
     "devDependencies": {
-        "@types/node": "^20.8.9",
-        "@types/react": "18.2.33",
-        "@types/react-dom": "18.2.14",
+        "@types/node": "^20.17.24",
+        "@types/react": "^18.3.18",
+        "@types/react-dom": "^18.3.5",
         "autoprefixer": "^10.4.16",
         "eslint": "^8.52.0",
         "eslint-config-next": "14.0.3",
