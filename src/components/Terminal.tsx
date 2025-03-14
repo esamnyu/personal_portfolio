@@ -23,9 +23,8 @@ interface TerminalProps {
   onClose: () => void;
 }
 
-// Commands available in the terminal - same as before
+// Commands available in the terminal
 const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?: string) => string | React.ReactNode }> = {
-  // All existing commands remain the same
   'help': { 
     description: 'Shows available commands',
     action: () => {
@@ -57,18 +56,263 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
       );
     }
   },
-  // All other commands remain the same but are omitted for brevity
-  'skills': { description: 'Lists my technical skills', action: () => { /* Same as before */ } },
-  'projects': { description: 'Shows my top projects', action: () => { /* Same as before */ } },
-  'project': { description: 'Get details about a specific project', action: (args) => { /* Same as before */ } },
-  'contact': { description: 'Shows my contact information', action: () => { /* Same as before */ } },
-  'hack': { description: 'Try to hack into the system', action: () => { /* Same as before */ } },
-  'ctf': { description: 'Shows my Capture The Flag experience', action: () => { /* Same as before */ } },
-  'flag': { description: 'Find the hidden flag', action: () => { /* Same as before */ } },
-  'resume': { description: 'Download my resume', action: () => { /* Same as before */ } },
+  'skills': { 
+    description: 'Lists my technical skills',
+    action: () => {
+      return (
+        <div className="space-y-2">
+          <p className="text-green-400">Technical Skills:</p>
+          <div className="pl-4">
+            <p><span className="text-blue-400">Languages:</span> Python, JavaScript, C++, SQL, Bash</p>
+            <p><span className="text-blue-400">Security Tools:</span> CrowdStrike Falcon, IBM QRadar, Splunk, Cortex XSoar, EnCase, Wireshark</p>
+            <p><span className="text-blue-400">Frameworks:</span> React Native, TensorFlow, PyTorch, Docker, Firestore</p>
+          </div>
+        </div>
+      );
+    }
+  },
+  'projects': { 
+    description: 'Shows my top projects',
+    action: () => {
+      return (
+        <div className="space-y-3">
+          <p className="text-green-400">Featured Projects:</p>
+          <div className="pl-4 border-l border-green-800">
+            <p className="text-yellow-300">CSAW LLM Attack CTF</p>
+            <p>Led the team in developing advanced attack vectors for LLM security testing.</p>
+            <p className="text-gray-400">Result: 2nd Place Winner</p>
+          </div>
+          <div className="pl-4 border-l border-green-800">
+            <p className="text-yellow-300">CSAW Phishing Detection Game</p>
+            <p>Co-developed CNN-based phishing detection simulator with GPT-3 powered chatbot.</p>
+            <p className="text-gray-400">Result: Best Challenge Award, 300+ participants</p>
+          </div>
+          <p className="italic text-gray-400">Type <span className="text-yellow-300">project [name]</span> for more details</p>
+        </div>
+      );
+    }
+  },
+  'project': { 
+    description: 'Get details about a specific project',
+    action: (args) => {
+      if (!args) return "Error: Please specify a project name. Example: project llm-attack";
+      
+      const projectMap: Record<string, React.ReactNode> = {
+        "llm-attack": (
+          <div className="space-y-2">
+            <p className="text-yellow-300 text-lg">CSAW LLM Attack CTF</p>
+            <p>Developed advanced techniques to test the security boundaries of large language models.</p>
+            <p>Our approach combined prompt engineering with adversarial machine learning to create novel attack vectors.</p>
+            <p><span className="text-blue-400">Tech:</span> Python, PyTorch, Transformers, RLHF techniques</p>
+            <p><span className="text-green-400">Outcome:</span> 2nd Place among 50+ teams from around the world</p>
+            <p className="text-gray-400 italic mt-2">GitHub: github.com/yourusername/llm-attack-ctf</p>
+          </div>
+        ),
+        "phishing": (
+          <div className="space-y-2">
+            <p className="text-yellow-300 text-lg">CSAW Phishing Detection Game</p>
+            <p>Created an interactive educational tool to train users to identify sophisticated phishing attempts.</p>
+            <p>Combined CNN-based image analysis with GPT-3 powered chatbot to simulate realistic phishing scenarios.</p>
+            <p><span className="text-blue-400">Tech:</span> TensorFlow, PyTorch, Docker, GPT-3</p>
+            <p><span className="text-green-400">Outcome:</span> Best Challenge Award, used by 300+ participants</p>
+            <p className="text-gray-400 italic mt-2">GitHub: github.com/yourusername/phishing-detection</p>
+          </div>
+        ),
+        "roomies": (
+          <div className="space-y-2">
+            <p className="text-yellow-300 text-lg">Roomies App</p>
+            <p>Mobile application for roommate coordination, expense tracking, and conflict resolution.</p>
+            <p>Implemented real-time data synchronization and intuitive UX to improve roommate communication.</p>
+            <p><span className="text-blue-400">Tech:</span> React Native, Firestore, Firebase</p>
+            <p><span className="text-green-400">Outcome:</span> 40% dispute reduction, 30% task completion improvement</p>
+            <p className="text-gray-400 italic mt-2">GitHub: github.com/yourusername/roomies-app</p>
+          </div>
+        )
+      };
+      
+      // More flexible matching for project names
+      const normalizedArg = args.toLowerCase().trim();
+      
+      // Check for partial matches in project names
+      if (normalizedArg.includes("llm") || normalizedArg.includes("attack") || normalizedArg.includes("ctf")) {
+        return projectMap["llm-attack"];
+      } else if (normalizedArg.includes("phish") || normalizedArg.includes("detection") || normalizedArg.includes("game")) {
+        return projectMap["phishing"];
+      } else if (normalizedArg.includes("room") || normalizedArg.includes("app")) {
+        return projectMap["roomies"];
+      }
+      
+      return `Error: Project "${args}" not found. Try: llm-attack, phishing, or roomies`;
+    }
+  },
+  'contact': { 
+    description: 'Shows my contact information',
+    action: () => {
+      return (
+        <div className="space-y-2">
+          <p className="text-green-400">Contact Information:</p>
+          <p><span className="text-blue-400">Email:</span> your.email@example.com</p>
+          <p><span className="text-blue-400">GitHub:</span> github.com/yourusername</p>
+          <p><span className="text-blue-400">LinkedIn:</span> linkedin.com/in/yourusername</p>
+          <p className="mt-3 text-yellow-300">Feel free to reach out! I'm always open to discussing new opportunities.</p>
+        </div>
+      );
+    }
+  },
+  'hack': { 
+    description: 'Try to hack into the system',
+    action: () => {
+      return (
+        <div className="space-y-2">
+          <p className="text-red-500">ACCESS DENIED</p>
+          <p>Nice try! But my defenses are stronger than that.</p>
+          <p>If you're interested in cybersecurity, let's chat about ethical hacking instead.</p>
+          <p className="text-gray-400">Hint: Try running <span className="text-yellow-300">ctf</span> to see my capture-the-flag experience.</p>
+        </div>
+      );
+    }
+  },
+  'ctf': { 
+    description: 'Shows my Capture The Flag experience',
+    action: () => {
+      return (
+        <div className="space-y-2">
+          <p className="text-green-400">CTF Experience:</p>
+          <p>I regularly participate in cybersecurity Capture The Flag competitions:</p>
+          <ul className="list-disc pl-8 space-y-1">
+            <li>CSAW LLM Attack CTF – 2nd Place Winner</li>
+            <li>ISACA/National Cyber League CTF – Scholarship Awardee</li>
+            <li>HackTheBox – Top 5% global ranking</li>
+            <li>TryHackMe – Completed over 50 rooms</li>
+          </ul>
+          <p className="mt-2">CTF competitions have been critical in developing my practical security skills and staying current with emerging threats.</p>
+        </div>
+      );
+    }
+  },
+  'flag': { 
+    description: 'Find the hidden flag',
+    action: () => {
+      return (
+        <div className="space-y-2">
+          <p>Searching for flag...</p>
+          <p className="text-yellow-300">Congratulations! You found an Easter egg!</p>
+          <p>Flag: CTF{y0u_f0und_m3_n1c3_w0rk_h4ck3r}</p>
+          <p className="mt-2 text-gray-400">This is just one of several hidden features in this terminal. Keep exploring!</p>
+        </div>
+      );
+    }
+  },
+  'resume': { 
+    description: 'Download my resume',
+    action: () => {
+      // In a real implementation, you could trigger a download here
+      return (
+        <div className="space-y-2">
+          <p>Initiating download of resume.pdf...</p>
+          <p className="text-green-400">Download complete!</p>
+          <p className="text-gray-400">(This is a simulation - the actual download would happen on your site)</p>
+        </div>
+      );
+    }
+  },
   'exit': { description: 'Close the terminal' },
-  'whoami': { description: 'Shows the current user', action: () => "visitor@ethansam-portfolio:~$" },
-  'date': { description: 'Shows the current date and time', action: () => `Current date: ${new Date().toLocaleString()}` },
+  'whoami': { 
+    description: 'Shows the current user',
+    action: () => "visitor@ethansam-portfolio:~$"
+  },
+  'date': { 
+    description: 'Shows the current date and time',
+    action: () => `Current date: ${new Date().toLocaleString()}`
+  },
+  // NEW COMMANDS
+  'portfolio': { 
+    description: 'Shows my portfolio summary',
+    action: () => {
+      return (
+        <div className="space-y-2">
+          <p className="text-blue-400">== Portfolio Summary ==</p>
+          <p><span className="text-green-400">Education:</span> M.S. Cybersecurity (NYU), B.S. Computer Science (CUNY)</p>
+          <p><span className="text-green-400">Experience:</span> AI & Cybersecurity Intern (NYU Langone), Cybersecurity Auditor (NYC Cyber Command)</p>
+          <p><span className="text-green-400">Projects:</span> CSAW LLM Attack CTF (2nd Place), Phishing Detection Game, Roomies App</p>
+          <p><span className="text-green-400">Skills:</span> Python, ML/AI, Cybersecurity Tools, React</p>
+          <p className="text-gray-400 mt-2">Type <span className="text-yellow-300">projects</span> to see more details about my work.</p>
+        </div>
+      );
+    }
+  },
+  'education': {
+    description: 'Shows my educational background',
+    action: () => {
+      return (
+        <div className="space-y-2">
+          <p className="text-blue-400">== Education ==</p>
+          <div className="pl-4 border-l border-blue-800 mb-4">
+            <p className="text-yellow-300">New York University, Tandon School of Engineering</p>
+            <p>M.S. Cybersecurity</p>
+            <p className="text-gray-400">Expected December 2024</p>
+            <ul className="list-disc pl-5 mt-1 text-blue-200">
+              <li>GPA: 3.96</li>
+              <li>Key Coursework: Network Security, Digital Forensics, Cloud Security, Applied Cryptography</li>
+            </ul>
+          </div>
+          <div className="pl-4 border-l border-blue-800">
+            <p className="text-yellow-300">City University of New York: Hunter College</p>
+            <p>B.S. Computer Science</p>
+            <p className="text-gray-400">May 2021</p>
+          </div>
+        </div>
+      );
+    }
+  },
+  'experience': {
+    description: 'Shows my professional experience',
+    action: () => {
+      return (
+        <div className="space-y-2">
+          <p className="text-blue-400">== Professional Experience ==</p>
+          <div className="pl-4 border-l border-green-800 mb-4">
+            <p className="text-yellow-300">NYU Langone Health</p>
+            <p>AI & Cybersecurity Intern</p>
+            <p className="text-gray-400">May 2024 - August 2024</p>
+            <ul className="list-disc pl-5 mt-1">
+              <li>Developed AI Chatbot reducing manual policy queries by 30%</li>
+              <li>Enhanced threat detection by 40% using Crowdstrike Falcon & IBM QRadar</li>
+              <li>Optimized Cortex XSoar playbooks and integrated EnCase forensics</li>
+            </ul>
+          </div>
+          <div className="pl-4 border-l border-green-800">
+            <p className="text-yellow-300">NYC Cyber Command</p>
+            <p>Cybersecurity Auditor</p>
+            <p className="text-gray-400">December 2021 - August 2023</p>
+            <ul className="list-disc pl-5 mt-1">
+              <li>Administered ICS security assessments across 50+ mission-critical systems</li>
+              <li>Identified and remediated 100+ cybersecurity vulnerabilities</li>
+              <li>Improved compliance by 20% through standardized processes</li>
+            </ul>
+          </div>
+        </div>
+      );
+    }
+  },
+  'debug': {
+    description: 'Shows debugging information',
+    action: () => {
+      // Check if terminal storage is working
+      const hasHistory = terminalStorage.getCommandHistory().length > 0;
+      const commands = Object.keys(AVAILABLE_COMMANDS).join(', ');
+      
+      return (
+        <div className="space-y-2">
+          <p className="text-red-400">== Terminal Debug Information ==</p>
+          <p><span className="text-blue-400">Command History Working:</span> {hasHistory ? 'Yes' : 'No'}</p>
+          <p><span className="text-blue-400">Available Commands:</span> {commands}</p>
+          <p><span className="text-blue-400">Rate Limiter Status:</span> {rateLimited ? 'Active' : 'Inactive'}</p>
+          <p><span className="text-blue-400">Browser:</span> {typeof window !== 'undefined' ? window.navigator.userAgent : 'Unknown'}</p>
+        </div>
+      );
+    }
+  },
 };
 
 // Easter egg command that's not listed in help
