@@ -287,14 +287,6 @@ const Portfolio: React.FC = () => {
               </a>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a 
-                href="/resume.pdf" 
-                className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-300"
-                download
-              >
-                <Download className="w-5 h-5 mr-2" />
-                Download Resume
-              </a>
               
               <button 
                 onClick={() => setIsTerminalOpen(true)}
