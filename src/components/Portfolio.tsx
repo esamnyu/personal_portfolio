@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Shield, Brain, Download, ExternalLink, Code, Briefcase, GraduationCap, Award, Terminal as TerminalIcon, Cpu, Wrench } from 'lucide-react';
+import { Github, Linkedin, Mail, Shield, Brain, Download, ExternalLink, Code, Briefcase, GraduationCap, Award, Terminal as TerminalIcon, Cpu, Wrench, Camera } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import ParticlesBackground from './ParticlesBackground';
 import ContactForm from '@/components/ContactForm';
 import Terminal from './Terminal';
 import TerminalButton from './TerminalButton';
+import AdventureCarousel from './AdventureCarousel';
 // import { terminalStorage } from '@/utils/terminalSecurity';
 
 // Define interfaces for data structures
@@ -203,6 +204,40 @@ const Portfolio: React.FC = () => {
     "Enhanced threat detection by 40% with custom security solutions"
   ];
 
+  // Adventure images data
+const adventureImages = [
+  {
+    src: "/images/adventures/arch_zoomed_out.jpeg",
+    alt: "Delicate Arch at sunset",
+    location: "Arches National Park, Utah",
+    caption: "Watching the sunset at the iconic Delicate Arch"
+  },
+  {
+    src: "/images/adventures/arch.jpeg",
+    alt: "Closer view of Delicate Arch at twilight",
+    location: "Arches National Park, Utah",
+    caption: "The magnificent silhouette of Delicate Arch against the twilight sky"
+  },
+  {
+    src: "/images/adventures/roadtrip_colorado.jpeg",
+    alt: "Group selfie in snowy mountains",
+    location: "Rocky Mountains, Colorado",
+    caption: "Winter road trip with friends through the Colorado Rockies"
+  },
+  {
+    src: "/images/adventures/so_cold.jpeg",
+    alt: "Person sitting in canyon water",
+    location: "The Narrows, Zion National Park",
+    caption: "Taking a moment to reflect in the cold waters of a slot canyon"
+  },
+  {
+    src: "/images/adventures/the_shallows.jpeg",
+    alt: "Friends hiking through a slot canyon",
+    location: "Zion National Park, Utah",
+    caption: "Exploring the stunning narrow canyons with the crew"
+  }
+];
+
   // Navigation links
   const navLinks = [
     { id: "home", label: "Home" },
@@ -211,6 +246,7 @@ const Portfolio: React.FC = () => {
     { id: "education", label: "Education" },
     { id: "skills", label: "Skills" },
     { id: "achievements", label: "Achievements" },
+    { id: "adventures", label: "Adventures" },
     { id: "contact", label: "Contact" }
   ];
 
@@ -555,8 +591,25 @@ const Portfolio: React.FC = () => {
         </div>
       </section>
 
+      {/* Adventures Section */}
+      <section id="adventures" className="py-20 px-4 bg-slate-800/50">
+        <div className="section-container">
+          <h2 className="section-title">
+            <Camera className="section-icon" />
+            Adventures
+          </h2>
+          <div className="space-y-8">
+            <p className="text-gray-300 max-w-3xl mx-auto text-center mb-8">
+              Life isn't just about code and cybersecurity. Here are some glimpses into my adventures around the world 
+              when I'm not behind a keyboard.
+            </p>
+            <AdventureCarousel images={adventureImages} />
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 bg-slate-800/50">
+      <section id="contact" className="py-20 px-4">
         <div className="section-container">
           <h2 className="section-title">
             <Mail className="section-icon" />
