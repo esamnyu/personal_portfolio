@@ -591,7 +591,7 @@ const adventureImages = [
         </div>
       </section>
 
-      {/* Adventures Section */}
+      {/* Adventures Section
       <section id="adventures" className="py-20 px-4 bg-slate-800/50">
         <div className="section-container">
           <h2 className="section-title">
@@ -606,7 +606,7 @@ const adventureImages = [
             <AdventureCarousel images={adventureImages} />
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4">

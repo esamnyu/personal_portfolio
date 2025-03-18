@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, MapPin, Maximize2, X } from 'lucide-react';
 
@@ -20,6 +20,10 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  // Reference to the carousel container
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   // Auto-advance the carousel
   useEffect(() => {
@@ -55,6 +59,34 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
     
     return () => clearTimeout(timer);
   }, [isAutoPlaying, isFullscreen]);
+  
+  // Intersection Observer to detect when carousel is in view
+  useEffect(() => {
+    if (!carouselRef.current) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          // Add a slight delay before expanding for better UX
+          setTimeout(() => setIsExpanded(true), 300);
+        }
+      },
+      {
+        root: null, // use viewport
+        rootMargin: '0px',
+        threshold: 0.3, // trigger when 30% of the element is visible
+      }
+    );
+    
+    observer.observe(carouselRef.current);
+    
+    return () => {
+      if (carouselRef.current) {
+        observer.unobserve(carouselRef.current);
+      }
+    };
+  }, []);
 
   // For keyboard navigation
   useEffect(() => {
@@ -133,8 +165,12 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
   return (
     <>
       <div 
-        className={`relative overflow-hidden rounded-xl bg-slate-800/50 shadow-xl
-          ${isFullscreen ? "hidden" : "w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] xl:h-[600px]"}`}
+        ref={carouselRef}
+        className={`relative overflow-hidden rounded-xl bg-slate-800/50 shadow-xl transition-all duration-700 ease-in-out
+          ${isFullscreen ? "hidden" : "w-full"} 
+          ${isExpanded 
+            ? "h-[600px] sm:h-[700px] md:h-[800px] lg:h-[900px]" 
+            : "h-[400px] sm:h-[500px] md:h-[600px]"}`}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -153,14 +189,15 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
                 x: { type: "spring", stiffness: 300, damping: 30 },
                 opacity: { duration: 0.5 }
               }}
-              className="absolute w-full h-full"
+              className="absolute w-full h-full flex items-center justify-center"
             >
-              <div className="relative w-full h-full">
-                {/* Image */}
+              <div className="relative max-w-full max-h-full w-auto h-auto">
+                {/* Image with natural dimensions */}
                 <img
                   src={images[currentIndex].src}
                   alt={images[currentIndex].alt}
-                  className="w-full h-full object-cover"
+                  className="max-w-full max-h-full mx-auto"
+                  style={{ objectFit: 'none' }} // Prevents any automatic fitting behavior
                   onError={(e) => {
                     // Fallback if image fails to load
                     e.currentTarget.src = "/images/placeholder-image.jpg";
@@ -179,7 +216,7 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
             </motion.div>
           </AnimatePresence>
           
-          {/* Navigation buttons - slightly larger and more visible */}
+          {/* Navigation buttons */}
           <button
             onClick={handlePrevious}
             className="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -206,7 +243,7 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
           </button>
         </div>
         
-        {/* Pagination dots - now larger and more accessible */}
+        {/* Pagination dots */}
         <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-3 z-10">
           {images.map((_, index) => (
             <button
@@ -240,11 +277,13 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
             <X className="w-6 h-6" />
           </button>
 
-          <div className="relative w-full h-full max-w-screen-2xl max-h-screen flex items-center justify-center">
+          <div className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center">
+            {/* Image shown at natural dimensions */}
             <img
               src={images[currentIndex].src}
               alt={images[currentIndex].alt}
-              className="max-w-full max-h-full object-contain"
+              className="max-w-full max-h-full"
+              style={{ objectFit: 'none' }} // Prevents any automatic fitting behavior
             />
 
             {/* Navigation buttons in fullscreen mode */}
