@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Shield, Brain, Download, ExternalLink, Code, Briefcase, GraduationCap, Award, Terminal as TerminalIcon, Cpu, Wrench, Camera } from 'lucide-react';
+import { Github, Linkedin, Mail, Shield, Brain, Download, ExternalLink, Code, Briefcase, GraduationCap, Award, Terminal as TerminalIcon, Cpu, Wrench, Camera, Menu, X } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { motion, AnimatePresence } from 'framer-motion';
 import ParticlesBackground from './ParticlesBackground';
 import ContactForm from '@/components/ContactForm';
 import Terminal from './Terminal';
@@ -49,6 +50,7 @@ const Portfolio: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>("home");
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [showTerminalTip, setShowTerminalTip] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // After 3 seconds of page load, show terminal tip if terminal hasn't been opened
   useEffect(() => {
@@ -74,6 +76,7 @@ const Portfolio: React.FC = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setActiveSection(sectionId);
+      setIsMobileMenuOpen(false); // Close mobile menu when a section is selected
     }
   };
 
@@ -205,38 +208,38 @@ const Portfolio: React.FC = () => {
   ];
 
   // Adventure images data
-const adventureImages = [
-  {
-    src: "/images/adventures/arch_zoomed_out.jpeg",
-    alt: "Delicate Arch at sunset",
-    location: "Arches National Park, Utah",
-    caption: "Watching the sunset at the iconic Delicate Arch"
-  },
-  {
-    src: "/images/adventures/arch.jpeg",
-    alt: "Closer view of Delicate Arch at twilight",
-    location: "Arches National Park, Utah",
-    caption: "The magnificent silhouette of Delicate Arch against the twilight sky"
-  },
-  {
-    src: "/images/adventures/roadtrip_colorado.jpeg",
-    alt: "Group selfie in snowy mountains",
-    location: "Rocky Mountains, Colorado",
-    caption: "Winter road trip with friends through the Colorado Rockies"
-  },
-  {
-    src: "/images/adventures/so_cold.jpeg",
-    alt: "Person sitting in canyon water",
-    location: "The Narrows, Zion National Park",
-    caption: "Taking a moment to reflect in the cold waters of a slot canyon"
-  },
-  {
-    src: "/images/adventures/the_shallows.jpeg",
-    alt: "Friends hiking through a slot canyon",
-    location: "Zion National Park, Utah",
-    caption: "Exploring the stunning narrow canyons with the crew"
-  }
-];
+  const adventureImages = [
+    {
+      src: "/images/adventures/arch_zoomed_out.jpeg",
+      alt: "Delicate Arch at sunset",
+      location: "Arches National Park, Utah",
+      caption: "Watching the sunset at the iconic Delicate Arch"
+    },
+    {
+      src: "/images/adventures/arch.jpeg",
+      alt: "Closer view of Delicate Arch at twilight",
+      location: "Arches National Park, Utah",
+      caption: "The magnificent silhouette of Delicate Arch against the twilight sky"
+    },
+    {
+      src: "/images/adventures/roadtrip_colorado.jpeg",
+      alt: "Group selfie in snowy mountains",
+      location: "Rocky Mountains, Colorado",
+      caption: "Winter road trip with friends through the Colorado Rockies"
+    },
+    {
+      src: "/images/adventures/so_cold.jpeg",
+      alt: "Person sitting in canyon water",
+      location: "The Narrows, Zion National Park",
+      caption: "Taking a moment to reflect in the cold waters of a slot canyon"
+    },
+    {
+      src: "/images/adventures/the_shallows.jpeg",
+      alt: "Friends hiking through a slot canyon",
+      location: "Zion National Park, Utah",
+      caption: "Exploring the stunning narrow canyons with the crew"
+    }
+  ];
 
   // Navigation links
   const navLinks = [
@@ -291,14 +294,52 @@ const adventureImages = [
             </nav>
             <div className="md:hidden">
               {/* Mobile menu button */}
-              <button className="text-gray-300 hover:text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+              <button 
+                className="text-gray-300 hover:text-white transition-colors"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle mobile menu"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
               </button>
             </div>
           </div>
         </div>
+        
+        {/* Mobile menu dropdown */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              className="md:hidden bg-slate-800 shadow-lg"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="px-4 py-3">
+                <ul className="space-y-3">
+                  {navLinks.map(link => (
+                    <li key={link.id}>
+                      <button
+                        onClick={() => scrollToSection(link.id)}
+                        className={`text-sm w-full text-left py-2 px-3 rounded block ${
+                          activeSection === link.id 
+                            ? "text-blue-400 font-medium bg-slate-700" 
+                            : "text-gray-300 hover:text-white hover:bg-slate-700/50"
+                        } transition-colors`}
+                      >
+                        {link.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
       
       {/* Hero Section */}
@@ -591,7 +632,7 @@ const adventureImages = [
         </div>
       </section>
 
-      {/* Adventures Section
+      {/* Adventures Section */}
       <section id="adventures" className="py-20 px-4 bg-slate-800/50">
         <div className="section-container">
           <h2 className="section-title">
@@ -606,7 +647,7 @@ const adventureImages = [
             <AdventureCarousel images={adventureImages} />
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4">
