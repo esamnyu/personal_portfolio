@@ -27,11 +27,11 @@ const ParticlesBackground = () => {
         interactivity: {
           events: {
             onClick: {
-              enable: true,
+              enable: false, // Disable click interactions
               mode: "push",
             },
             onHover: {
-              enable: true,
+              enable: false, // Disable hover interactions
               mode: "repulse",
             },
             resize: true,
@@ -86,7 +86,7 @@ const ParticlesBackground = () => {
         },
         detectRetina: true,
       }}
-      className="fixed inset-0 z-50 pointer-events-none"
+      className="fixed inset-0 z-0 pointer-events-none" // Changed z-index from z-50 to z-0
     />
   );
 };
