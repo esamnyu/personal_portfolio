@@ -632,7 +632,7 @@ const Portfolio: React.FC = () => {
         </div>
       </section>
 
-      {/* Adventures Section */}
+      {/* Adventures Section - Uncommented and improved */}
       <section id="adventures" className="py-20 px-4 bg-slate-800/50">
         <div className="section-container">
           <h2 className="section-title">

@@ -21,9 +21,15 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState<boolean[]>([]);
   
   // Reference to the carousel container
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Initialize the imagesLoaded array
+  useEffect(() => {
+    setImagesLoaded(new Array(images.length).fill(false));
+  }, [images.length]);
 
   // Auto-advance the carousel
   useEffect(() => {
@@ -32,7 +38,7 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
     const interval = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
+    }, 6000); // Change image every 6 seconds
     
     return () => clearInterval(interval);
   }, [isAutoPlaying, images.length, currentIndex, isFullscreen]);
@@ -143,6 +149,13 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
     setIsAutoPlaying(false); // Pause autoplay in fullscreen mode
   };
 
+  // Handle image load
+  const handleImageLoad = (index: number) => {
+    const newImagesLoaded = [...imagesLoaded];
+    newImagesLoaded[index] = true;
+    setImagesLoaded(newImagesLoaded);
+  };
+
   // Variants for animations
   const variants = {
     enter: (direction: number) => ({
@@ -169,8 +182,8 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
         className={`relative overflow-hidden rounded-xl bg-slate-800/50 shadow-xl transition-all duration-700 ease-in-out
           ${isFullscreen ? "hidden" : "w-full"} 
           ${isExpanded 
-            ? "h-[600px] sm:h-[700px] md:h-[800px] lg:h-[900px]" 
-            : "h-[400px] sm:h-[500px] md:h-[600px]"}`}
+            ? "h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px]" 
+            : "h-[400px] sm:h-[450px] md:h-[500px]"}`}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -189,29 +202,36 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
                 x: { type: "spring", stiffness: 300, damping: 30 },
                 opacity: { duration: 0.5 }
               }}
-              className="absolute w-full h-full flex items-center justify-center"
+              className="absolute inset-0 flex items-center justify-center p-4 overflow-hidden"
             >
-              <div className="relative max-w-full max-h-full w-auto h-auto">
-                {/* Image with natural dimensions */}
+              {/* Loading indicator */}
+              {!imagesLoaded[currentIndex] && (
+                <div className="absolute inset-0 flex items-center justify-center bg-slate-800/50 z-10">
+                  <div className="w-12 h-12 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              )}
+
+              {/* Photo container - handles different aspect ratios */}
+              <div className="relative flex items-center justify-center w-full h-full max-h-[calc(100%-80px)]">
                 <img
                   src={images[currentIndex].src}
                   alt={images[currentIndex].alt}
-                  className="max-w-full max-h-full mx-auto"
-                  style={{ objectFit: 'none' }} // Prevents any automatic fitting behavior
+                  className="max-w-full max-h-full object-contain mx-auto rounded-md shadow-lg"
+                  onLoad={() => handleImageLoad(currentIndex)}
                   onError={(e) => {
-                    // Fallback if image fails to load
                     e.currentTarget.src = "/images/placeholder-image.jpg";
+                    handleImageLoad(currentIndex);
                   }}
                 />
-                
-                {/* Caption overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                  <div className="flex items-center text-blue-300 mb-1">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    <span className="text-sm">{images[currentIndex].location}</span>
-                  </div>
-                  <p className="text-white text-base md:text-lg">{images[currentIndex].caption}</p>
+              </div>
+              
+              {/* Caption overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                <div className="flex items-center text-blue-300 mb-1">
+                  <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
+                  <span className="text-sm truncate">{images[currentIndex].location}</span>
                 </div>
+                <p className="text-white text-base md:text-lg line-clamp-2">{images[currentIndex].caption}</p>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -219,7 +239,7 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
           {/* Navigation buttons */}
           <button
             onClick={handlePrevious}
-            className="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-blue-400"
             aria-label="Previous image"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -227,7 +247,7 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
           
           <button
             onClick={handleNext}
-            className="absolute top-1/2 right-2 sm:right-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="absolute top-1/2 right-2 sm:right-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-blue-400"
             aria-label="Next image"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -236,7 +256,7 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
           {/* Fullscreen button */}
           <button
             onClick={toggleFullscreen}
-            className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-blue-400"
             aria-label="View fullscreen"
           >
             <Maximize2 className="w-5 h-5" />
@@ -244,7 +264,7 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
         </div>
         
         {/* Pagination dots */}
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-3 z-10">
+        <div className="absolute bottom-20 left-0 right-0 flex justify-center space-x-3 z-20">
           {images.map((_, index) => (
             <button
               key={index}
@@ -271,50 +291,61 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
         >
           <button
             onClick={toggleFullscreen}
-            className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-blue-400"
             aria-label="Exit fullscreen"
           >
             <X className="w-6 h-6" />
           </button>
 
-          <div className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center">
-            {/* Image shown at natural dimensions */}
+          {/* Loading indicator for fullscreen */}
+          {!imagesLoaded[currentIndex] && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
+              <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
+
+          {/* Fullscreen image container */}
+          <div className="w-full h-full max-h-[calc(100vh-120px)] flex items-center justify-center p-4">
             <img
               src={images[currentIndex].src}
               alt={images[currentIndex].alt}
-              className="max-w-full max-h-full"
-              style={{ objectFit: 'none' }} // Prevents any automatic fitting behavior
+              className="max-w-[90vw] max-h-[80vh] object-contain rounded-md"
+              onLoad={() => handleImageLoad(currentIndex)}
+              onError={(e) => {
+                e.currentTarget.src = "/images/placeholder-image.jpg";
+                handleImageLoad(currentIndex);
+              }}
             />
+          </div>
 
-            {/* Navigation buttons in fullscreen mode */}
-            <button
-              onClick={handlePrevious}
-              className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-8 h-8" />
-            </button>
-            
-            <button
-              onClick={handleNext}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-8 h-8" />
-            </button>
+          {/* Navigation buttons in fullscreen mode */}
+          <button
+            onClick={handlePrevious}
+            className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="w-8 h-8" />
+          </button>
+          
+          <button
+            onClick={handleNext}
+            className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            aria-label="Next image"
+          >
+            <ChevronRight className="w-8 h-8" />
+          </button>
 
-            {/* Caption overlay in fullscreen mode */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-              <div className="flex items-center text-blue-300 mb-2">
-                <MapPin className="w-5 h-5 mr-2" />
-                <span className="text-base">{images[currentIndex].location}</span>
-              </div>
-              <p className="text-white text-lg sm:text-xl">{images[currentIndex].caption}</p>
+          {/* Caption overlay in fullscreen mode */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+            <div className="flex items-center text-blue-300 mb-2">
+              <MapPin className="w-5 h-5 mr-2 flex-shrink-0" />
+              <span className="text-base">{images[currentIndex].location}</span>
             </div>
+            <p className="text-white text-lg sm:text-xl">{images[currentIndex].caption}</p>
           </div>
 
           {/* Pagination dots in fullscreen mode */}
-          <div className="absolute bottom-6 left-0 right-0 flex justify-center space-x-4 z-10">
+          <div className="absolute bottom-24 left-0 right-0 flex justify-center space-x-4 z-20">
             {images.map((_, index) => (
               <button
                 key={index}
