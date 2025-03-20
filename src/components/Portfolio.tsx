@@ -72,12 +72,18 @@ const Portfolio: React.FC = () => {
   
   // Handle scroll to section
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setActiveSection(sectionId);
-      setIsMobileMenuOpen(false); // Close mobile menu when a section is selected
-    }
+    // First close the mobile menu
+    setIsMobileMenuOpen(false);
+    
+    // Then use a small timeout to allow the menu animation to complete
+    // before scrolling to the section
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setActiveSection(sectionId);
+      }
+    }, 300); // Match this to your menu animation duration
   };
 
   // Project data with added links
