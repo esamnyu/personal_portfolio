@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, MapPin, Maximize2, X } from 'lucide-react';
+import Image from 'next/image';
 
 interface AdventureImage {
   src: string;
@@ -211,18 +212,22 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
                 </div>
               )}
 
-              {/* Photo container - handles different aspect ratios */}
+              {/* Photo container with Next.js Image */}
               <div className="relative flex items-center justify-center w-full h-full max-h-[calc(100%-80px)]">
-                <img
-                  src={images[currentIndex].src}
-                  alt={images[currentIndex].alt}
-                  className="max-w-full max-h-full object-contain mx-auto rounded-md shadow-lg"
-                  onLoad={() => handleImageLoad(currentIndex)}
-                  onError={(e) => {
-                    e.currentTarget.src = "/images/placeholder-image.jpg";
-                    handleImageLoad(currentIndex);
-                  }}
-                />
+                <div className="relative w-full h-full">
+                  <Image
+                    src={images[currentIndex].src}
+                    alt={images[currentIndex].alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                    style={{ objectFit: 'contain' }}
+                    onLoad={() => handleImageLoad(currentIndex)}
+                    onError={() => {
+                      console.error(`Failed to load image: ${images[currentIndex].src}`);
+                      handleImageLoad(currentIndex);
+                    }}
+                  />
+                </div>
               </div>
               
               {/* Caption overlay */}
@@ -304,18 +309,22 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
             </div>
           )}
 
-          {/* Fullscreen image container */}
+          {/* Fullscreen image container with Next.js Image */}
           <div className="w-full h-full max-h-[calc(100vh-120px)] flex items-center justify-center p-4">
-            <img
-              src={images[currentIndex].src}
-              alt={images[currentIndex].alt}
-              className="max-w-[90vw] max-h-[80vh] object-contain rounded-md"
-              onLoad={() => handleImageLoad(currentIndex)}
-              onError={(e) => {
-                e.currentTarget.src = "/images/placeholder-image.jpg";
-                handleImageLoad(currentIndex);
-              }}
-            />
+            <div className="relative w-full h-full" style={{ maxWidth: '90vw', maxHeight: '80vh' }}>
+              <Image
+                src={images[currentIndex].src}
+                alt={images[currentIndex].alt}
+                fill
+                sizes="90vw"
+                style={{ objectFit: 'contain' }}
+                onLoad={() => handleImageLoad(currentIndex)}
+                onError={() => {
+                  console.error(`Failed to load image: ${images[currentIndex].src}`);
+                  handleImageLoad(currentIndex);
+                }}
+              />
+            </div>
           </div>
 
           {/* Navigation buttons in fullscreen mode */}
