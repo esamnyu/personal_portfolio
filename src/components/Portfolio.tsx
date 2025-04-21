@@ -93,14 +93,14 @@ const Portfolio: React.FC = () => {
       description: "Co-developed CNN-based phishing detection simulator with GPT-3 powered chatbot for cybersecurity education",
       tech: ["TensorFlow", "PyTorch", "Docker", "GPT-3"],
       metrics: "Best Challenge Award, 300+ participants, Earned Black Hat scholarship",
-      github: "https://github.com/yourusername/phishing-detection"
+      github: "https://github.com/esamnyu/phishing-detection"
     },
     {
       title: "Roomies App",
       description: "Co-founded and led development of a mobile application for roommate coordination with cryptography security and AI-driven decision making",
       tech: ["React Native", "Firestore", "Firebase", "AI/ML"],
       metrics: "Implemented LLM module for task aggregation, Improved user engagement",
-      github: "https://github.com/yourusername/roomies-app",
+      github: "https://github.com/esamnyu/roomies-app",
       demo: "https://roomies-app.com"
     },
     {
@@ -108,7 +108,7 @@ const Portfolio: React.FC = () => {
       description: "Engineered a comprehensive ranking system for collegiate esports competitions using MERN stack",
       tech: ["MongoDB", "Express", "React", "Node.js", "SaaS", "Azure"],
       metrics: "27% user engagement boost, 50% increase in competition participation",
-      github: "https://github.com/yourusername/elo-ranking"
+      github: "https://github.com/esamnyu/elo-ranking"
     }
   ];
 
@@ -359,7 +359,7 @@ const Portfolio: React.FC = () => {
               Cybersecurity Engineer | AI Enthusiast | CTF Player
             </p>
             <div className="flex justify-center space-x-6 mb-12">
-              <a href="https://github.com/yourusername" className="text-gray-300 hover:text-white transition-colors hover:scale-110 transform" aria-label="GitHub">
+              <a href="https://github.com/esamnyu" className="text-gray-300 hover:text-white transition-colors hover:scale-110 transform" aria-label="GitHub">
                 <Github className="w-6 h-6" />
               </a>
               <a href="https://linkedin.com/in/ethansam" className="text-gray-300 hover:text-white transition-colors hover:scale-110 transform" aria-label="LinkedIn">
@@ -702,7 +702,7 @@ const Portfolio: React.FC = () => {
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-gray-400">© 2025 Ethan Sam. All rights reserved.</p>
           <div className="flex justify-center space-x-6 mt-4">
-            <a href="https://github.com/yourusername" className="text-gray-400 hover:text-white" aria-label="GitHub">
+            <a href="https://github.com/esamnyu" className="text-gray-400 hover:text-white" aria-label="GitHub">
               <Github className="w-5 h-5" />
             </a>
             <a href="https://linkedin.com/in/ethansam" className="text-gray-400 hover:text-white" aria-label="LinkedIn">
