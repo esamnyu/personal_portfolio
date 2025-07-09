@@ -29,32 +29,34 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
 
   // Initialize the imagesLoaded array
   useEffect(() => {
-    setImagesLoaded(new Array(images.length).fill(false));
-  }, [images.length]);
+    if (images && images.length > 0) {
+      setImagesLoaded(new Array(images.length).fill(false));
+    }
+  }, [images]);
 
   // Auto-advance the carousel
   useEffect(() => {
-    if (!isAutoPlaying || images.length <= 1 || isFullscreen) return;
+    if (!isAutoPlaying || !images || images.length <= 1 || isFullscreen) return;
     
     const interval = setInterval(() => {
       setDirection(1);
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % (images?.length || 1));
     }, 6000); // Change image every 6 seconds
     
     return () => clearInterval(interval);
-  }, [isAutoPlaying, images.length, currentIndex, isFullscreen]);
+  }, [isAutoPlaying, images?.length, currentIndex, isFullscreen]);
 
   const handleNext = useCallback(() => {
     setIsAutoPlaying(false); // Pause auto-play when manually navigating
     setDirection(1);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  }, [images.length]);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % (images?.length || 1));
+  }, [images?.length]);
 
   const handlePrevious = useCallback(() => {
     setIsAutoPlaying(false); // Pause auto-play when manually navigating
     setDirection(-1);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  }, [images.length]);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + (images?.length || 1)) % (images?.length || 1));
+  }, [images?.length]);
 
   // Resume autoplay after 10 seconds of inactivity
   useEffect(() => {
@@ -174,13 +176,13 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
   };
 
   // If no images, don't render
-  if (images.length === 0) return null;
+  if (!images || images.length === 0) return null;
 
   return (
     <>
       <div 
         ref={carouselRef}
-        className={`relative overflow-hidden rounded-xl bg-slate-800/50 shadow-xl transition-all duration-700 ease-in-out
+        className={`relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm shadow-2xl transition-all duration-700 ease-in-out border border-slate-700/50
           ${isFullscreen ? "hidden" : "w-full"} 
           ${isExpanded 
             ? "h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px]" 
@@ -242,46 +244,56 @@ const AdventureCarousel: React.FC<AdventureCarouselProps> = ({ images }) => {
           </AnimatePresence>
           
           {/* Navigation buttons */}
-          <button
+          <motion.button
             onClick={handlePrevious}
-            className="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 bg-black/40 backdrop-blur-sm hover:bg-black/60 text-white p-2 sm:p-3 rounded-full transition-all duration-300 z-20 focus:outline-none focus:ring-2 focus:ring-blue-400 border border-white/20 hover:border-white/40 group"
             aria-label="Previous image"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
+          </motion.button>
           
-          <button
+          <motion.button
             onClick={handleNext}
-            className="absolute top-1/2 right-2 sm:right-4 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="absolute top-1/2 right-2 sm:right-4 transform -translate-y-1/2 bg-black/40 backdrop-blur-sm hover:bg-black/60 text-white p-2 sm:p-3 rounded-full transition-all duration-300 z-20 focus:outline-none focus:ring-2 focus:ring-blue-400 border border-white/20 hover:border-white/40 group"
             aria-label="Next image"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
+          </motion.button>
 
           {/* Fullscreen button */}
-          <button
+          <motion.button
             onClick={toggleFullscreen}
-            className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors z-20 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="absolute top-4 right-4 bg-black/40 backdrop-blur-sm hover:bg-black/60 text-white p-2 rounded-full transition-all duration-300 z-20 focus:outline-none focus:ring-2 focus:ring-blue-400 border border-white/20 hover:border-white/40 group"
             aria-label="View fullscreen"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <Maximize2 className="w-5 h-5" />
-          </button>
+            <Maximize2 className="w-5 h-5 group-hover:scale-110 transition-transform" />
+          </motion.button>
         </div>
         
         {/* Pagination dots */}
         <div className="absolute bottom-20 left-0 right-0 flex justify-center space-x-3 z-20">
           {images.map((_, index) => (
-            <button
+            <motion.button
               key={index}
               onClick={() => {
                 setIsAutoPlaying(false);
                 setDirection(index > currentIndex ? 1 : -1);
                 setCurrentIndex(index);
               }}
-              className={`w-3 h-3 rounded-full transition-colors 
-                ${index === currentIndex ? "bg-white" : "bg-white/40 hover:bg-white/60"}`}
+              className={`rounded-full transition-all duration-300 
+                ${index === currentIndex 
+                  ? "w-8 h-3 bg-white shadow-lg shadow-white/50" 
+                  : "w-3 h-3 bg-white/40 hover:bg-white/60"}`}
               aria-label={`Go to image ${index + 1}`}
               aria-current={index === currentIndex ? "true" : "false"}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
             />
           ))}
         </div>

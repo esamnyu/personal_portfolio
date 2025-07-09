@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Send } from 'lucide-react';
+import { Send, CheckCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -75,30 +76,72 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <Card className="bg-slate-800/50 border-slate-700 max-w-md mx-auto">
+    <Card className="glass-card border-slate-700/50 max-w-md mx-auto hover:border-blue-500/30 transition-all duration-300">
       <CardHeader>
-        <CardTitle className="text-white text-center">Get In Touch</CardTitle>
+        <CardTitle className="text-white text-center font-heading text-2xl">Send a Message</CardTitle>
       </CardHeader>
       <CardContent>
+        <AnimatePresence mode="wait">
         {isSubmitted ? (
-          <div className="text-center py-8">
-            <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Thank You!</h3>
-            <p className="text-gray-300">Your message has been sent successfully. I'll get back to you soon.</p>
-            <button
+          <motion.div 
+            key="success"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.5 }}
+            className="text-center py-8"
+          >
+            <motion.div 
+              className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+            >
+              <CheckCircle className="h-8 w-8 text-green-400 glow-green" />
+            </motion.div>
+            <motion.h3 
+              className="text-xl font-semibold text-white mb-2"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              Thank You!
+            </motion.h3>
+            <motion.p 
+              className="text-gray-300"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              Your message has been sent successfully. I'll get back to you soon.
+            </motion.p>
+            <motion.button
               onClick={() => setIsSubmitted(false)}
-              className="mt-6 text-blue-500 hover:text-blue-400 underline"
+              className="mt-6 text-blue-400 hover:text-blue-300 underline transition-colors"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Send another message
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
+          <motion.form 
+            key="form"
+            onSubmit={handleSubmit} 
+            className="space-y-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+            >
               <label htmlFor="name" className="block text-gray-300 mb-1">
                 Name
               </label>
@@ -108,15 +151,19 @@ const ContactForm: React.FC = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className={`w-full px-4 py-2 bg-slate-700/50 border ${
-                  errors.name ? 'border-red-500' : 'border-slate-600'
-                } rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`w-full px-4 py-2 bg-slate-700/30 backdrop-blur-sm border ${
+                  errors.name ? 'border-red-500' : 'border-slate-600/50'
+                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-slate-700/40`}
                 disabled={isSubmitting}
               />
               {errors.name && <p className="mt-1 text-red-500 text-sm">{errors.name}</p>}
-            </div>
+            </motion.div>
             
-            <div>
+            <motion.div
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               <label htmlFor="email" className="block text-gray-300 mb-1">
                 Email
               </label>
@@ -126,15 +173,19 @@ const ContactForm: React.FC = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full px-4 py-2 bg-slate-700/50 border ${
-                  errors.email ? 'border-red-500' : 'border-slate-600'
-                } rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`w-full px-4 py-2 bg-slate-700/30 backdrop-blur-sm border ${
+                  errors.email ? 'border-red-500' : 'border-slate-600/50'
+                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-slate-700/40`}
                 disabled={isSubmitting}
               />
               {errors.email && <p className="mt-1 text-red-500 text-sm">{errors.email}</p>}
-            </div>
+            </motion.div>
             
-            <div>
+            <motion.div
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
               <label htmlFor="message" className="block text-gray-300 mb-1">
                 Message
               </label>
@@ -144,18 +195,23 @@ const ContactForm: React.FC = () => {
                 value={formData.message}
                 onChange={handleChange}
                 rows={4}
-                className={`w-full px-4 py-2 bg-slate-700/50 border ${
-                  errors.message ? 'border-red-500' : 'border-slate-600'
-                } rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`w-full px-4 py-2 bg-slate-700/30 backdrop-blur-sm border ${
+                  errors.message ? 'border-red-500' : 'border-slate-600/50'
+                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-slate-700/40 resize-none`}
                 disabled={isSubmitting}
               />
               {errors.message && <p className="mt-1 text-red-500 text-sm">{errors.message}</p>}
-            </div>
+            </motion.div>
             
-            <button
+            <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md flex items-center justify-center transition-colors duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full btn-primary text-white py-3 px-4 rounded-lg flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               {isSubmitting ? (
                 <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full mr-2"></div>
@@ -163,9 +219,10 @@ const ContactForm: React.FC = () => {
                 <Send className="w-4 h-4 mr-2" />
               )}
               {isSubmitting ? 'Sending...' : 'Send Message'}
-            </button>
-          </form>
+            </motion.button>
+          </motion.form>
         )}
+        </AnimatePresence>
       </CardContent>
     </Card>
   );

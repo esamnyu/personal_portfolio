@@ -1,5 +1,5 @@
-import Portfolio from '@/components/Portfolio'
+import PortfolioEnhanced from '@/components/Portfolio-Enhanced'
 
 export default function Home() {
-  return <Portfolio />
+  return <PortfolioEnhanced />
 }
