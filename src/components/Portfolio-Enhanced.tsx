@@ -203,6 +203,40 @@ const PortfolioEnhanced: React.FC = () => {
     "✝️ President of 180 Christian Fellowship (Fall 2024)"
   ];
 
+  // Adventure images data
+  const adventureImages = [
+    {
+      src: "/images/adventures/arch_zoomed_out.jpeg",
+      alt: "Delicate Arch at sunset",
+      location: "Arches National Park, Utah",
+      caption: "Watching the sunset at the iconic Delicate Arch"
+    },
+    {
+      src: "/images/adventures/arch.jpeg",
+      alt: "Closer view of Delicate Arch at twilight",
+      location: "Arches National Park, Utah",
+      caption: "The magnificent silhouette of Delicate Arch against the twilight sky"
+    },
+    {
+      src: "/images/adventures/roadtrip_colorado.jpeg",
+      alt: "Group selfie in snowy mountains",
+      location: "Rocky Mountains, Colorado",
+      caption: "Winter road trip with friends through the Colorado Rockies"
+    },
+    {
+      src: "/images/adventures/so_cold.jpeg",
+      alt: "Person sitting in canyon water",
+      location: "The Narrows, Zion National Park",
+      caption: "Taking a moment to reflect in the cold waters of a slot canyon"
+    },
+    {
+      src: "/images/adventures/the_shallows.jpeg",
+      alt: "Friends hiking through a slot canyon",
+      location: "Zion National Park, Utah",
+      caption: "Exploring the stunning narrow canyons with the crew"
+    }
+  ];
+
   // Show terminal tip after delay
   useEffect(() => {
     if (!isTerminalOpen) {
@@ -532,7 +566,7 @@ const PortfolioEnhanced: React.FC = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <AdventureCarousel />
+            <AdventureCarousel images={adventureImages} />
           </motion.div>
         </div>
       </section>
