@@ -289,7 +289,7 @@ const Portfolio: React.FC = () => {
                     <button
                       onClick={() => scrollToSection(link.id)}
                       className={`text-sm ${
-                        activeSection === link.id ? "text-blue-400 font-medium" : "text-gray-300 hover:text-white"
+                        activeSection === link.id ? "text-blue-500 font-medium" : "text-gray-300 hover:text-white"
                       } transition-colors`}
                     >
                       {link.label}
@@ -333,7 +333,7 @@ const Portfolio: React.FC = () => {
                         onClick={() => scrollToSection(link.id)}
                         className={`text-sm w-full text-left py-2 px-3 rounded block ${
                           activeSection === link.id 
-                            ? "text-blue-400 font-medium bg-slate-700" 
+                            ? "text-blue-500 font-medium bg-slate-700" 
                             : "text-gray-300 hover:text-white hover:bg-slate-700/50"
                         } transition-colors`}
                       >
@@ -403,12 +403,12 @@ const Portfolio: React.FC = () => {
                       <span key={techIndex} className="tech-tag">{tech}</span>
                     ))}
                   </div>
-                  <p className="text-sm text-gray-400 mb-4">{project.metrics}</p>
+                  <p className="text-sm text-gray-300 mb-4">{project.metrics}</p>
                   <div className="flex space-x-3">
                     {project.github && (
                       <a 
                         href={project.github} 
-                        className="text-blue-400 hover:text-blue-300 inline-flex items-center text-sm"
+                        className="text-blue-500 hover:text-blue-400 inline-flex items-center text-sm"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -419,7 +419,7 @@ const Portfolio: React.FC = () => {
                     {project.demo && (
                       <a 
                         href={project.demo} 
-                        className="text-blue-400 hover:text-blue-300 inline-flex items-center text-sm"
+                        className="text-blue-500 hover:text-blue-400 inline-flex items-center text-sm"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -448,18 +448,18 @@ const Portfolio: React.FC = () => {
                 <div className="absolute w-4 h-4 bg-blue-500 rounded-full -left-[9px] top-0"></div>
                 <h3 className="text-xl font-bold text-white">{exp.company}</h3>
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
-                  <p className="text-blue-400 font-medium">{exp.role}</p>
+                  <p className="text-blue-500 font-medium">{exp.role}</p>
                   <div className="flex items-center mt-1 sm:mt-0">
-                    <p className="text-gray-400 text-sm">{exp.date}</p>
+                    <p className="text-gray-300 text-sm">{exp.date}</p>
                     {exp.location && (
-                      <p className="text-gray-400 text-sm ml-2">· {exp.location}</p>
+                      <p className="text-gray-300 text-sm ml-2">· {exp.location}</p>
                     )}
                   </div>
                 </div>
                 <ul className="mt-3 space-y-2">
                   {exp.highlights.map((highlight, hIndex) => (
                     <li key={hIndex} className="flex items-start">
-                      <span className="text-blue-400 mr-2 mt-1">•</span>
+                      <span className="text-blue-500 mr-2 mt-1">•</span>
                       <span>{highlight}</span>
                     </li>
                   ))}
@@ -485,9 +485,9 @@ const Portfolio: React.FC = () => {
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
                   <p className="text-violet-400 font-medium">{edu.degree}</p>
                   <div className="flex items-center mt-1 sm:mt-0">
-                    <p className="text-gray-400 text-sm">{edu.date}</p>
+                    <p className="text-gray-300 text-sm">{edu.date}</p>
                     {edu.gpa && (
-                      <p className="text-gray-400 text-sm ml-2">· GPA: {edu.gpa}</p>
+                      <p className="text-gray-300 text-sm ml-2">· GPA: {edu.gpa}</p>
                     )}
                   </div>
                 </div>
@@ -518,7 +518,7 @@ const Portfolio: React.FC = () => {
             <Card className="bg-slate-800/50 border-slate-700">
               <CardHeader>
                 <CardTitle className="flex items-center text-white">
-                  <Code className="w-5 h-5 mr-2 text-blue-400" />
+                  <Code className="w-5 h-5 mr-2 text-blue-500" />
                   Languages
                 </CardTitle>
               </CardHeader>
@@ -534,7 +534,7 @@ const Portfolio: React.FC = () => {
             <Card className="bg-slate-800/50 border-slate-700">
               <CardHeader>
                 <CardTitle className="flex items-center text-white">
-                  <Shield className="w-5 h-5 mr-2 text-blue-400" />
+                  <Shield className="w-5 h-5 mr-2 text-blue-500" />
                   Security Tools
                 </CardTitle>
               </CardHeader>
@@ -550,7 +550,7 @@ const Portfolio: React.FC = () => {
             <Card className="bg-slate-800/50 border-slate-700">
               <CardHeader>
                 <CardTitle className="flex items-center text-white">
-                  <Brain className="w-5 h-5 mr-2 text-blue-400" />
+                  <Brain className="w-5 h-5 mr-2 text-blue-500" />
                   ML & AI
                 </CardTitle>
               </CardHeader>
@@ -566,7 +566,7 @@ const Portfolio: React.FC = () => {
             <Card className="bg-slate-800/50 border-slate-700">
               <CardHeader>
                 <CardTitle className="flex items-center text-white">
-                  <Cpu className="w-5 h-5 mr-2 text-blue-400" />
+                  <Cpu className="w-5 h-5 mr-2 text-blue-500" />
                   Frameworks & Tools
                 </CardTitle>
               </CardHeader>
@@ -582,7 +582,7 @@ const Portfolio: React.FC = () => {
             <Card className="bg-slate-800/50 border-slate-700">
               <CardHeader>
                 <CardTitle className="flex items-center text-white">
-                  <Shield className="w-5 h-5 mr-2 text-blue-400" />
+                  <Shield className="w-5 h-5 mr-2 text-blue-500" />
                   Security Standards
                 </CardTitle>
               </CardHeader>
@@ -598,7 +598,7 @@ const Portfolio: React.FC = () => {
             <Card className="bg-slate-800/50 border-slate-700">
               <CardHeader>
                 <CardTitle className="flex items-center text-white">
-                  <Wrench className="w-5 h-5 mr-2 text-blue-400" />
+                  <Wrench className="w-5 h-5 mr-2 text-blue-500" />
                   Other Skills
                 </CardTitle>
               </CardHeader>
@@ -627,7 +627,7 @@ const Portfolio: React.FC = () => {
                 <CardContent className="pt-6">
                   <div className="flex items-start">
                     <div className="flex-shrink-0 bg-blue-500/20 rounded-full p-3 mr-4">
-                      <Award className="w-6 h-6 text-blue-400" />
+                      <Award className="w-6 h-6 text-blue-500" />
                     </div>
                     <p className="pt-2">{achievement}</p>
                   </div>
@@ -671,19 +671,19 @@ const Portfolio: React.FC = () => {
               </p>
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <Mail className="w-5 h-5 text-blue-400 mr-3" />
+                  <Mail className="w-5 h-5 text-blue-500 mr-3" />
                   <a href="mailto:es5888@nyu.edu" className="text-gray-300 hover:text-white transition-colors">
                     es5888@nyu.edu
                   </a>
                 </div>
                 <div className="flex items-center">
-                  <Linkedin className="w-5 h-5 text-blue-400 mr-3" />
+                  <Linkedin className="w-5 h-5 text-blue-500 mr-3" />
                   <a href="https://linkedin.com/in/ethansam" className="text-gray-300 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
                     linkedin.com/in/ethansam
                   </a>
                 </div>
                 <div className="flex items-center">
-                  <Github className="w-5 h-5 text-blue-400 mr-3" />
+                  <Github className="w-5 h-5 text-blue-500 mr-3" />
                   <a href="https://github.com/esamnyu" className="text-gray-300 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
                     github.com/esamnyu
                   </a>
@@ -700,15 +700,15 @@ const Portfolio: React.FC = () => {
       {/* Footer */}
       <footer className="bg-slate-900 py-8 px-4">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-gray-400">© 2025 Ethan Sam. All rights reserved.</p>
+          <p className="text-gray-300">© 2025 Ethan Sam. All rights reserved.</p>
           <div className="flex justify-center space-x-6 mt-4">
-            <a href="https://github.com/esamnyu" className="text-gray-400 hover:text-white" aria-label="GitHub">
+            <a href="https://github.com/esamnyu" className="text-gray-300 hover:text-white" aria-label="GitHub">
               <Github className="w-5 h-5" />
             </a>
-            <a href="https://linkedin.com/in/ethansam" className="text-gray-400 hover:text-white" aria-label="LinkedIn">
+            <a href="https://linkedin.com/in/ethansam" className="text-gray-300 hover:text-white" aria-label="LinkedIn">
               <Linkedin className="w-5 h-5" />
             </a>
-            <a href="mailto:es5888@nyu.edu" className="text-gray-400 hover:text-white" aria-label="Email">
+            <a href="mailto:es5888@nyu.edu" className="text-gray-300 hover:text-white" aria-label="Email">
               <Mail className="w-5 h-5" />
             </a>
           </div>

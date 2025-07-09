@@ -48,7 +48,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400">== Ethan Sam ==</p>
+          <p className="text-blue-500">== Ethan Sam ==</p>
           <p>Cybersecurity engineer specializing in AI security and CTF competitions.</p>
           <p>Based in New York, currently pursuing an M.S. in Cybersecurity at NYU.</p>
           <p>Type <span className="text-yellow-300">skills</span> to see my technical expertise.</p>
@@ -63,12 +63,12 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
         <div className="space-y-2">
           <p className="text-green-400">Technical Skills:</p>
           <div className="pl-4">
-            <p><span className="text-blue-400">Languages:</span> Python, JavaScript, C++, SQL, Bash, HTML/CSS</p>
-            <p><span className="text-blue-400">Security Tools:</span> CrowdStrike Falcon, IBM QRadar, Splunk, Cortex XSoar, EnCase, Wireshark</p>
-            <p><span className="text-blue-400">Frameworks:</span> React Native, MERN Stack, Docker, Git, Azure, Firebase/Firestore</p>
-            <p><span className="text-blue-400">ML/AI:</span> TensorFlow, PyTorch, Generative AI, LLM Integration, Computer Vision</p>
-            <p><span className="text-blue-400">Standards:</span> NIST CSF, NIST SP-800-53</p>
-            <p><span className="text-blue-400">Other:</span> Digital Forensics, Vulnerability Management, Operating Systems, Computer Networking</p>
+            <p><span className="text-blue-500">Languages:</span> Python, JavaScript, C++, SQL, Bash, HTML/CSS</p>
+            <p><span className="text-blue-500">Security Tools:</span> CrowdStrike Falcon, IBM QRadar, Splunk, Cortex XSoar, EnCase, Wireshark</p>
+            <p><span className="text-blue-500">Frameworks:</span> React Native, MERN Stack, Docker, Git, Azure, Firebase/Firestore</p>
+            <p><span className="text-blue-500">ML/AI:</span> TensorFlow, PyTorch, Generative AI, LLM Integration, Computer Vision</p>
+            <p><span className="text-blue-500">Standards:</span> NIST CSF, NIST SP-800-53</p>
+            <p><span className="text-blue-500">Other:</span> Digital Forensics, Vulnerability Management, Operating Systems, Computer Networking</p>
           </div>
         </div>
       );
@@ -111,7 +111,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
             <p className="text-yellow-300 text-lg">CSAW Phishing Detection Game</p>
             <p>Created an interactive educational tool to train users to identify sophisticated phishing attempts.</p>
             <p>Combined CNN-based image analysis with GPT-3 powered chatbot to simulate realistic phishing scenarios.</p>
-            <p><span className="text-blue-400">Tech:</span> TensorFlow, PyTorch, Docker, GPT-3</p>
+            <p><span className="text-blue-500">Tech:</span> TensorFlow, PyTorch, Docker, GPT-3</p>
             <p><span className="text-green-400">Outcome:</span> Best Challenge Award, used by 300+ participants</p>
             <p className="text-gray-400 italic mt-2">GitHub: github.com/yourusername/phishing-detection</p>
           </div>
@@ -121,7 +121,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
             <p className="text-yellow-300 text-lg">Roomies App</p>
             <p>Mobile application for roommate coordination with robust security and AI integration.</p>
             <p>Implemented cryptography techniques and consensus-driven AI framework for household challenges.</p>
-            <p><span className="text-blue-400">Tech:</span> React Native, Firestore, Firebase, AI/ML</p>
+            <p><span className="text-blue-500">Tech:</span> React Native, Firestore, Firebase, AI/ML</p>
             <p><span className="text-green-400">Outcome:</span> Enhanced user engagement, improved communication among users</p>
             <p className="text-gray-400 italic mt-2">GitHub: github.com/yourusername/roomies-app</p>
           </div>
@@ -131,7 +131,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
             <p className="text-yellow-300 text-lg">Collegiate Elo Ranking System</p>
             <p>Comprehensive ranking system for collegiate esports competitions using MERN stack.</p>
             <p>Enhanced security and scalability using SaaS and Azure services.</p>
-            <p><span className="text-blue-400">Tech:</span> MongoDB, Express, React, Node.js, SaaS, Azure</p>
+            <p><span className="text-blue-500">Tech:</span> MongoDB, Express, React, Node.js, SaaS, Azure</p>
             <p><span className="text-green-400">Outcome:</span> 27% user engagement boost, 50% increase in competition participation</p>
             <p className="text-gray-400 italic mt-2">GitHub: github.com/yourusername/elo-ranking</p>
           </div>
@@ -159,9 +159,9 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
       return (
         <div className="space-y-2">
           <p className="text-green-400">Contact Information:</p>
-          <p><span className="text-blue-400">Email:</span> es5888@nyu.edu</p>
-          <p><span className="text-blue-400">GitHub:</span> github.com/yourusername</p>
-          <p><span className="text-blue-400">LinkedIn:</span> linkedin.com/in/ethansam</p>
+          <p><span className="text-blue-500">Email:</span> es5888@nyu.edu</p>
+          <p><span className="text-blue-500">GitHub:</span> github.com/yourusername</p>
+          <p><span className="text-blue-500">LinkedIn:</span> linkedin.com/in/ethansam</p>
           <p className="mt-3 text-yellow-300">Feel free to reach out! I'm always open to discussing new opportunities.</p>
         </div>
       );
@@ -238,7 +238,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400">== Portfolio Summary ==</p>
+          <p className="text-blue-500">== Portfolio Summary ==</p>
           <p><span className="text-green-400">Education:</span> M.S. Cybersecurity (NYU), B.S. Computer Science (CUNY)</p>
           <p><span className="text-green-400">Experience:</span> AI & Cybersecurity Intern (NYU Langone), Cybersecurity Auditor (NYC Cyber Command)</p>
           <p><span className="text-green-400">Projects:</span> CSAW Phishing Detection Game, Roomies App, Collegiate Elo Ranking System</p>
@@ -253,7 +253,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400">== Education ==</p>
+          <p className="text-blue-500">== Education ==</p>
           <div className="pl-4 border-l border-blue-800 mb-4">
             <p className="text-yellow-300">New York University, Tandon School of Engineering</p>
             <p>M.S. Cybersecurity</p>
@@ -278,7 +278,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400">== Professional Experience ==</p>
+          <p className="text-blue-500">== Professional Experience ==</p>
           <div className="pl-4 border-l border-green-800 mb-4">
             <p className="text-yellow-300">Roomies</p>
             <p>Co-Founder & Lead Developer</p>
@@ -324,10 +324,10 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
       return (
         <div className="space-y-2">
           <p className="text-red-400">== Terminal Debug Information ==</p>
-          <p><span className="text-blue-400">Command History Working:</span> {hasHistory ? 'Yes' : 'No'}</p>
-          <p><span className="text-blue-400">Available Commands:</span> {commands}</p>
-          <p><span className="text-blue-400">Rate Limiter Status:</span> {rateLimiter ? 'Active' : 'Inactive'}</p>
-          <p><span className="text-blue-400">Browser:</span> {typeof window !== 'undefined' ? window.navigator.userAgent : 'Unknown'}</p>
+          <p><span className="text-blue-500">Command History Working:</span> {hasHistory ? 'Yes' : 'No'}</p>
+          <p><span className="text-blue-500">Available Commands:</span> {commands}</p>
+          <p><span className="text-blue-500">Rate Limiter Status:</span> {rateLimiter ? 'Active' : 'Inactive'}</p>
+          <p><span className="text-blue-500">Browser:</span> {typeof window !== 'undefined' ? window.navigator.userAgent : 'Unknown'}</p>
         </div>
       );
     }
@@ -337,7 +337,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400">== Cybersecurity Expertise ==</p>
+          <p className="text-blue-500">== Cybersecurity Expertise ==</p>
           <p><span className="text-green-400">Defensive Security:</span> CrowdStrike Falcon, IBM QRadar, Splunk, Cortex XSoar, EnCase, Wireshark</p>
           <p><span className="text-green-400">Compliance:</span> NIST CSF, NIST SP-800-53, ICS Security Assessment</p>
           <p><span className="text-green-400">Notable Achievements:</span> Identified 100+ vulnerabilities, Reduced non-compliance by 20%</p>
@@ -351,7 +351,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400">== Security Tools Experience ==</p>
+          <p className="text-blue-500">== Security Tools Experience ==</p>
           <div className="pl-4 border-l border-blue-800 mb-3">
             <p className="text-yellow-300">CrowdStrike Falcon</p>
             <p>Used for endpoint detection and response, improving threat detection by 40%</p>
@@ -381,7 +381,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400">== AI Security Experience ==</p>
+          <p className="text-blue-500">== AI Security Experience ==</p>
           <p>My work combines cybersecurity with artificial intelligence:</p>
           <ul className="list-disc pl-8 space-y-1">
             <li>Developed AI-driven chatbot for vulnerability management (30% reduction in manual queries)</li>
@@ -399,7 +399,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400 text-lg">Roomies - Co-founded Project</p>
+          <p className="text-blue-500 text-lg">Roomies - Co-founded Project</p>
           <p>A mobile application for roommate coordination with robust security and AI integration:</p>
           <ul className="list-disc pl-8 space-y-1">
             <li>Implemented cryptography techniques to secure sensitive user data</li>
@@ -417,7 +417,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400">== NYU Experience ==</p>
+          <p className="text-blue-500">== NYU Experience ==</p>
           <p><span className="text-green-400">Degree:</span> M.S. Cybersecurity at NYU Tandon School of Engineering (GPA: 3.96)</p>
           <p><span className="text-green-400">Timeline:</span> August 2022 - June 2025 (Expected)</p>
           <p><span className="text-green-400">Key Coursework:</span> Network Security, Digital Forensics, Cloud Security, Applied Cryptography</p>
@@ -438,7 +438,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400 text-lg">CSAW Phishing Detection Game</p>
+          <p className="text-blue-500 text-lg">CSAW Phishing Detection Game</p>
           <p>Award-winning project developed for Cyber Security Awareness Week at NYU:</p>
           <ul className="list-disc pl-8 space-y-1">
             <li>Co-developed CNN-based phishing detection simulation</li>
@@ -461,7 +461,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400 text-lg">NYC Cyber Command Experience</p>
+          <p className="text-blue-500 text-lg">NYC Cyber Command Experience</p>
           <p><span className="text-green-400">Role:</span> Cybersecurity Auditor (Dec 2021 - Aug 2023)</p>
           <p>Key responsibilities and achievements:</p>
           <ul className="list-disc pl-8 space-y-1">
@@ -496,7 +496,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
           <p className="text-green-400 mt-2">Recommendations:</p>
           <p className="pl-4">1. Update jQuery to version 3.6.4 or later</p>
           <p className="pl-4">2. Renew SSL certificate before expiration</p>
-          <p className="text-blue-400 mt-3">Note: This is a simulated scan for demonstration purposes.</p>
+          <p className="text-blue-500 mt-3">Note: This is a simulated scan for demonstration purposes.</p>
         </div>
       );
     }
@@ -523,7 +523,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
               <p className="text-gray-400 text-sm mt-1">Recommendation: Patch to latest version</p>
             </div>
             <div className="border border-blue-800 rounded-md p-3 bg-blue-900/30">
-              <p className="text-blue-400 font-bold">Information</p>
+              <p className="text-blue-500 font-bold">Information</p>
               <p>Server headers reveal version information</p>
               <p className="text-gray-400 text-sm mt-1">Recommendation: Configure headers to hide version details</p>
             </div>
@@ -538,7 +538,7 @@ const AVAILABLE_COMMANDS: Record<string, { description: string, action?: (args?:
     action: () => {
       return (
         <div className="space-y-2">
-          <p className="text-blue-400">== Key Achievements ==</p>
+          <p className="text-blue-500">== Key Achievements ==</p>
           <ul className="list-disc pl-8 space-y-2">
             <li><span className="text-yellow-300">Best Challenge Award</span> - Cyber Security Awareness Week @ NYU</li>
             <li><span className="text-yellow-300">Black Hat Briefings Scholarship</span> recipient for cybersecurity work</li>
@@ -875,7 +875,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
                   {/* Only show command prompt for actual commands, not the initial welcome message */}
                   {entry.command && (
                     <div className="flex items-start mb-1">
-                      <span className="text-blue-400 mr-2">$</span>
+                      <span className="text-blue-500 mr-2">$</span>
                       <span>{entry.command}</span>
                     </div>
                   )}
@@ -888,7 +888,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
             
             {/* Terminal Input */}
             <form onSubmit={handleSubmit} className="border-t border-green-800 bg-black px-4 py-2 flex items-center">
-              <span className="text-blue-400 mr-2">$</span>
+              <span className="text-blue-500 mr-2">$</span>
               <input
                 ref={inputRef}
                 type="text"

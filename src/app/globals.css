@@ -6,11 +6,21 @@
   body {
     @apply bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen;
   }
+  
+  /* Improved focus indicators for accessibility */
+  *:focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-blue-500;
+  }
+  
+  /* Remove default focus outline for mouse users */
+  *:focus:not(:focus-visible) {
+    @apply outline-none;
+  }
 }
 
 @layer components {
   .hero-title {
-    @apply text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-violet-400;
+    @apply text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-violet-500;
   }
 
   .hero-subtitle {
@@ -22,7 +32,7 @@
   }
 
   .social-icon {
-    @apply w-8 h-8 hover:text-blue-400;
+    @apply w-8 h-8 hover:text-blue-500;
   }
 
   .section-container {
@@ -34,7 +44,7 @@
   }
 
   .section-icon {
-    @apply w-8 h-8 text-blue-400;
+    @apply w-8 h-8 text-blue-500;
   }
 
   .project-card {
@@ -42,7 +52,7 @@
   }
 
   .project-title {
-    @apply text-xl font-bold text-blue-400;
+    @apply text-xl font-bold text-blue-500;
   }
 
   .project-description {
@@ -50,7 +60,7 @@
   }
 
   .tech-tag {
-    @apply px-3 py-1 bg-slate-700 rounded-full text-sm font-medium text-blue-300;
+    @apply px-3 py-1 bg-slate-700 rounded-full text-sm font-medium text-blue-200;
   }
 
   .metric-text {
@@ -76,4 +86,23 @@
 .animate-fade-in-delay-2 {
   animation: fadeIn 0.6s ease-out 0.4s forwards;
   opacity: 0;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-fade-in,
+  .animate-fade-in-delay,
+  .animate-fade-in-delay-2 {
+    animation: none;
+    opacity: 1;
+  }
 }

@@ -91,7 +91,7 @@ const ContactForm: React.FC = () => {
             <p className="text-gray-300">Your message has been sent successfully. I'll get back to you soon.</p>
             <button
               onClick={() => setIsSubmitted(false)}
-              className="mt-6 text-blue-400 hover:text-blue-300 underline"
+              className="mt-6 text-blue-500 hover:text-blue-400 underline"
             >
               Send another message
             </button>

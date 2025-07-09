@@ -1,18 +1,39 @@
 "use client";
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
 import type { Container, Engine } from "tsparticles-engine";
 
 const ParticlesBackground = () => {
+  const [motionEnabled, setMotionEnabled] = useState(true);
+
+  useEffect(() => {
+    // Check if user prefers reduced motion
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setMotionEnabled(!mediaQuery.matches);
+
+    // Listen for changes
+    const handleChange = (e: MediaQueryListEvent) => {
+      setMotionEnabled(!e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
   const particlesInit = useCallback(async (engine: Engine) => {
     await loadSlim(engine);
   }, []);
 
   const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    console.log("Particles loaded", container);
+    // Removed console.log
   }, []);
+
+  // If motion is disabled, return a static background or nothing
+  if (!motionEnabled) {
+    return null;
+  }
 
   return (
     <Particles
@@ -64,7 +85,7 @@ const ParticlesBackground = () => {
               default: "bounce",
             },
             random: false,
-            speed: 0.8,
+            speed: motionEnabled ? 0.8 : 0,
             straight: false,
           },
           number: {
@@ -72,7 +93,7 @@ const ParticlesBackground = () => {
               enable: true,
               area: 1200,
             },
-            value: 40,
+            value: motionEnabled ? 40 : 20,
           },
           opacity: {
             value: 0.2,
