@@ -11,6 +11,7 @@ import ParticlesBackground from './ParticlesBackground';
 import ContactForm from '@/components/ContactForm';
 import { AIStatsSection } from './AIStatsSection';
 import { JourneySection } from './JourneySection';
+import { InterviewProjectGenerator } from './InterviewProjectGenerator';
 
 // Enhanced Project Card Component
 const ProjectCard: React.FC<{ project: any; index: number }> = ({ project, index }) => {
@@ -107,6 +108,14 @@ const PortfolioEnhanced: React.FC = () => {
 
   // Projects data
   const projects = [
+    {
+      title: "Campaign Insights Bot",
+      description: "Built an AI-powered Slack alert system for AdTech campaign monitoring. Features real-time anomaly detection using Z-score analysis, GPT-generated insights, and a closed-loop feedback system. Created proactively for interview process—demonstrating product thinking before ever speaking with the team.",
+      tech: ["React", "Recharts", "OpenAI GPT", "Tailwind CSS", "Vercel"],
+      metrics: "Secured AI Engineer role through demonstrated initiative",
+      github: "https://github.com/esamnyu/slackbot",
+      demo: "https://slackbot-puce.vercel.app"
+    },
     {
       title: "Phishing Detection Game",
       description: "Created an interactive educational tool for CSAW to help users identify sophisticated phishing attempts. Combined CNN-based image analysis with GPT-3 powered chatbot.",
@@ -366,6 +375,9 @@ const PortfolioEnhanced: React.FC = () => {
 
       {/* Journey Section */}
       <JourneySection />
+
+      {/* Interview Project Generator */}
+      <InterviewProjectGenerator />
 
       {/* Projects Section */}
       <section id="projects" className="py-32 relative">
