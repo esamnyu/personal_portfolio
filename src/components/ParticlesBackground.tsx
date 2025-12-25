@@ -27,10 +27,10 @@ const ParticlesBackground = () => {
   }, []);
 
   const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    // Removed console.log
+    // Particles loaded
   }, []);
 
-  // If motion is disabled, return a static background or nothing
+  // If motion is disabled, return nothing
   if (!motionEnabled) {
     return null;
   }
@@ -44,69 +44,55 @@ const ParticlesBackground = () => {
         background: {
           opacity: 0,
         },
-        fpsLimit: 120,
+        fpsLimit: 60,
         interactivity: {
           events: {
             onClick: {
-              enable: false, // Disable click interactions
+              enable: false,
               mode: "push",
             },
             onHover: {
-              enable: false, // Disable hover interactions
+              enable: false,
               mode: "repulse",
             },
             resize: true,
           },
-          modes: {
-            push: {
-              quantity: 2,
-            },
-            repulse: {
-              distance: 100,
-              duration: 0.4,
-            },
-          },
         },
         particles: {
           color: {
-            value: ["#3B82F6", "#8B5CF6", "#10B981"],
+            value: ["#c9a962", "#e8d5b7", "#f5f2eb"],
           },
           links: {
-            color: "#60A5FA",
-            distance: 150,
+            color: "#c9a962",
+            distance: 180,
             enable: true,
-            opacity: 0.3,
+            opacity: 0.08,
             width: 1,
           },
           move: {
             direction: "none",
             enable: true,
             outModes: {
-              default: "bounce",
+              default: "out",
             },
             random: true,
-            speed: motionEnabled ? 0.5 : 0,
+            speed: 0.3,
             straight: false,
-            attract: {
-              enable: true,
-              rotateX: 600,
-              rotateY: 1200,
-            },
           },
           number: {
             density: {
               enable: true,
-              area: 1000,
+              area: 1200,
             },
-            value: motionEnabled ? 50 : 20,
+            value: 30,
           },
           opacity: {
-            value: 0.15,
+            value: 0.12,
             random: true,
             animation: {
               enable: true,
-              speed: 1,
-              minimumValue: 0.05,
+              speed: 0.5,
+              minimumValue: 0.03,
               sync: false,
             },
           },
@@ -114,19 +100,13 @@ const ParticlesBackground = () => {
             type: "circle",
           },
           size: {
-            value: { min: 1, max: 3 },
+            value: { min: 1, max: 2 },
             random: true,
-            animation: {
-              enable: true,
-              speed: 2,
-              minimumValue: 0.5,
-              sync: false,
-            },
           },
         },
         detectRetina: true,
       }}
-      className="fixed inset-0 z-0 pointer-events-none" // Changed z-index from z-50 to z-0
+      className="fixed inset-0 z-0 pointer-events-none"
     />
   );
 };

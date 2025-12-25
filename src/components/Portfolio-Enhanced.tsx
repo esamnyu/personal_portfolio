@@ -2,83 +2,83 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Mail, Shield, Brain, Download, ExternalLink, Code, Briefcase, GraduationCap, Award, Terminal as TerminalIcon, Cpu, Wrench, Camera, Menu, X } from 'lucide-react';
+import { Github, Linkedin, Mail, Code, Briefcase, GraduationCap, Award, Menu, X, ExternalLink } from 'lucide-react';
 import { EnhancedCard } from '@/components/ui/enhanced-card';
-import { MagneticButton } from '@/components/ui/magnetic-button';
 import { HeroSection } from '@/components/HeroSection';
 import { SkillsSection } from '@/components/SkillsSection';
 import { TimelineItem } from '@/components/TimelineItem';
 import ParticlesBackground from './ParticlesBackground';
 import ContactForm from '@/components/ContactForm';
-import Terminal from './Terminal';
-import TerminalButton from './TerminalButton';
-import AdventureCarousel from './AdventureCarousel';
+import { AIStatsSection } from './AIStatsSection';
+import { JourneySection } from './JourneySection';
 
 // Enhanced Project Card Component
 const ProjectCard: React.FC<{ project: any; index: number }> = ({ project, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{
+        duration: 0.7,
+        delay: index * 0.15,
+        ease: [0.16, 1, 0.3, 1],
+      }}
     >
-      <EnhancedCard className="project-card h-full">
-        <div className="p-6">
-          <h3 className="project-title text-2xl mb-3">{project.title}</h3>
-          <p className="project-description mb-4">{project.description}</p>
-          
-          <div className="flex flex-wrap gap-2 mb-4">
+      <EnhancedCard className="project-card h-full group">
+        <div className="p-8">
+          {/* Project number */}
+          <span className="text-[var(--accent-gold)] text-sm font-body tracking-wider opacity-60 mb-4 block">
+            0{index + 1}
+          </span>
+
+          <h3 className="project-title text-2xl mb-4 group-hover:text-[var(--accent-gold)] transition-colors duration-500">
+            {project.title}
+          </h3>
+
+          <p className="project-description mb-6">{project.description}</p>
+
+          <div className="flex flex-wrap gap-2 mb-6">
             {project.tech.map((tech: string, techIndex: number) => (
-              <motion.span 
-                key={techIndex} 
+              <motion.span
+                key={techIndex}
                 className="tech-tag"
                 initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
                 transition={{ delay: index * 0.1 + techIndex * 0.05 }}
-                whileHover={{ scale: 1.05, y: -2 }}
               >
                 {tech}
               </motion.span>
             ))}
           </div>
-          
-          <p className="text-sm text-gray-300 mb-4">{project.metrics}</p>
-          
-          <div className="flex space-x-3">
+
+          <p className="text-sm text-[var(--accent-gold)] mb-6 font-medium">{project.metrics}</p>
+
+          <div className="flex items-center gap-4 pt-4 border-t border-[var(--border-subtle)]">
             {project.github && (
-              <MagneticButton
-                className="inline-flex items-center text-sm text-blue-500 hover:text-blue-400"
-                strength={0.2}
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors duration-300"
+                aria-label="View project on GitHub"
               >
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center"
-                  aria-label="View project on GitHub"
-                >
-                  <Github className="w-4 h-4 mr-1" />
-                  Code
-                </a>
-              </MagneticButton>
+                <Github className="w-4 h-4" />
+                <span>Source</span>
+              </a>
             )}
             {project.demo && (
-              <MagneticButton
-                className="inline-flex items-center text-sm text-blue-500 hover:text-blue-400"
-                strength={0.2}
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors duration-300"
+                aria-label="View live demo"
               >
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center"
-                  aria-label="View live demo"
-                >
-                  <ExternalLink className="w-4 h-4 mr-1" />
-                  Demo
-                </a>
-              </MagneticButton>
+                <ExternalLink className="w-4 h-4" />
+                <span>Demo</span>
+              </a>
             )}
           </div>
         </div>
@@ -90,22 +90,21 @@ const ProjectCard: React.FC<{ project: any; index: number }> = ({ project, index
 // Navigation links
 const navLinks = [
   { id: "home", label: "Home" },
+  { id: "journey", label: "My Journey" },
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
   { id: "skills", label: "Skills" },
   { id: "achievements", label: "Achievements" },
-  { id: "adventures", label: "Adventures" },
+  { id: "ai-stats", label: "AI Stats" },
   { id: "contact", label: "Contact" }
 ];
 
-
 const PortfolioEnhanced: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>("home");
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
-  const [showTerminalTip, setShowTerminalTip] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+  const [isScrolled, setIsScrolled] = useState(false);
+
   // Projects data
   const projects = [
     {
@@ -195,65 +194,19 @@ const PortfolioEnhanced: React.FC = () => {
 
   // Achievements data
   const achievements = [
-    "🏆 Best Challenge Award - Cyber Security Awareness Week @ NYU",
-    "🎓 Black Hat Briefings Scholarship recipient",
-    "📊 70% placement rate leading CodePath.org cybersecurity program",
-    "🛡️ Identified and remediated 100+ vulnerabilities across NYC agencies",
-    "📈 40% threat detection improvement with custom security solutions",
-    "✝️ President of 180 Christian Fellowship (Fall 2024)"
+    { icon: "trophy", text: "Best Challenge Award - Cyber Security Awareness Week @ NYU" },
+    { icon: "graduation", text: "Black Hat Briefings Scholarship recipient" },
+    { icon: "chart", text: "70% placement rate leading CodePath.org cybersecurity program" },
+    { icon: "shield", text: "Identified and remediated 100+ vulnerabilities across NYC agencies" },
+    { icon: "trending", text: "40% threat detection improvement with custom security solutions" },
+    { icon: "community", text: "President of 180 Christian Fellowship (Fall 2024)" }
   ];
-
-  // Adventure images data
-  const adventureImages = [
-    {
-      src: "/images/adventures/arch_zoomed_out.jpeg",
-      alt: "Delicate Arch at sunset",
-      location: "Arches National Park, Utah",
-      caption: "Watching the sunset at the iconic Delicate Arch"
-    },
-    {
-      src: "/images/adventures/arch.jpeg",
-      alt: "Closer view of Delicate Arch at twilight",
-      location: "Arches National Park, Utah",
-      caption: "The magnificent silhouette of Delicate Arch against the twilight sky"
-    },
-    {
-      src: "/images/adventures/roadtrip_colorado.jpeg",
-      alt: "Group selfie in snowy mountains",
-      location: "Rocky Mountains, Colorado",
-      caption: "Winter road trip with friends through the Colorado Rockies"
-    },
-    {
-      src: "/images/adventures/so_cold.jpeg",
-      alt: "Person sitting in canyon water",
-      location: "The Narrows, Zion National Park",
-      caption: "Taking a moment to reflect in the cold waters of a slot canyon"
-    },
-    {
-      src: "/images/adventures/the_shallows.jpeg",
-      alt: "Friends hiking through a slot canyon",
-      location: "Zion National Park, Utah",
-      caption: "Exploring the stunning narrow canyons with the crew"
-    }
-  ];
-
-  // Show terminal tip after delay
-  useEffect(() => {
-    if (!isTerminalOpen) {
-      const timer = setTimeout(() => {
-        setShowTerminalTip(true);
-        const hideTimer = setTimeout(() => {
-          setShowTerminalTip(false);
-        }, 5000);
-        return () => clearTimeout(hideTimer);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [isTerminalOpen]);
 
   // Scroll handling
   useEffect(() => {
     const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+
       const sections = navLinks.map(link => link.id);
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
@@ -263,7 +216,7 @@ const PortfolioEnhanced: React.FC = () => {
         }
         return false;
       });
-      
+
       if (currentSection) {
         setActiveSection(currentSection);
       }
@@ -287,79 +240,66 @@ const PortfolioEnhanced: React.FC = () => {
   return (
     <div className="relative min-h-screen">
       <ParticlesBackground />
-      
-      {/* Terminal Button */}
-      <TerminalButton onClick={() => setIsTerminalOpen(true)} />
-      
-      {/* Terminal Tip */}
-      <AnimatePresence>
-        {showTerminalTip && (
-          <motion.div
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 100 }}
-            className="fixed bottom-20 right-6 z-40 max-w-xs glass-card p-4 rounded-lg"
-          >
-            <p className="text-green-400 font-mono text-sm">
-              Psst! Try the terminal for a more interactive experience...
-            </p>
-            <div className="absolute w-4 h-4 bg-slate-800/20 backdrop-blur-lg border-r border-b border-slate-700/30 transform rotate-45 -bottom-2 right-6"></div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      
-      {/* Terminal Component */}
-      <Terminal isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />
-      
+
       {/* Enhanced Navigation Bar */}
-      <motion.header 
-        className="sticky top-0 z-50 glass-card shadow-lg"
+      <motion.header
+        className={`sticky top-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? 'bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-[var(--border-subtle)]'
+            : 'bg-transparent'
+        }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <motion.div 
-              className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-violet-400"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              style={{ fontFamily: 'var(--font-heading)' }}
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            {/* Logo */}
+            <motion.div
+              className="text-2xl font-display font-bold text-gradient-gold"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               ES
             </motion.div>
-            
+
             {/* Desktop Navigation */}
             <nav className="hidden md:block">
-              <ul className="flex space-x-1">
+              <ul className="flex items-center gap-1">
                 {navLinks.map((link, index) => (
-                  <motion.li 
+                  <motion.li
                     key={link.id}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ delay: index * 0.05, duration: 0.5 }}
                   >
-                    <MagneticButton
+                    <button
                       onClick={() => scrollToSection(link.id)}
-                      className={`relative text-sm px-4 py-2 rounded-lg transition-all ${
-                        activeSection === link.id 
-                          ? "text-white bg-gradient-to-r from-blue-500/20 to-violet-500/20" 
-                          : "text-gray-300 hover:text-white hover:bg-slate-800/50"
+                      className={`relative px-4 py-2 text-sm font-body tracking-wide transition-colors duration-300 ${
+                        activeSection === link.id
+                          ? "text-[var(--accent-gold)]"
+                          : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                       }`}
-                      strength={0.2}
                     >
                       {link.label}
-                    </MagneticButton>
+                      {activeSection === link.id && (
+                        <motion.div
+                          className="absolute bottom-0 left-4 right-4 h-px bg-[var(--accent-gold)]"
+                          layoutId="activeNav"
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        />
+                      )}
+                    </button>
                   </motion.li>
                 ))}
               </ul>
             </nav>
-            
+
             {/* Mobile Menu Button */}
-            <MagneticButton
-              className="md:hidden text-gray-300 hover:text-white p-2"
+            <button
+              className="md:hidden text-[var(--text-secondary)] hover:text-[var(--text-primary)] p-2 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              strength={0.3}
+              aria-label="Toggle menu"
             >
               <AnimatePresence mode="wait">
                 {isMobileMenuOpen ? (
@@ -384,10 +324,10 @@ const PortfolioEnhanced: React.FC = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </MagneticButton>
+            </button>
           </div>
         </div>
-        
+
         {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
@@ -395,18 +335,18 @@ const PortfolioEnhanced: React.FC = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden glass-card"
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="md:hidden bg-[var(--bg-primary)]/95 backdrop-blur-xl border-b border-[var(--border-subtle)]"
             >
-              <nav className="px-4 py-4">
+              <nav className="px-6 py-6">
                 {navLinks.map((link, index) => (
                   <motion.button
                     key={link.id}
                     onClick={() => scrollToSection(link.id)}
-                    className={`block w-full text-left px-4 py-3 rounded-lg mb-1 transition-all ${
-                      activeSection === link.id 
-                        ? "text-white bg-gradient-to-r from-blue-500/20 to-violet-500/20" 
-                        : "text-gray-300 hover:text-white hover:bg-slate-800/50"
+                    className={`block w-full text-left px-4 py-3 text-base font-body transition-colors ${
+                      activeSection === link.id
+                        ? "text-[var(--accent-gold)]"
+                        : "text-[var(--text-secondary)]"
                     }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -424,20 +364,24 @@ const PortfolioEnhanced: React.FC = () => {
       {/* Hero Section */}
       <HeroSection />
 
+      {/* Journey Section */}
+      <JourneySection />
+
       {/* Projects Section */}
-      <section id="projects" className="py-20 relative">
+      <section id="projects" className="py-32 relative">
         <div className="section-container">
-          <motion.h2 
+          <motion.h2
             className="section-title"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <Code className="section-icon" />
             Featured Projects
           </motion.h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <ProjectCard key={index} project={project} index={index} />
             ))}
@@ -446,18 +390,19 @@ const PortfolioEnhanced: React.FC = () => {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-20 bg-slate-900/50">
+      <section id="experience" className="py-32 bg-[var(--bg-secondary)]/30">
         <div className="section-container">
-          <motion.h2 
+          <motion.h2
             className="section-title"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <Briefcase className="section-icon" />
-            Professional Experience
+            Experience
           </motion.h2>
-          
+
           <div className="relative">
             {experiences.map((exp, index) => (
               <TimelineItem
@@ -475,18 +420,19 @@ const PortfolioEnhanced: React.FC = () => {
       </section>
 
       {/* Education Section */}
-      <section id="education" className="py-20">
+      <section id="education" className="py-32">
         <div className="section-container">
-          <motion.h2 
+          <motion.h2
             className="section-title"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <GraduationCap className="section-icon" />
             Education
           </motion.h2>
-          
+
           <div className="relative">
             {education.map((edu, index) => (
               <TimelineItem
@@ -508,37 +454,34 @@ const PortfolioEnhanced: React.FC = () => {
       <SkillsSection />
 
       {/* Achievements Section */}
-      <section id="achievements" className="py-20">
+      <section id="achievements" className="py-32">
         <div className="section-container">
-          <motion.h2 
+          <motion.h2
             className="section-title"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <Award className="section-icon" />
-            Key Achievements
+            Achievements
           </motion.h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {achievements.map((achievement, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               >
-                <EnhancedCard className="glass-card h-full">
-                  <div className="p-6 flex items-center space-x-4">
-                    <motion.div
-                      animate={{ rotate: [0, 10, -10, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
-                      className="text-2xl"
-                    >
-                      {achievement.split(' ')[0]}
-                    </motion.div>
-                    <p className="text-slate-300">{achievement.slice(2)}</p>
+                <EnhancedCard className="glass-card h-full group hover:border-[var(--border-accent)]">
+                  <div className="p-6 flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[var(--accent-gold-soft)] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <Award className="w-5 h-5 text-[var(--accent-gold)]" />
+                    </div>
+                    <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{achievement.text}</p>
                   </div>
                 </EnhancedCard>
               </motion.div>
@@ -547,88 +490,80 @@ const PortfolioEnhanced: React.FC = () => {
         </div>
       </section>
 
-      {/* Adventures Section */}
-      <section id="adventures" className="py-20 bg-slate-900/50">
-        <div className="section-container">
-          <motion.h2 
-            className="section-title"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <Camera className="section-icon" />
-            Adventures & Photography
-          </motion.h2>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <AdventureCarousel images={adventureImages} />
-          </motion.div>
-        </div>
-      </section>
+      {/* AI Stats Section */}
+      <AIStatsSection />
 
       {/* Contact Section */}
-      <section id="contact" className="py-20">
+      <section id="contact" className="py-32">
         <div className="section-container">
-          <motion.h2 
+          <motion.h2
             className="section-title"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <Mail className="section-icon" />
             Get In Touch
           </motion.h2>
-          
-          <div className="grid md:grid-cols-2 gap-12">
+
+          <div className="grid md:grid-cols-2 gap-16">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h3 className="text-2xl font-semibold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400">
+              <h3 className="text-2xl font-display font-semibold mb-6 text-gradient-gold">
                 Let's Connect
               </h3>
-              <p className="text-slate-300 mb-6">
-                I'm always interested in discussing new opportunities, innovative projects, 
-                or just having a conversation about technology and security.
+              <p className="text-[var(--text-secondary)] mb-8 leading-relaxed">
+                I'm always interested in discussing new opportunities, innovative projects,
+                or having a conversation about technology and security.
               </p>
-              
+
               <div className="space-y-4">
-                <MagneticButton
-                  className="flex items-center space-x-3 text-slate-300 hover:text-white transition-colors"
-                  strength={0.2}
+                <a
+                  href="mailto:es5888@nyu.edu"
+                  className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors duration-300 group"
                 >
-                  <Mail className="w-5 h-5 text-blue-500" />
+                  <div className="w-12 h-12 rounded-full border border-[var(--border-subtle)] flex items-center justify-center group-hover:border-[var(--accent-gold)] transition-colors duration-300">
+                    <Mail className="w-5 h-5" />
+                  </div>
                   <span>es5888@nyu.edu</span>
-                </MagneticButton>
-                
-                <MagneticButton
-                  className="flex items-center space-x-3 text-slate-300 hover:text-white transition-colors"
-                  strength={0.2}
+                </a>
+
+                <a
+                  href="https://linkedin.com/in/ethansam"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors duration-300 group"
                 >
-                  <Linkedin className="w-5 h-5 text-blue-500" />
+                  <div className="w-12 h-12 rounded-full border border-[var(--border-subtle)] flex items-center justify-center group-hover:border-[var(--accent-gold)] transition-colors duration-300">
+                    <Linkedin className="w-5 h-5" />
+                  </div>
                   <span>linkedin.com/in/ethansam</span>
-                </MagneticButton>
-                
-                <MagneticButton
-                  className="flex items-center space-x-3 text-slate-300 hover:text-white transition-colors"
-                  strength={0.2}
+                </a>
+
+                <a
+                  href="https://github.com/esamnyu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors duration-300 group"
                 >
-                  <Github className="w-5 h-5 text-blue-500" />
+                  <div className="w-12 h-12 rounded-full border border-[var(--border-subtle)] flex items-center justify-center group-hover:border-[var(--accent-gold)] transition-colors duration-300">
+                    <Github className="w-5 h-5" />
+                  </div>
                   <span>github.com/esamnyu</span>
-                </MagneticButton>
+                </a>
               </div>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <ContactForm />
             </motion.div>
@@ -637,21 +572,24 @@ const PortfolioEnhanced: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-slate-800">
+      <footer className="py-12 border-t border-[var(--border-subtle)]">
         <div className="section-container">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-300 mb-4 md:mb-0">
-              © 2025 Ethan Sam. Crafted with passion and code.
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-[var(--text-muted)] text-sm">
+              © 2025 Ethan Sam. Crafted with precision.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex items-center gap-4">
               {socialLinks.map((link) => (
-                <MagneticButton
+                <a
                   key={link.label}
-                  className="text-gray-300 hover:text-white transition-colors"
-                  strength={0.3}
+                  href={link.href}
+                  target={link.href.startsWith('http') ? '_blank' : undefined}
+                  rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="text-[var(--text-muted)] hover:text-[var(--accent-gold)] transition-colors duration-300"
+                  aria-label={link.label}
                 >
                   <link.icon className="w-5 h-5" />
-                </MagneticButton>
+                </a>
               ))}
             </div>
           </div>

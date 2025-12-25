@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Send, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -25,21 +24,21 @@ const ContactForm: React.FC = () => {
       email?: string;
       message?: string;
     } = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     }
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
       newErrors.email = 'Email is invalid';
     }
-    
+
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -50,22 +49,23 @@ const ContactForm: React.FC = () => {
       ...prev,
       [name]: value
     }));
+    // Clear error on change
+    if (errors[name as keyof typeof errors]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     setIsSubmitting(true);
-    
-    // Simulate API call
+
     try {
-      // In a real implementation, you would send the form data to your backend
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
       setIsSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
@@ -75,74 +75,86 @@ const ContactForm: React.FC = () => {
     }
   };
 
+  const inputClasses = (hasError: boolean) => `
+    w-full px-4 py-3
+    bg-[var(--bg-glass)] backdrop-blur-md
+    border ${hasError ? 'border-red-500/50' : 'border-[var(--border-subtle)]'}
+    rounded-xl
+    text-[var(--text-primary)]
+    placeholder:text-[var(--text-muted)]
+    focus:outline-none focus:border-[var(--accent-gold)] focus:ring-1 focus:ring-[var(--accent-gold)]
+    transition-all duration-300
+    hover:border-[var(--border-medium)]
+    disabled:opacity-50 disabled:cursor-not-allowed
+    font-body text-sm
+  `;
+
   return (
-    <Card className="glass-card border-slate-700/50 max-w-md mx-auto hover:border-blue-500/30 transition-all duration-300">
-      <CardHeader>
-        <CardTitle className="text-white text-center font-heading text-2xl">Send a Message</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <AnimatePresence mode="wait">
+    <div className="glass-card rounded-xl p-8 hover:border-[var(--border-accent)] transition-all duration-500">
+      <h3 className="text-xl font-display font-semibold text-[var(--text-primary)] mb-8">
+        Send a Message
+      </h3>
+
+      <AnimatePresence mode="wait">
         {isSubmitted ? (
-          <motion.div 
+          <motion.div
             key="success"
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.5 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="text-center py-8"
           >
-            <motion.div 
-              className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4"
+            <motion.div
+              className="w-16 h-16 rounded-full bg-[var(--accent-gold-soft)] flex items-center justify-center mx-auto mb-6"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
             >
-              <CheckCircle className="h-8 w-8 text-green-400 glow-green" />
+              <CheckCircle className="h-8 w-8 text-[var(--accent-gold)]" />
             </motion.div>
-            <motion.h3 
-              className="text-xl font-semibold text-white mb-2"
+            <motion.h4
+              className="text-xl font-display font-semibold text-[var(--text-primary)] mb-2"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              Thank You!
-            </motion.h3>
-            <motion.p 
-              className="text-gray-300"
+              Thank You
+            </motion.h4>
+            <motion.p
+              className="text-[var(--text-secondary)] mb-6"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              Your message has been sent successfully. I'll get back to you soon.
+              Your message has been sent. I'll get back to you soon.
             </motion.p>
             <motion.button
               onClick={() => setIsSubmitted(false)}
-              className="mt-6 text-blue-400 hover:text-blue-300 underline transition-colors"
+              className="text-[var(--accent-gold)] hover:text-[var(--accent-warm)] text-sm font-medium transition-colors duration-300"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
               Send another message
             </motion.button>
           </motion.div>
         ) : (
-          <motion.form 
+          <motion.form
             key="form"
-            onSubmit={handleSubmit} 
-            className="space-y-4"
+            onSubmit={handleSubmit}
+            className="space-y-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
             <motion.div
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.1 }}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              <label htmlFor="name" className="block text-gray-300 mb-1">
+              <label htmlFor="name" className="block text-[var(--text-secondary)] text-sm mb-2 font-body">
                 Name
               </label>
               <input
@@ -151,20 +163,21 @@ const ContactForm: React.FC = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className={`w-full px-4 py-2 bg-slate-700/30 backdrop-blur-sm border ${
-                  errors.name ? 'border-red-500' : 'border-slate-600/50'
-                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-slate-700/40`}
+                placeholder="Your name"
+                className={inputClasses(!!errors.name)}
                 disabled={isSubmitting}
               />
-              {errors.name && <p className="mt-1 text-red-500 text-sm">{errors.name}</p>}
+              {errors.name && (
+                <p className="mt-2 text-red-400 text-xs">{errors.name}</p>
+              )}
             </motion.div>
-            
+
             <motion.div
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              <label htmlFor="email" className="block text-gray-300 mb-1">
+              <label htmlFor="email" className="block text-[var(--text-secondary)] text-sm mb-2 font-body">
                 Email
               </label>
               <input
@@ -173,20 +186,21 @@ const ContactForm: React.FC = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full px-4 py-2 bg-slate-700/30 backdrop-blur-sm border ${
-                  errors.email ? 'border-red-500' : 'border-slate-600/50'
-                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-slate-700/40`}
+                placeholder="your@email.com"
+                className={inputClasses(!!errors.email)}
                 disabled={isSubmitting}
               />
-              {errors.email && <p className="mt-1 text-red-500 text-sm">{errors.email}</p>}
+              {errors.email && (
+                <p className="mt-2 text-red-400 text-xs">{errors.email}</p>
+              )}
             </motion.div>
-            
+
             <motion.div
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              <label htmlFor="message" className="block text-gray-300 mb-1">
+              <label htmlFor="message" className="block text-[var(--text-secondary)] text-sm mb-2 font-body">
                 Message
               </label>
               <textarea
@@ -195,36 +209,41 @@ const ContactForm: React.FC = () => {
                 value={formData.message}
                 onChange={handleChange}
                 rows={4}
-                className={`w-full px-4 py-2 bg-slate-700/30 backdrop-blur-sm border ${
-                  errors.message ? 'border-red-500' : 'border-slate-600/50'
-                } rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 hover:bg-slate-700/40 resize-none`}
+                placeholder="Your message..."
+                className={`${inputClasses(!!errors.message)} resize-none`}
                 disabled={isSubmitting}
               />
-              {errors.message && <p className="mt-1 text-red-500 text-sm">{errors.message}</p>}
+              {errors.message && (
+                <p className="mt-2 text-red-400 text-xs">{errors.message}</p>
+              )}
             </motion.div>
-            
+
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="w-full btn-primary text-white py-3 px-4 rounded-lg flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              transition={{ delay: 0.4, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ scale: isSubmitting ? 1 : 1.01 }}
+              whileTap={{ scale: isSubmitting ? 1 : 0.99 }}
             >
               {isSubmitting ? (
-                <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full mr-2"></div>
+                <>
+                  <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                  <span>Sending...</span>
+                </>
               ) : (
-                <Send className="w-4 h-4 mr-2" />
+                <>
+                  <Send className="w-4 h-4" />
+                  <span>Send Message</span>
+                </>
               )}
-              {isSubmitting ? 'Sending...' : 'Send Message'}
             </motion.button>
           </motion.form>
         )}
-        </AnimatePresence>
-      </CardContent>
-    </Card>
+      </AnimatePresence>
+    </div>
   );
 };
 
