@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Compass, Sparkles, Target } from 'lucide-react';
+import { Compass, Sparkles, Target, ExternalLink } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -103,12 +103,35 @@ export const JourneySection: React.FC = () => {
                 <Target className="w-4 h-4 text-[var(--accent-gold)]" />
                 <span className="text-[var(--accent-gold)] text-sm font-medium uppercase tracking-wider">What Worked</span>
               </div>
-              <p className="text-[var(--text-secondary)] text-base leading-relaxed">
+              <p className="text-[var(--text-secondary)] text-base leading-relaxed mb-4">
                 For my current role as an AI Engineer, I used Claude to research the job posting deeply—analyzing the company's gaps, predicting what product they needed but didn't have yet, and{' '}
                 <span className="text-[var(--text-primary)]">building it before we ever spoke</span>
                 . I showed up to interviews not just with answers, but with a working solution. The result? I was recognized for initiative, diligence, and communication skills—not because I had the most experience, but because I{' '}
                 <span className="text-[var(--accent-gold)] font-medium">showed my work</span>.
               </p>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="https://slackbot-puce.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-[var(--accent-gold)] hover:text-[var(--text-primary)] transition-colors duration-300 group"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span className="border-b border-[var(--accent-gold)]/30 group-hover:border-[var(--text-primary)] transition-colors">View the Campaign Insights Bot I built</span>
+                </a>
+                <span className="text-[var(--text-muted)]">|</span>
+                <a
+                  href="#project-generator"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('project-generator')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors duration-300 group"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span className="border-b border-[var(--border-subtle)] group-hover:border-[var(--accent-gold)] transition-colors">Try this approach yourself</span>
+                </a>
+              </div>
             </motion.div>
 
             {/* Paragraph 5 - The Mission */}

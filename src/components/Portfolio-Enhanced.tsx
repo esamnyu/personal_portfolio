@@ -2,16 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Mail, Code, Briefcase, GraduationCap, Award, Menu, X, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, Code, Briefcase, GraduationCap, Menu, X, ExternalLink } from 'lucide-react';
 import { EnhancedCard } from '@/components/ui/enhanced-card';
 import { HeroSection } from '@/components/HeroSection';
-import { SkillsSection } from '@/components/SkillsSection';
 import { TimelineItem } from '@/components/TimelineItem';
 import ParticlesBackground from './ParticlesBackground';
 import ContactForm from '@/components/ContactForm';
-import { AIStatsSection } from './AIStatsSection';
-import { JourneySection } from './JourneySection';
-import { InterviewProjectGenerator } from './InterviewProjectGenerator';
 
 // Enhanced Project Card Component
 const ProjectCard: React.FC<{ project: any; index: number }> = ({ project, index }) => {
@@ -88,16 +84,12 @@ const ProjectCard: React.FC<{ project: any; index: number }> = ({ project, index
   );
 };
 
-// Navigation links
+// Navigation links - simplified to 5 key sections
 const navLinks = [
   { id: "home", label: "Home" },
-  { id: "journey", label: "My Journey" },
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
-  { id: "skills", label: "Skills" },
-  { id: "achievements", label: "Achievements" },
-  { id: "ai-stats", label: "AI Stats" },
   { id: "contact", label: "Contact" }
 ];
 
@@ -106,7 +98,7 @@ const PortfolioEnhanced: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Projects data
+  // Projects data - focused on highest-impact projects
   const projects = [
     {
       title: "Campaign Insights Bot",
@@ -117,22 +109,17 @@ const PortfolioEnhanced: React.FC = () => {
       demo: "https://slackbot-puce.vercel.app"
     },
     {
-      title: "Phishing Detection Game",
-      description: "Created an interactive educational tool for CSAW to help users identify sophisticated phishing attempts. Combined CNN-based image analysis with GPT-3 powered chatbot.",
-      tech: ["TensorFlow", "PyTorch", "Docker", "GPT-3", "React"],
-      metrics: "Best Challenge Award, 300+ participants"
+      title: "Habitual",
+      description: "Full-stack habit tracking social app with real-time messaging, friend system, and streak analytics. Built with React 19, Supabase with 26 RLS security policies, and Capacitor for iOS deployment. Features TensorFlow.js integration for AI-powered insights.",
+      tech: ["React 19", "Supabase", "Capacitor", "TensorFlow.js", "Framer Motion"],
+      metrics: "Production-ready with 8.2/10 deployment score, 9/10 security rating",
+      github: "https://github.com/esamnyu/Habitual"
     },
     {
       title: "Roomies App",
       description: "Co-founded a mobile app for roommate coordination with robust security. Implemented cryptography techniques and consensus-driven AI framework for household challenges.",
       tech: ["React Native", "Firebase", "AI/ML", "Cryptography"],
       metrics: "Enhanced user engagement, improved communication"
-    },
-    {
-      title: "Collegiate Elo Ranking",
-      description: "Built a comprehensive ranking system for collegiate esports competitions using the MERN stack. Enhanced security and scalability using SaaS and Azure services.",
-      tech: ["MongoDB", "Express", "React", "Node.js", "Azure"],
-      metrics: "27% user engagement boost, 50% participation increase"
     }
   ];
 
@@ -199,16 +186,6 @@ const PortfolioEnhanced: React.FC = () => {
         "Received Black Hat Briefings Scholarship for cybersecurity work"
       ]
     }
-  ];
-
-  // Achievements data
-  const achievements = [
-    { icon: "trophy", text: "Best Challenge Award - Cyber Security Awareness Week @ NYU" },
-    { icon: "graduation", text: "Black Hat Briefings Scholarship recipient" },
-    { icon: "chart", text: "70% placement rate leading CodePath.org cybersecurity program" },
-    { icon: "shield", text: "Identified and remediated 100+ vulnerabilities across NYC agencies" },
-    { icon: "trending", text: "40% threat detection improvement with custom security solutions" },
-    { icon: "community", text: "President of 180 Christian Fellowship (Fall 2024)" }
   ];
 
   // Scroll handling
@@ -373,14 +350,8 @@ const PortfolioEnhanced: React.FC = () => {
       {/* Hero Section */}
       <HeroSection />
 
-      {/* Journey Section */}
-      <JourneySection />
-
-      {/* Interview Project Generator */}
-      <InterviewProjectGenerator />
-
-      {/* Projects Section */}
-      <section id="projects" className="py-32 relative">
+      {/* Projects Section - immediately after hero for maximum impact */}
+      <section id="projects" className="py-16 md:py-24 relative">
         <div className="section-container">
           <motion.h2
             className="section-title"
@@ -462,48 +433,6 @@ const PortfolioEnhanced: React.FC = () => {
         </div>
       </section>
 
-      {/* Skills Section */}
-      <SkillsSection />
-
-      {/* Achievements Section */}
-      <section id="achievements" className="py-32">
-        <div className="section-container">
-          <motion.h2
-            className="section-title"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Award className="section-icon" />
-            Achievements
-          </motion.h2>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {achievements.map((achievement, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <EnhancedCard className="glass-card h-full group hover:border-[var(--border-accent)]">
-                  <div className="p-6 flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[var(--accent-gold-soft)] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <Award className="w-5 h-5 text-[var(--accent-gold)]" />
-                    </div>
-                    <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{achievement.text}</p>
-                  </div>
-                </EnhancedCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* AI Stats Section */}
-      <AIStatsSection />
 
       {/* Contact Section */}
       <section id="contact" className="py-32">

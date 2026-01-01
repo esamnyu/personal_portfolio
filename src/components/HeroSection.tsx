@@ -11,20 +11,18 @@ const socialLinks = [
 ];
 
 const roles = [
-  "Cybersecurity Engineer",
-  "AI Security Specialist",
+  "AI Security Engineer",
   "Full-Stack Developer",
-  "CTF Player",
 ];
 
-// Elegant stagger animation variants
+// Faster stagger animation for compact hero
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 };
@@ -32,16 +30,16 @@ const containerVariants = {
 const itemVariants = {
   hidden: {
     opacity: 0,
-    y: 30,
-    filter: "blur(10px)",
+    y: 20,
+    filter: "blur(8px)",
   },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
     transition: {
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1], // ease-out-expo
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
@@ -88,14 +86,14 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-[70vh] flex items-center justify-center relative overflow-hidden pt-8"
     >
       {/* Subtle ambient glow - top */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px]"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px]"
           style={{
-            background: 'radial-gradient(ellipse at center, rgba(201, 169, 98, 0.06) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse at center, rgba(201, 169, 98, 0.05) 0%, transparent 70%)',
           }}
           animate={{
             scale: [1, 1.1, 1],
@@ -109,40 +107,6 @@ export const HeroSection: React.FC = () => {
         />
       </div>
 
-      {/* Subtle floating orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(201, 169, 98, 0.03) 0%, transparent 70%)',
-          }}
-          animate={{
-            x: [0, 50, 0],
-            y: [0, -30, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(232, 213, 183, 0.03) 0%, transparent 70%)',
-          }}
-          animate={{
-            x: [0, -40, 0],
-            y: [0, 40, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-
       {/* Content */}
       <motion.div
         className="section-container relative z-10 text-center"
@@ -150,21 +114,9 @@ export const HeroSection: React.FC = () => {
         initial="hidden"
         animate="visible"
       >
-        {/* Elegant pre-title */}
-        <motion.div
-          variants={itemVariants}
-          className="mb-6"
-        >
-          <span className="inline-flex items-center gap-3 text-[var(--text-muted)] text-sm tracking-[0.2em] uppercase font-body">
-            <span className="w-8 h-px bg-[var(--accent-gold)] opacity-50" />
-            Portfolio
-            <span className="w-8 h-px bg-[var(--accent-gold)] opacity-50" />
-          </span>
-        </motion.div>
-
-        {/* Main title */}
+        {/* Main title - smaller for compact hero */}
         <motion.h1
-          className="hero-title mb-6"
+          className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4 text-gradient-gold"
           variants={itemVariants}
         >
           Ethan Sam
@@ -173,91 +125,53 @@ export const HeroSection: React.FC = () => {
         {/* Role cycler */}
         <motion.div
           variants={itemVariants}
-          className="hero-subtitle mb-8"
+          className="text-xl md:text-2xl text-[var(--accent-warm)] font-body mb-6"
         >
           <RoleCycler />
         </motion.div>
 
-        {/* Description */}
+        {/* Description - concise */}
         <motion.p
           variants={itemVariants}
-          className="text-[var(--text-secondary)] text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed"
+          className="text-[var(--text-secondary)] text-base md:text-lg max-w-xl mx-auto mb-8 leading-relaxed"
           style={{ fontFamily: 'var(--font-body)' }}
         >
-          Bridging the gap between AI innovation and cybersecurity excellence.
-          <span className="text-[var(--accent-warm)]"> Building secure, intelligent systems</span> that make a difference.
+          Building secure, intelligent systems at the intersection of AI and cybersecurity.
         </motion.p>
 
-        {/* Social links */}
+        {/* Social links + CTA in one row */}
         <motion.div
           variants={itemVariants}
-          className="flex justify-center gap-4 mb-16"
+          className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
-          {socialLinks.map((link, index) => (
-            <motion.a
-              key={link.label}
-              href={link.href}
-              className="social-link"
-              aria-label={link.label}
-              target={link.href.startsWith('http') ? '_blank' : undefined}
-              rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 1 + index * 0.1,
-                duration: 0.5,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-            >
-              <link.icon className="social-icon" />
-            </motion.a>
-          ))}
-        </motion.div>
+          {/* Social links */}
+          <div className="flex items-center gap-3">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="w-10 h-10 rounded-full border border-[var(--border-subtle)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--accent-gold)] hover:border-[var(--accent-gold)] transition-colors duration-300"
+                aria-label={link.label}
+                target={link.href.startsWith('http') ? '_blank' : undefined}
+                rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                <link.icon className="w-4 h-4" />
+              </a>
+            ))}
+          </div>
 
-        {/* CTA Button */}
-        <motion.div
-          variants={itemVariants}
-        >
+          {/* CTA Button */}
           <motion.button
             onClick={scrollToProjects}
-            className="btn-primary inline-flex items-center gap-3"
+            className="btn-primary inline-flex items-center gap-2 text-sm"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <span>View My Work</span>
+            <span>View Projects</span>
             <ArrowDown className="w-4 h-4" />
           </motion.button>
         </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 2 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="flex flex-col items-center gap-2"
-          >
-            <span className="text-[var(--text-muted)] text-xs tracking-widest uppercase">Scroll</span>
-            <div className="w-px h-8 bg-gradient-to-b from-[var(--accent-gold)] to-transparent opacity-50" />
-          </motion.div>
-        </motion.div>
       </motion.div>
-
-      {/* Elegant corner accents */}
-      <div className="absolute top-8 left-8 w-16 h-16 border-l border-t border-[var(--border-subtle)] opacity-30" />
-      <div className="absolute top-8 right-8 w-16 h-16 border-r border-t border-[var(--border-subtle)] opacity-30" />
-      <div className="absolute bottom-8 left-8 w-16 h-16 border-l border-b border-[var(--border-subtle)] opacity-30" />
-      <div className="absolute bottom-8 right-8 w-16 h-16 border-r border-b border-[var(--border-subtle)] opacity-30" />
     </section>
   );
 };
