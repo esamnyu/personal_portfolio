@@ -7,7 +7,6 @@ import { EnhancedCard } from '@/components/ui/enhanced-card';
 import { HeroSection } from '@/components/HeroSection';
 import { TimelineItem } from '@/components/TimelineItem';
 import ParticlesBackground from './ParticlesBackground';
-import ContactForm from '@/components/ContactForm';
 
 // Enhanced Project Card Component
 const ProjectCard: React.FC<{ project: any; index: number }> = ({ project, index }) => {
@@ -437,78 +436,52 @@ const PortfolioEnhanced: React.FC = () => {
       {/* Contact Section */}
       <section id="contact" className="py-32">
         <div className="section-container">
-          <motion.h2
-            className="section-title"
+          <motion.div
+            className="max-w-2xl mx-auto text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Mail className="section-icon" />
-            Get In Touch
-          </motion.h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 text-gradient-gold">
+              Let's Connect
+            </h2>
+            <p className="text-[var(--text-secondary)] text-lg mb-10 leading-relaxed">
+              I'm always interested in discussing new opportunities, innovative projects,
+              or having a conversation about technology and security.
+            </p>
 
-          <div className="grid md:grid-cols-2 gap-16">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            <motion.a
+              href="mailto:es5888@nyu.edu"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-[var(--accent-gold)] text-[var(--bg-primary)] font-semibold rounded-full hover:bg-[var(--accent-gold-light)] transition-colors duration-300"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <h3 className="text-2xl font-display font-semibold mb-6 text-gradient-gold">
-                Let's Connect
-              </h3>
-              <p className="text-[var(--text-secondary)] mb-8 leading-relaxed">
-                I'm always interested in discussing new opportunities, innovative projects,
-                or having a conversation about technology and security.
-              </p>
+              <Mail className="w-5 h-5" />
+              Get In Touch
+            </motion.a>
 
-              <div className="space-y-4">
-                <a
-                  href="mailto:es5888@nyu.edu"
-                  className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors duration-300 group"
-                >
-                  <div className="w-12 h-12 rounded-full border border-[var(--border-subtle)] flex items-center justify-center group-hover:border-[var(--accent-gold)] transition-colors duration-300">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <span>es5888@nyu.edu</span>
-                </a>
-
-                <a
-                  href="https://linkedin.com/in/ethansam"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors duration-300 group"
-                >
-                  <div className="w-12 h-12 rounded-full border border-[var(--border-subtle)] flex items-center justify-center group-hover:border-[var(--accent-gold)] transition-colors duration-300">
-                    <Linkedin className="w-5 h-5" />
-                  </div>
-                  <span>linkedin.com/in/ethansam</span>
-                </a>
-
-                <a
-                  href="https://github.com/esamnyu"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--accent-gold)] transition-colors duration-300 group"
-                >
-                  <div className="w-12 h-12 rounded-full border border-[var(--border-subtle)] flex items-center justify-center group-hover:border-[var(--accent-gold)] transition-colors duration-300">
-                    <Github className="w-5 h-5" />
-                  </div>
-                  <span>github.com/esamnyu</span>
-                </a>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <ContactForm />
-            </motion.div>
-          </div>
+            <div className="flex items-center justify-center gap-6 mt-10">
+              <a
+                href="https://linkedin.com/in/ethansam"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 rounded-full border border-[var(--border-subtle)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--accent-gold)] hover:border-[var(--accent-gold)] transition-colors duration-300"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a
+                href="https://github.com/esamnyu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 rounded-full border border-[var(--border-subtle)] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--accent-gold)] hover:border-[var(--accent-gold)] transition-colors duration-300"
+                aria-label="GitHub"
+              >
+                <Github className="w-5 h-5" />
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
