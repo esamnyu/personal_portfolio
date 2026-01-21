@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
+import { CipherText } from '@/components/ui/CipherText';
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/esamnyu", label: "GitHub" },
@@ -116,10 +117,10 @@ export const HeroSection: React.FC = () => {
       >
         {/* Main title - smaller for compact hero */}
         <motion.h1
-          className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4 text-gradient-gold"
+          className="hero-title font-display font-bold mb-4 text-gradient-gold"
           variants={itemVariants}
         >
-          Ethan Sam
+          <CipherText text="Ethan Sam" />
         </motion.h1>
 
         {/* Role cycler */}

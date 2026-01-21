@@ -2,13 +2,20 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Mail, Code, Briefcase, GraduationCap, Menu, X, ExternalLink } from 'lucide-react';
-import { EnhancedCard } from '@/components/ui/enhanced-card';
+import { Github, Linkedin, Mail, Code, Briefcase, GraduationCap, Menu, X, ExternalLink, Terminal, Smartphone, MessageSquare } from 'lucide-react';
 import { HeroSection } from '@/components/HeroSection';
 import { TimelineItem } from '@/components/TimelineItem';
 import ParticlesBackground from './ParticlesBackground';
+import { SpotlightCard } from '@/components/ui/SpotlightCard';
 
-// Enhanced Project Card Component
+// Project visual icons mapping
+const projectIcons: Record<string, React.ReactNode> = {
+  "Campaign Insights Bot": <MessageSquare className="w-8 h-8" />,
+  "Habitual": <Terminal className="w-8 h-8" />,
+  "Roomies App": <Smartphone className="w-8 h-8" />,
+};
+
+// Enhanced Project Card Component with visual header
 const ProjectCard: React.FC<{ project: any; index: number }> = ({ project, index }) => {
   return (
     <motion.div
@@ -20,25 +27,35 @@ const ProjectCard: React.FC<{ project: any; index: number }> = ({ project, index
         delay: index * 0.15,
         ease: [0.16, 1, 0.3, 1],
       }}
+      className="h-full"
     >
-      <EnhancedCard className="project-card h-full group">
-        <div className="p-8">
-          {/* Project number */}
-          <span className="text-[var(--accent-gold)] text-sm font-body tracking-wider opacity-60 mb-4 block">
+      <SpotlightCard className="h-full group overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-accent)] transition-colors duration-500">
+        {/* Visual header */}
+        <div className="h-40 w-full bg-[var(--bg-secondary)] relative overflow-hidden">
+          <div className="absolute inset-0 bg-grid-pattern" />
+          <div className="absolute -right-10 -top-10 bg-[var(--accent-gold)]/10 w-[200px] h-[200px] blur-3xl rounded-full" />
+          <div className="absolute inset-0 flex items-center justify-center text-[var(--accent-gold)]/30 group-hover:text-[var(--accent-gold)]/50 transition-colors duration-500">
+            {projectIcons[project.title] || <Code className="w-8 h-8" />}
+          </div>
+          {/* Project number overlay */}
+          <span className="absolute top-4 left-4 text-[var(--accent-gold)] text-xs font-body tracking-wider opacity-60">
             0{index + 1}
           </span>
+        </div>
 
-          <h3 className="project-title text-2xl mb-4 group-hover:text-[var(--accent-gold)] transition-colors duration-500">
+        {/* Content */}
+        <div className="p-6 relative">
+          <h3 className="project-title text-xl mb-3 group-hover:text-[var(--accent-gold)] transition-colors duration-500">
             {project.title}
           </h3>
 
-          <p className="project-description mb-6">{project.description}</p>
+          <p className="project-description text-sm mb-4 line-clamp-3">{project.description}</p>
 
-          <div className="flex flex-wrap gap-2 mb-6">
-            {project.tech.map((tech: string, techIndex: number) => (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.tech.slice(0, 4).map((tech: string, techIndex: number) => (
               <motion.span
                 key={techIndex}
-                className="tech-tag"
+                className="tech-tag text-xs"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -49,7 +66,7 @@ const ProjectCard: React.FC<{ project: any; index: number }> = ({ project, index
             ))}
           </div>
 
-          <p className="text-sm text-[var(--accent-gold)] mb-6 font-medium">{project.metrics}</p>
+          <p className="text-xs text-[var(--accent-gold)] mb-4 font-medium">{project.metrics}</p>
 
           <div className="flex items-center gap-4 pt-4 border-t border-[var(--border-subtle)]">
             {project.github && (
@@ -78,7 +95,7 @@ const ProjectCard: React.FC<{ project: any; index: number }> = ({ project, index
             )}
           </div>
         </div>
-      </EnhancedCard>
+      </SpotlightCard>
     </motion.div>
   );
 };

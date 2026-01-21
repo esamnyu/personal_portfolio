@@ -145,9 +145,9 @@
   .hero-title {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(3rem, 10vw, 7rem);
+    font-size: clamp(2.5rem, 5vw + 1rem, 6rem);
     line-height: 0.95;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
     background: linear-gradient(
       135deg,
       var(--text-primary) 0%,
@@ -526,6 +526,71 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Spotlight card effects */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-glass);
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    rgba(201, 169, 98, 0.15),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+.spotlight-border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    var(--accent-gold),
+    transparent 40%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.spotlight-card:hover .spotlight-border {
+  opacity: 1;
+}
+
+/* Image mask gradient for project visuals */
+.image-mask-gradient {
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+/* Grid background pattern for project visual placeholders */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(201, 169, 98, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(201, 169, 98, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Line decorations */

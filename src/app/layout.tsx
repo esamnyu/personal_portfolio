@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import SmoothScroll from '@/components/SmoothScroll';
 
 export const metadata: Metadata = {
   title: 'Ethan Sam - Portfolio',
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className="min-h-screen">
+        <SmoothScroll />
         {children}
       </body>
     </html>
