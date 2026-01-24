@@ -9,9 +9,11 @@ import {
   ProjectsSection,
   ExperienceSection,
   EducationSection,
+  IdeasSection,
   ContactSection,
 } from "@/components/sections";
 import { navLinks, socialLinks } from "@/lib/data";
+import Link from "next/link";
 
 const footerSocialLinks = [
   { icon: Github, href: socialLinks.github, label: "GitHub" },
@@ -93,27 +95,36 @@ const PortfolioEnhanced: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05, duration: 0.5 }}
                   >
-                    <button
-                      onClick={() => scrollToSection(link.id)}
-                      className={`relative px-4 py-2 text-sm font-body tracking-wide transition-colors duration-300 ${
-                        activeSection === link.id
-                          ? "text-[var(--accent-gold)]"
-                          : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-                      }`}
-                    >
-                      {link.label}
-                      {activeSection === link.id && (
-                        <motion.div
-                          className="absolute bottom-0 left-4 right-4 h-px bg-[var(--accent-gold)]"
-                          layoutId="activeNav"
-                          transition={{
-                            type: "spring",
-                            stiffness: 300,
-                            damping: 30,
-                          }}
-                        />
-                      )}
-                    </button>
+                    {link.href ? (
+                      <Link
+                        href={link.href}
+                        className={`relative px-4 py-2 text-sm font-body tracking-wide transition-colors duration-300 text-[var(--text-secondary)] hover:text-[var(--text-primary)]`}
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={() => scrollToSection(link.id)}
+                        className={`relative px-4 py-2 text-sm font-body tracking-wide transition-colors duration-300 ${
+                          activeSection === link.id
+                            ? "text-[var(--accent-gold)]"
+                            : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                        }`}
+                      >
+                        {link.label}
+                        {activeSection === link.id && (
+                          <motion.div
+                            className="absolute bottom-0 left-4 right-4 h-px bg-[var(--accent-gold)]"
+                            layoutId="activeNav"
+                            transition={{
+                              type: "spring",
+                              stiffness: 300,
+                              damping: 30,
+                            }}
+                          />
+                        )}
+                      </button>
+                    )}
                   </motion.li>
                 ))}
               </ul>
@@ -163,22 +174,39 @@ const PortfolioEnhanced: React.FC = () => {
               className="md:hidden bg-[var(--bg-primary)]/95 backdrop-blur-xl border-b border-[var(--border-subtle)]"
             >
               <nav className="px-6 py-6">
-                {navLinks.map((link, index) => (
-                  <motion.button
-                    key={link.id}
-                    onClick={() => scrollToSection(link.id)}
-                    className={`block w-full text-left px-4 py-3 text-base font-body transition-colors ${
-                      activeSection === link.id
-                        ? "text-[var(--accent-gold)]"
-                        : "text-[var(--text-secondary)]"
-                    }`}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
-                    {link.label}
-                  </motion.button>
-                ))}
+                {navLinks.map((link, index) =>
+                  link.href ? (
+                    <motion.div
+                      key={link.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                    >
+                      <Link
+                        href={link.href}
+                        className="block w-full text-left px-4 py-3 text-base font-body transition-colors text-[var(--text-secondary)]"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  ) : (
+                    <motion.button
+                      key={link.id}
+                      onClick={() => scrollToSection(link.id)}
+                      className={`block w-full text-left px-4 py-3 text-base font-body transition-colors ${
+                        activeSection === link.id
+                          ? "text-[var(--accent-gold)]"
+                          : "text-[var(--text-secondary)]"
+                      }`}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                    >
+                      {link.label}
+                    </motion.button>
+                  )
+                )}
               </nav>
             </motion.div>
           )}
@@ -190,6 +218,7 @@ const PortfolioEnhanced: React.FC = () => {
       <ProjectsSection />
       <ExperienceSection />
       <EducationSection />
+      <IdeasSection />
       <ContactSection />
 
       {/* Footer */}

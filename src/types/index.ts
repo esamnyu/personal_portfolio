@@ -32,4 +32,15 @@ export interface SocialLink {
 export interface NavLink {
   id: string;
   label: string;
+  href?: string;
+}
+
+export interface Idea {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  readTime: string;
+  publishedAt: string;
+  featured?: boolean;
 }

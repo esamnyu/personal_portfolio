@@ -1,10 +1,11 @@
-import { Project, Experience, Education, NavLink } from "@/types";
+import { Project, Experience, Education, NavLink, Idea } from "@/types";
 
 export const navLinks: NavLink[] = [
   { id: "home", label: "Home" },
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
+  { id: "ideas", label: "Ideas", href: "/ideas" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -95,6 +96,19 @@ export const education: Education[] = [
       "Enhanced threat detection accuracy by 20% with IBM QRadar",
       "Received Black Hat Briefings Scholarship for cybersecurity work",
     ],
+  },
+];
+
+export const ideas: Idea[] = [
+  {
+    slug: "top-3-ai-skills-2026",
+    title: "The 3 AI Skills That Actually Matter in 2026",
+    excerpt:
+      "A friend asked me what he should learn to stay relevant. After a week buried in hiring data and salary reports, a surprising pattern emerged.",
+    category: "Career",
+    readTime: "6 min read",
+    publishedAt: "2026-01-24",
+    featured: true,
   },
 ];
 
