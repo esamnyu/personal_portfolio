@@ -2,13 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
+import { Github, Linkedin, Lightbulb, ArrowDown } from 'lucide-react';
 import { CipherText } from '@/components/ui/CipherText';
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/esamnyu", label: "GitHub" },
   { icon: Linkedin, href: "https://linkedin.com/in/ethansam", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:es5888@nyu.edu", label: "Email" },
+  { icon: Lightbulb, href: "/ideas", label: "Ideas" },
 ];
 
 const roles = [
