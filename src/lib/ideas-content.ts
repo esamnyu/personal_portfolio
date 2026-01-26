@@ -1,4 +1,136 @@
 export const ideasContent: Record<string, string> = {
+  "engineer-guide-to-wealth": `
+After landing a new AI role in New York, something shifted in how I think about money. It's not just that NYC is expensive—though breathing here basically requires a subscription. It's that a real salary forced me to confront a question I'd been avoiding: *what happens next?*
+
+I started thinking about my family, my future, what I want to build beyond code. And I realized my income is just the input. What I do with it—that's the system.
+
+So I did what any engineer would do. I researched. I modeled. I built a framework. Here's what I learned.
+
+---
+
+## The Math That Changed Everything
+
+Before we talk strategy, you need to see something. This chart shows three scenarios—all assuming a 7% annual return (the S&P 500's historical average, adjusted for inflation):
+
+{{COMPOUND_CHART}}
+
+Look at that gap. The person who starts at 25 ends up with **$1.2 million**. The person who starts at 35 with the same contribution? **$567K**. That 10-year delay costs you over $600,000.
+
+The person who tries to "catch up" by doubling their contribution at 35? They get close—but they had to sacrifice twice as much of their monthly income to do it.
+
+**Time is the only asset you can't buy back.**
+
+---
+
+## The Psychology of Money
+
+The numbers are simple. Human behavior is not.
+
+Morgan Housel's *The Psychology of Money* changed how I think about wealth. A few principles that stuck:
+
+**Wealth is what you don't see.** The car not bought. The apartment not upgraded. Wealth isn't displays—it's optionality. The freedom to walk away from a bad job, to take a risk on a startup, to weather an emergency without panic.
+
+**Reasonable beats rational.** The mathematically optimal strategy you won't stick to loses to the "good enough" strategy you will. If checking your portfolio daily causes you to panic-sell during dips, a slightly suboptimal but hands-off approach wins.
+
+**Room for error.** Nassim Taleb's barbell strategy: be conservative with most of your money, aggressive with a small portion. Never bet the farm. The market will crash—multiple times in your investing lifetime. Your job is to still be in the game when it recovers.
+
+---
+
+## How the S&P 500 Actually Works
+
+People say "just invest in index funds" without explaining *why* they work. Here's the mechanism:
+
+The S&P 500 isn't a static list. It's a **self-cleaning index**:
+
+| What happens | Why it matters |
+|--------------|----------------|
+| Quarterly committee reviews | Underperformers get removed |
+| Market cap requirements | Only successful companies stay |
+| Automatic rebalancing | You're always holding the winners |
+
+Kodak, Sears, GE—all were S&P 500 companies. They got removed as they declined. Tesla, Meta—they got added as they grew. **Survivorship bias works in your favor.**
+
+This is why beating the index is so hard. You're not competing against a static benchmark—you're competing against an algorithm that automatically culls losers and adds winners.
+
+---
+
+## The Three-Fund Portfolio
+
+Simple, diversified, low-cost:
+
+| Fund | Conservative | Aggressive (my preference) |
+|------|--------------|---------------------------|
+| US Total Stock Market (VTI) | 60% | 70-80% |
+| International Stock Market (VXUS) | 20% | 15-20% |
+| US Bonds (BND) | 20% | 5-10% |
+
+Total expense ratio: ~0.05%. A financial advisor charging 1% would cost you **hundreds of thousands** over a career—for what is often just this same strategy with a human attached.
+
+**A note on bonds:** The "conservative" allocation above is standard Bogleheads advice. But if you're a 25-year-old engineer with 40 years until retirement, high earning potential, and job security in a growing field—20% bonds is probably too conservative. You have decades to ride out volatility, and every dollar in bonds is a dollar not compounding at equity rates. I keep 5-10% bonds, mostly as dry powder to buy dips. Adjust based on your risk tolerance and sleep quality.
+
+---
+
+## NYC-Specific Tactics
+
+Living in New York means your tax situation is brutal. Federal + State + City = pain. But it also means tax-advantaged accounts are even more valuable:
+
+**Max your 401(k).** The $23,000 pre-tax contribution saves you ~35% immediately in combined taxes. That's an instant 35% return before any investment gains.
+
+**Roth IRA—and the Backdoor when you earn too much.** Direct Roth contributions phase out at $161K (single). But here's what most people don't know: the "Backdoor Roth" lets high earners bypass this completely. Contribute to a traditional IRA (no income limit), then immediately convert to Roth. It's legal, IRS-approved, and standard practice for tech workers. If you're an AI engineer in NYC, you'll likely need this within a few years—learn the mechanics now.
+
+**HSA if available.** Triple tax-advantaged: tax-free in, tax-free growth, tax-free out (for medical expenses). It's the best retirement account most people ignore. Max it if your employer offers a high-deductible health plan.
+
+---
+
+## Easy Habits to Start Today
+
+You don't need to optimize everything at once. Start with these:
+
+**1. Automate on payday.** Set up transfers the day after you get paid. Emergency fund, retirement, brokerage—all automatic. You adapt to whatever's left. This is the "reverse budget."
+
+**2. Increase savings with raises.** Got a 10% raise? Increase your savings rate by 5%. You still feel the raise, but you're not inflating your lifestyle proportionally.
+
+**3. The 24-hour rule.** For any purchase over $100, wait 24 hours. Most impulse spending evaporates.
+
+**4. Track one number.** Your savings rate (savings / income). This single metric matters more than returns when you're young. Aim for 20%+.
+
+**5. Rebalance annually.** Once a year, sell what's grown too large and buy what's lagged. This forces you to buy low and sell high systematically.
+
+---
+
+## The Meta-Lesson
+
+Building wealth is a systems problem, not a willpower problem.
+
+The engineers I know who are building real wealth aren't the ones with the highest salaries. They're the ones who:
+- Automated good decisions
+- Avoided lifestyle inflation
+- Started early (or started now)
+- Stayed boring
+
+The exciting investments—crypto, options, meme stocks—are entertainment, not strategy. Your edge is patience, not information.
+
+---
+
+## What I'm Actually Doing
+
+I'm not going to pretend I have this figured out. But here's my current allocation:
+
+| Account | Monthly | Strategy |
+|---------|---------|----------|
+| 401(k) | Max to match + more | Target date fund (lazy, works) |
+| Roth IRA | $583 (maxing) | VTI + VXUS |
+| Emergency fund | Until 6 months | High-yield savings (5%+) |
+| Taxable brokerage | Whatever's left | VTI, hold forever |
+
+Nothing fancy. Nothing exciting. That's the point.
+
+The real wealth-building move for someone my age? **Invest in earning power.** Skills, certifications, relationships. My AI security expertise has a higher ROI than any stock pick. The best investment I can make is becoming harder to replace.
+
+---
+
+*None of this is financial advice. I'm an engineer who reads too much, not a financial advisor. Do your own research, understand your own risk tolerance, and consider talking to a professional for your specific situation.*
+`,
   "top-3-ai-skills-2026": `
 Last month, a friend asked me what he should learn to stay relevant in tech. He's a solid engineer—ten years of experience, good instincts—but he could feel the ground shifting beneath him. "Everyone's talking about AI," he said. "I just don't know where to start."
 

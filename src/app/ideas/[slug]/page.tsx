@@ -10,6 +10,102 @@ import { ideasContent } from "@/lib/ideas-content";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import CompoundInterestChart from "@/components/CompoundInterestChart";
+import type { Components } from "react-markdown";
+
+const markdownComponents: Partial<Components> = {
+  h2: ({ children }) => (
+    <h2 className="text-2xl font-display font-semibold text-[var(--text-primary)] mt-12 mb-4 first:mt-0">
+      {children}
+    </h2>
+  ),
+  h3: ({ children }) => (
+    <h3 className="text-xl font-display font-semibold text-[var(--text-primary)] mt-8 mb-3">
+      {children}
+    </h3>
+  ),
+  p: ({ children }) => (
+    <p className="text-[#d4d0c8] leading-relaxed mb-5 text-base">{children}</p>
+  ),
+  strong: ({ children }) => (
+    <strong className="text-[var(--text-primary)] font-semibold">
+      {children}
+    </strong>
+  ),
+  ul: ({ children }) => (
+    <ul className="list-none space-y-3 mb-6 pl-0">{children}</ul>
+  ),
+  li: ({ children }) => (
+    <li className="flex items-start gap-3 text-[#d4d0c8]">
+      <span className="text-[var(--accent-gold)] mt-1.5 flex-shrink-0 text-xs">
+        ◆
+      </span>
+      <span className="leading-relaxed">{children}</span>
+    </li>
+  ),
+  a: ({ href, children }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[var(--accent-gold)] hover:underline font-medium"
+    >
+      {children}
+    </a>
+  ),
+  hr: () => <hr className="border-[var(--border-medium)] my-10" />,
+  code: ({ children, className }) => {
+    const isBlock = className?.includes("language-");
+    if (isBlock) {
+      return (
+        <code className="block text-sm text-[#e8e4dc] font-mono">
+          {children}
+        </code>
+      );
+    }
+    return (
+      <code className="bg-[var(--bg-elevated)] px-2 py-1 rounded text-sm text-[var(--accent-gold)] font-mono">
+        {children}
+      </code>
+    );
+  },
+  pre: ({ children }) => (
+    <pre className="bg-[var(--bg-elevated)] rounded-xl p-5 overflow-x-auto my-6 border border-[var(--border-subtle)]">
+      {children}
+    </pre>
+  ),
+  table: ({ children }) => (
+    <div className="overflow-x-auto my-8 rounded-xl border border-[var(--border-subtle)]">
+      <table className="w-full text-sm">{children}</table>
+    </div>
+  ),
+  thead: ({ children }) => (
+    <thead className="bg-[var(--bg-elevated)] border-b border-[var(--border-subtle)]">
+      {children}
+    </thead>
+  ),
+  tbody: ({ children }) => (
+    <tbody className="bg-[var(--bg-secondary)]/50">{children}</tbody>
+  ),
+  tr: ({ children }) => (
+    <tr className="border-b border-[var(--border-subtle)] last:border-0">
+      {children}
+    </tr>
+  ),
+  th: ({ children }) => (
+    <th className="text-left py-4 px-5 text-[var(--accent-gold)] font-semibold text-xs uppercase tracking-wider">
+      {children}
+    </th>
+  ),
+  td: ({ children }) => (
+    <td className="py-4 px-5 text-[#d4d0c8]">{children}</td>
+  ),
+  blockquote: ({ children }) => (
+    <blockquote className="border-l-2 border-[var(--accent-gold)] pl-6 my-6 italic text-[var(--text-secondary)]">
+      {children}
+    </blockquote>
+  ),
+};
 
 export default function IdeaPage() {
   const params = useParams();
@@ -104,112 +200,22 @@ export default function IdeaPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  h2: ({ children }) => (
-                    <h2 className="text-2xl font-display font-semibold text-[var(--text-primary)] mt-12 mb-4 first:mt-0">
-                      {children}
-                    </h2>
-                  ),
-                  h3: ({ children }) => (
-                    <h3 className="text-xl font-display font-semibold text-[var(--text-primary)] mt-8 mb-3">
-                      {children}
-                    </h3>
-                  ),
-                  p: ({ children }) => (
-                    <p className="text-[#d4d0c8] leading-relaxed mb-5 text-base">
-                      {children}
-                    </p>
-                  ),
-                  strong: ({ children }) => (
-                    <strong className="text-[var(--text-primary)] font-semibold">
-                      {children}
-                    </strong>
-                  ),
-                  ul: ({ children }) => (
-                    <ul className="list-none space-y-3 mb-6 pl-0">{children}</ul>
-                  ),
-                  li: ({ children }) => (
-                    <li className="flex items-start gap-3 text-[#d4d0c8]">
-                      <span className="text-[var(--accent-gold)] mt-1.5 flex-shrink-0 text-xs">
-                        ◆
-                      </span>
-                      <span className="leading-relaxed">{children}</span>
-                    </li>
-                  ),
-                  a: ({ href, children }) => (
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[var(--accent-gold)] hover:underline font-medium"
-                    >
-                      {children}
-                    </a>
-                  ),
-                  hr: () => (
-                    <hr className="border-[var(--border-medium)] my-10" />
-                  ),
-                  code: ({ children, className }) => {
-                    const isBlock = className?.includes("language-");
-                    if (isBlock) {
-                      return (
-                        <code className="block text-sm text-[#e8e4dc] font-mono">
-                          {children}
-                        </code>
-                      );
-                    }
-                    return (
-                      <code className="bg-[var(--bg-elevated)] px-2 py-1 rounded text-sm text-[var(--accent-gold)] font-mono">
-                        {children}
-                      </code>
-                    );
-                  },
-                  pre: ({ children }) => (
-                    <pre className="bg-[var(--bg-elevated)] rounded-xl p-5 overflow-x-auto my-6 border border-[var(--border-subtle)]">
-                      {children}
-                    </pre>
-                  ),
-                  table: ({ children }) => (
-                    <div className="overflow-x-auto my-8 rounded-xl border border-[var(--border-subtle)]">
-                      <table className="w-full text-sm">{children}</table>
+              {/* Split content by custom component markers and render */}
+              {content.split("{{COMPOUND_CHART}}").map((section, index, arr) => (
+                <React.Fragment key={index}>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={markdownComponents}
+                  >
+                    {section}
+                  </ReactMarkdown>
+                  {index < arr.length - 1 && (
+                    <div className="my-8">
+                      <CompoundInterestChart />
                     </div>
-                  ),
-                  thead: ({ children }) => (
-                    <thead className="bg-[var(--bg-elevated)] border-b border-[var(--border-subtle)]">
-                      {children}
-                    </thead>
-                  ),
-                  tbody: ({ children }) => (
-                    <tbody className="bg-[var(--bg-secondary)]/50">
-                      {children}
-                    </tbody>
-                  ),
-                  tr: ({ children }) => (
-                    <tr className="border-b border-[var(--border-subtle)] last:border-0">
-                      {children}
-                    </tr>
-                  ),
-                  th: ({ children }) => (
-                    <th className="text-left py-4 px-5 text-[var(--accent-gold)] font-semibold text-xs uppercase tracking-wider">
-                      {children}
-                    </th>
-                  ),
-                  td: ({ children }) => (
-                    <td className="py-4 px-5 text-[#d4d0c8]">
-                      {children}
-                    </td>
-                  ),
-                  blockquote: ({ children }) => (
-                    <blockquote className="border-l-2 border-[var(--accent-gold)] pl-6 my-6 italic text-[var(--text-secondary)]">
-                      {children}
-                    </blockquote>
-                  ),
-                }}
-              >
-                {content}
-              </ReactMarkdown>
+                  )}
+                </React.Fragment>
+              ))}
             </motion.div>
 
             {/* Back link */}

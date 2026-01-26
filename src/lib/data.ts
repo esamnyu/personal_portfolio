@@ -110,6 +110,16 @@ export const ideas: Idea[] = [
     publishedAt: "2026-01-24",
     featured: true,
   },
+  {
+    slug: "engineer-guide-to-wealth",
+    title: "The Engineer's Guide to Building Wealth",
+    excerpt:
+      "After landing a new role in NYC, I realized my income was just the input—what I do with it is the system. Here's the framework I'm using.",
+    category: "Finance",
+    readTime: "8 min read",
+    publishedAt: "2026-01-26",
+    featured: true,
+  },
 ];
 
 export const socialLinks = {
