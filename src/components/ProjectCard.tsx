@@ -15,7 +15,7 @@ import { Project } from "@/types";
 
 const projectIcons: Record<string, React.ReactNode> = {
   "Campaign Insights Bot": <MessageSquare className="w-8 h-8" />,
-  Habitual: <Terminal className="w-8 h-8" />,
+  Anchor: <Terminal className="w-8 h-8" />,
   "Roomies App": <Smartphone className="w-8 h-8" />,
 };
 
@@ -39,14 +39,27 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     >
       <SpotlightCard className="h-full group overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-accent)] transition-colors duration-500">
         {/* Visual header */}
-        <div className="h-40 w-full bg-[var(--bg-secondary)] relative overflow-hidden">
-          <div className="absolute inset-0 bg-grid-pattern" />
-          <div className="absolute -right-10 -top-10 bg-[var(--accent-gold)]/10 w-[200px] h-[200px] blur-3xl rounded-full" />
-          <div className="absolute inset-0 flex items-center justify-center text-[var(--accent-gold)]/30 group-hover:text-[var(--accent-gold)]/50 transition-colors duration-500">
-            {projectIcons[project.title] || <Code className="w-8 h-8" />}
-          </div>
+        <div className="h-48 w-full bg-[var(--bg-secondary)] relative overflow-hidden">
+          {project.image ? (
+            <>
+              <img
+                src={project.image}
+                alt={`${project.title} screenshot`}
+                className="absolute inset-0 w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent" />
+            </>
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-grid-pattern" />
+              <div className="absolute -right-10 -top-10 bg-[var(--accent-gold)]/10 w-[200px] h-[200px] blur-3xl rounded-full" />
+              <div className="absolute inset-0 flex items-center justify-center text-[var(--accent-gold)]/30 group-hover:text-[var(--accent-gold)]/50 transition-colors duration-500">
+                {projectIcons[project.title] || <Code className="w-8 h-8" />}
+              </div>
+            </>
+          )}
           {/* Project number overlay */}
-          <span className="absolute top-4 left-4 text-[var(--accent-gold)] text-xs font-body tracking-wider opacity-60">
+          <span className="absolute top-4 left-4 text-[var(--accent-gold)] text-xs font-body tracking-wider opacity-80 bg-[var(--bg-primary)]/60 px-2 py-1 rounded">
             0{index + 1}
           </span>
         </div>

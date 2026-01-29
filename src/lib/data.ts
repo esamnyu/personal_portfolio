@@ -11,6 +11,16 @@ export const navLinks: NavLink[] = [
 
 export const projects: Project[] = [
   {
+    title: "Anchor",
+    description:
+      "Full-stack habit tracking social app with real-time messaging, friend system, and streak analytics. Built with React 19, Supabase with 26 RLS security policies, and Capacitor for iOS deployment. Features TensorFlow.js integration for AI-powered insights.",
+    tech: ["React 19", "Supabase", "Capacitor", "TensorFlow.js", "Framer Motion"],
+    metrics: "Production-ready with 8.2/10 deployment score, 9/10 security rating",
+    github: "https://github.com/esamnyu/Habitual",
+    demo: "https://anchor.camp",
+    image: "/images/anchor-cover.png",
+  },
+  {
     title: "Campaign Insights Bot",
     description:
       "Built an AI-powered Slack alert system for AdTech campaign monitoring. Features real-time anomaly detection using Z-score analysis, GPT-generated insights, and a closed-loop feedback system. Created proactively for interview process—demonstrating product thinking before ever speaking with the team.",
@@ -18,14 +28,6 @@ export const projects: Project[] = [
     metrics: "Secured AI Engineer role through demonstrated initiative",
     github: "https://github.com/esamnyu/slackbot",
     demo: "https://slackbot-puce.vercel.app",
-  },
-  {
-    title: "Habitual",
-    description:
-      "Full-stack habit tracking social app with real-time messaging, friend system, and streak analytics. Built with React 19, Supabase with 26 RLS security policies, and Capacitor for iOS deployment. Features TensorFlow.js integration for AI-powered insights.",
-    tech: ["React 19", "Supabase", "Capacitor", "TensorFlow.js", "Framer Motion"],
-    metrics: "Production-ready with 8.2/10 deployment score, 9/10 security rating",
-    github: "https://github.com/esamnyu/Habitual",
   },
   {
     title: "Roomies App",

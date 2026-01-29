@@ -5,6 +5,7 @@ export interface Project {
   metrics: string;
   github?: string;
   demo?: string;
+  image?: string;
 }
 
 export interface Experience {
