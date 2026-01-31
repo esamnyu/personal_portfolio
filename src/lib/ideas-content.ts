@@ -226,4 +226,121 @@ The ground is shifting. The question isn't whether to adapt—it's whether you'l
 
 *This piece draws on data from the [World Economic Forum's Future of Jobs Report](https://www.weforum.org/stories/2025/01/future-of-jobs-report-2025-jobs-of-the-future-and-the-skills-you-need-to-get-them/), [Second Talent's salary analysis](https://www.secondtalent.com/resources/most-in-demand-ai-engineering-skills-and-salary-ranges/), and [CIO's 2026 skills survey](https://www.cio.com/article/4096592/the-10-hottest-it-skills-for-2026.html).*
 `,
+  "reverse-engineering-recruiter-search": `
+I didn't apply for my current role. A recruiter at a staffing firm I'd never heard of found me on LinkedIn and reached out. After the offer letter was signed, I got curious: *why me?*
+
+So I did what any engineer would do. I reverse-engineered the entire pipeline—from the boolean search that surfaced my profile to the interview that sealed the deal. What I found changed how I think about job searching entirely.
+
+Most career advice tells you to "put yourself out there." This is about what that actually means at a mechanical level.
+
+---
+
+## How Staffing Firms Actually Work
+
+The firm that placed me was Glocomms, a tech-focused agency under the Phaidon International umbrella. They organize recruiters by specialization:
+
+| Desk | Focus |
+|------|-------|
+| Cybersecurity | Security engineers, analysts, GRC |
+| Software/Cloud/AI | Full-stack, ML engineers, cloud architects |
+| Data & Analytics | Data engineers, scientists, analysts |
+| Infrastructure | DevOps, SRE, platform engineering |
+
+Here's what nobody tells you: **the recruiter who finds you might not be the one who places you.**
+
+My profile was surfaced by a cybersecurity recruiter. But the role—an automation developer position focused on AI tooling—was on the software/AI desk. They collaborated internally and handed me off.
+
+Your profile doesn't need to match one search. It needs to be visible across multiple desks, because specializations overlap.
+
+---
+
+## What Made My Profile Findable
+
+Recruiters use LinkedIn Recruiter, an enterprise tool that lets them run advanced searches by keyword, location, education, and—critically—whether you've signaled you're open to opportunities.
+
+My profile had a few things working:
+
+| Signal | Why it matters |
+|--------|---------------|
+| Location: NYC | Recruiters filter by metro first. Wrong location = invisible. |
+| Education: NYU, MS | Graduate degrees from recognizable schools are strong filters |
+| Keywords scattered across sections | "AI," "automation," "cybersecurity," "Python" appeared in headline, about, and experience |
+| Live portfolio | Projects on Vercel proved I could build, not just claim |
+
+What I *didn't* have: a keyword-optimized headline. My profile was decent but not designed to be found. I got lucky that my coverage was broad enough to match their search.
+
+---
+
+## What Actually Got Me the Offer
+
+The hiring process spanned six to eight weeks. I interviewed with three senior stakeholders—the SVP of US Operations, a Trading Automation Lead, and the VP who became my manager.
+
+But here's the thing: **I built a proof-of-concept before I had an offer.**
+
+After my initial conversations, I went home and built a Slack-based analytics tool that simulated how the company could surface campaign anomalies with AI-powered insights. I demoed it during my interview with the SVP.
+
+Nobody asked me to do this. Most candidates don't. That's exactly why it worked.
+
+Recruiters get you in the door. What you do once you're there determines whether you walk out with an offer.
+
+---
+
+## The Discoverability Checklist
+
+If I needed to re-enter the job market tomorrow, here's what I'd optimize—in priority order.
+
+### 1. Headline as Search Query
+
+Recruiters search by headline more than any other field. This tells them nothing:
+
+> "Associate, Innovation & Automation"
+
+This is searchable:
+
+> "AI/Automation Engineer | Python, LLMs, RAG Systems | Full-Stack + Security"
+
+Every word is a keyword a recruiter might type. Think about what they'd literally enter into a search bar.
+
+### 2. Turn On "Open to Work" (Privately)
+
+LinkedIn has a setting visible only to recruiters with LinkedIn Recruiter licenses. Your network doesn't see it. But recruiters run saved searches that alert them when new candidates match their criteria.
+
+Turn this on. Within two weeks, you'll start getting inbound—without doing anything else.
+
+### 3. Stack the Skills Section
+
+LinkedIn Recruiter lets recruiters filter by skills. Add every relevant skill: Python, JavaScript, React, AI, Machine Learning, LLMs, Automation, Cybersecurity—whatever applies. The more skills that match a search, the higher you rank.
+
+### 4. Write the About Section for Machines
+
+Your about section gets indexed. Front-load it with differentiators and keywords:
+
+> "AI Engineer with an MS in Computer Science, building production automation systems at scale. Background spanning cybersecurity, programmatic advertising, and enterprise AI. Experienced with Python, TypeScript, LLM orchestration, RAG architectures, and full-stack development."
+
+Reads fine to humans. Hits a dozen search terms in three sentences.
+
+### 5. Keep a Live Portfolio
+
+Recruiters on the fence will click through. Live demos—not just GitHub repos—are a massive differentiator. It's the digital equivalent of the proof-of-concept that got me my job.
+
+### 6. Maintain Recruiter Relationships
+
+This is the highest-ROI activity no one does. The recruiters who placed me are now in my network. A quick message every few months—"shipped this new project" or "congrats on the promotion"—keeps you in their mental rolodex.
+
+When they get a role that fits, they think of you before running a new search. Being a warm candidate is worth more than a perfect LinkedIn profile.
+
+---
+
+## The Inversion
+
+The traditional job search model: find posting, apply, wait.
+
+The recruiter-sourced model inverts it: make yourself findable, let them come to you, over-deliver once you're in.
+
+Most people spend 90% of their job search energy on applications and 10% on discoverability. I'd flip that ratio.
+
+The highest-leverage thing you can do is make it easy for the right recruiter to find you at the right time. I didn't apply for my current role. I was found.
+
+Now I know exactly why—and how to make sure it happens again.
+`,
 };

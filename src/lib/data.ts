@@ -122,6 +122,16 @@ export const ideas: Idea[] = [
     publishedAt: "2026-01-26",
     featured: true,
   },
+  {
+    slug: "reverse-engineering-recruiter-search",
+    title: "Reverse-Engineering How a Recruiter Found Me",
+    excerpt:
+      "I didn't apply for my current role—a recruiter found me. So I reverse-engineered the entire pipeline, from boolean search to offer letter.",
+    category: "Career",
+    readTime: "7 min read",
+    publishedAt: "2026-01-31",
+    featured: true,
+  },
 ];
 
 export const socialLinks = {

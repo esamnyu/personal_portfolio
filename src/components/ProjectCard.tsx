@@ -9,14 +9,24 @@ import {
   Terminal,
   Smartphone,
   MessageSquare,
+  Cpu,
+  Shield,
+  Zap,
+  Activity,
 } from "lucide-react";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Project } from "@/types";
 
 const projectIcons: Record<string, React.ReactNode> = {
-  "Campaign Insights Bot": <MessageSquare className="w-8 h-8" />,
-  Anchor: <Terminal className="w-8 h-8" />,
-  "Roomies App": <Smartphone className="w-8 h-8" />,
+  "Campaign Insights Bot": <Activity className="w-12 h-12" strokeWidth={1.5} />,
+  Anchor: <Terminal className="w-12 h-12" strokeWidth={1.5} />,
+  "Roomies App": <Shield className="w-12 h-12" strokeWidth={1.5} />,
+};
+
+const projectAccentColors: Record<string, string> = {
+  "Campaign Insights Bot": "from-emerald-500/20 via-cyan-500/10",
+  Anchor: "from-amber-500/20 via-orange-500/10",
+  "Roomies App": "from-violet-500/20 via-fuchsia-500/10",
 };
 
 interface ProjectCardProps {
@@ -51,11 +61,66 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
             </>
           ) : (
             <>
-              <div className="absolute inset-0 bg-grid-pattern" />
-              <div className="absolute -right-10 -top-10 bg-[var(--accent-gold)]/10 w-[200px] h-[200px] blur-3xl rounded-full" />
-              <div className="absolute inset-0 flex items-center justify-center text-[var(--accent-gold)]/30 group-hover:text-[var(--accent-gold)]/50 transition-colors duration-500">
-                {projectIcons[project.title] || <Code className="w-8 h-8" />}
+              {/* Base grid pattern */}
+              <div className="absolute inset-0 bg-grid-pattern opacity-50" />
+
+              {/* Dynamic gradient background */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${projectAccentColors[project.title] || "from-[var(--accent-gold)]/20 via-transparent"} to-transparent`} />
+
+              {/* Animated orbs */}
+              <motion.div
+                className="absolute -right-16 -top-16 w-48 h-48 rounded-full bg-[var(--accent-gold)]/8 blur-3xl"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.5, 0.3]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <motion.div
+                className="absolute -left-10 -bottom-10 w-32 h-32 rounded-full bg-[var(--accent-gold)]/6 blur-2xl"
+                animate={{
+                  scale: [1.2, 1, 1.2],
+                  opacity: [0.2, 0.4, 0.2]
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+              />
+
+              {/* Decorative lines */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute top-8 right-8 w-24 h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-gold)]/20 to-transparent" />
+                <div className="absolute bottom-12 left-8 w-16 h-[1px] bg-gradient-to-r from-[var(--accent-gold)]/20 to-transparent" />
+                <div className="absolute top-12 left-12 w-[1px] h-12 bg-gradient-to-b from-transparent via-[var(--accent-gold)]/15 to-transparent" />
               </div>
+
+              {/* Center icon with glow */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div
+                  className="relative"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Icon glow */}
+                  <div className="absolute inset-0 bg-[var(--accent-gold)]/20 blur-xl rounded-full scale-150 group-hover:bg-[var(--accent-gold)]/30 transition-colors duration-500" />
+                  {/* Icon container */}
+                  <div className="relative p-4 rounded-2xl border border-[var(--accent-gold)]/20 bg-[var(--bg-primary)]/40 backdrop-blur-sm group-hover:border-[var(--accent-gold)]/40 transition-colors duration-500">
+                    <div className="text-[var(--accent-gold)]/60 group-hover:text-[var(--accent-gold)]/90 transition-colors duration-500">
+                      {projectIcons[project.title] || <Code className="w-12 h-12" strokeWidth={1.5} />}
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Bottom fade for smooth transition to content */}
+              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--bg-primary)] to-transparent" />
             </>
           )}
           {/* Project number overlay */}
