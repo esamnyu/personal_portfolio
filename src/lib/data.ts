@@ -124,7 +124,7 @@ export const ideas: Idea[] = [
   },
   {
     slug: "reverse-engineering-recruiter-search",
-    title: "Reverse-Engineering How a Recruiter Found Me",
+    title: "How to Get Found by Tech Recruiters on LinkedIn",
     excerpt:
       "I didn't apply for my current role—a recruiter found me. So I reverse-engineered the entire pipeline, from boolean search to offer letter.",
     category: "Career",
