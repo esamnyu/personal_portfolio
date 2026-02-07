@@ -9,18 +9,84 @@ import {
   Terminal,
   Smartphone,
   MessageSquare,
-  Cpu,
-  Shield,
-  Zap,
   Activity,
 } from "lucide-react";
+import Image from "next/image";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Project } from "@/types";
 
 const projectIcons: Record<string, React.ReactNode> = {
-  "Campaign Insights Bot": <Activity className="w-12 h-12" strokeWidth={1.5} />,
+  "Campaign Insights Bot": <Activity className="w-8 h-8" strokeWidth={1.5} />,
   Anchor: <Terminal className="w-12 h-12" strokeWidth={1.5} />,
-  "Roomies App": <Shield className="w-12 h-12" strokeWidth={1.5} />,
+  "Roomies App": <Smartphone className="w-8 h-8" strokeWidth={1.5} />,
+};
+
+// Project-specific decorative elements for placeholders
+const projectDecorations: Record<string, React.ReactNode> = {
+  "Campaign Insights Bot": (
+    <>
+      {/* Mini bar chart */}
+      <div className="absolute bottom-16 left-8 flex items-end gap-1.5">
+        {[24, 40, 28, 52, 36, 44, 32].map((h, i) => (
+          <div
+            key={i}
+            className="w-1.5 rounded-t-sm"
+            style={{
+              height: h,
+              background: "linear-gradient(to top, rgba(16, 185, 129, 0.4), rgba(16, 185, 129, 0.1))",
+            }}
+          />
+        ))}
+      </div>
+      {/* Status indicator */}
+      <div className="absolute top-8 right-8 flex items-center gap-2">
+        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400/60" />
+        <div className="w-12 h-px bg-gradient-to-r from-emerald-500/40 to-transparent" />
+      </div>
+      {/* Data lines */}
+      <div className="absolute top-16 right-8 flex flex-col gap-2">
+        <div className="w-16 h-px bg-cyan-400/30" />
+        <div className="w-10 h-px bg-cyan-400/20" />
+        <div className="w-14 h-px bg-cyan-400/25" />
+      </div>
+      {/* Message indicator */}
+      <div className="absolute bottom-16 right-8">
+        <MessageSquare className="w-4 h-4 text-cyan-400/30" strokeWidth={1.5} />
+      </div>
+    </>
+  ),
+  "Roomies App": (
+    <>
+      {/* Chat bubble mockups */}
+      <div className="absolute top-8 right-6">
+        <div className="w-16 h-5 rounded-xl rounded-tr-sm bg-violet-500/15 border border-violet-500/10" />
+      </div>
+      <div className="absolute top-16 left-6">
+        <div className="w-12 h-5 rounded-xl rounded-tl-sm bg-fuchsia-500/15 border border-fuchsia-500/10" />
+      </div>
+      {/* Task checklist */}
+      <div className="absolute bottom-16 left-8 flex flex-col gap-2.5">
+        <div className="flex items-center gap-2">
+          <div className="w-2.5 h-2.5 rounded-sm bg-violet-400/30" />
+          <div className="w-14 h-px bg-violet-400/30" />
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-2.5 h-2.5 rounded-sm border border-violet-400/25" />
+          <div className="w-10 h-px bg-violet-400/20" />
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-2.5 h-2.5 rounded-sm bg-fuchsia-400/25" />
+          <div className="w-12 h-px bg-fuchsia-400/20" />
+        </div>
+      </div>
+      {/* People indicator */}
+      <div className="absolute bottom-16 right-8 flex -space-x-1.5">
+        <div className="w-4 h-4 rounded-full bg-violet-500/20 border border-violet-500/15" />
+        <div className="w-4 h-4 rounded-full bg-fuchsia-500/20 border border-fuchsia-500/15" />
+        <div className="w-4 h-4 rounded-full bg-violet-500/15 border border-violet-500/10" />
+      </div>
+    </>
+  ),
 };
 
 const projectAccentColors: Record<string, string> = {
@@ -52,10 +118,12 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         <div className="h-48 w-full bg-[var(--bg-secondary)] relative overflow-hidden">
           {project.image ? (
             <>
-              <img
+              <Image
                 src={project.image}
                 alt={`${project.title} screenshot`}
-                className="absolute inset-0 w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent" />
             </>
@@ -94,11 +162,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
                 }}
               />
 
-              {/* Decorative lines */}
+              {/* Project-specific decorations */}
               <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-8 right-8 w-24 h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-gold)]/20 to-transparent" />
-                <div className="absolute bottom-12 left-8 w-16 h-[1px] bg-gradient-to-r from-[var(--accent-gold)]/20 to-transparent" />
-                <div className="absolute top-12 left-12 w-[1px] h-12 bg-gradient-to-b from-transparent via-[var(--accent-gold)]/15 to-transparent" />
+                {projectDecorations[project.title] || (
+                  <>
+                    <div className="absolute top-8 right-8 w-24 h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-gold)]/20 to-transparent" />
+                    <div className="absolute bottom-12 left-8 w-16 h-[1px] bg-gradient-to-r from-[var(--accent-gold)]/20 to-transparent" />
+                    <div className="absolute top-12 left-12 w-[1px] h-12 bg-gradient-to-b from-transparent via-[var(--accent-gold)]/15 to-transparent" />
+                  </>
+                )}
               </div>
 
               {/* Center icon with glow */}

@@ -35,10 +35,17 @@ export const IdeaCard: React.FC<IdeaCardProps> = ({ idea, index }) => {
 
           {/* Content */}
           <div className="pl-4">
-            {/* Category and read time */}
-            <div className="flex items-center gap-3 mb-3">
+            {/* Category, date, and read time */}
+            <div className="flex items-center gap-3 mb-3 flex-wrap">
               <span className="text-xs font-medium text-[var(--accent-gold)] uppercase tracking-wider">
                 {idea.category}
+              </span>
+              <span className="text-[var(--text-muted)] text-xs">
+                {new Date(idea.publishedAt).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                })}
               </span>
               <span className="text-[var(--text-muted)] text-xs">
                 {idea.readTime}

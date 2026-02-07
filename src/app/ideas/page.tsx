@@ -6,12 +6,10 @@ import { Lightbulb, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { IdeaCard } from "@/components/IdeaCard";
 import { ideas } from "@/lib/data";
-import ParticlesBackground from "@/components/ParticlesBackground";
 
 export default function IdeasPage() {
   return (
     <div className="relative min-h-screen">
-      <ParticlesBackground />
 
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-[var(--border-subtle)]">
@@ -75,7 +73,7 @@ export default function IdeasPage() {
       <footer className="py-12 border-t border-[var(--border-subtle)]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <p className="text-[var(--text-muted)] text-sm text-center">
-            &copy; 2025 Ethan Sam. Crafted with precision.
+            &copy; 2026 Ethan Sam. Crafted with precision.
           </p>
         </div>
       </footer>

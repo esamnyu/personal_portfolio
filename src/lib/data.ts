@@ -146,5 +146,4 @@ export const siteConfig = {
   description:
     "Building secure, intelligent systems at the intersection of AI and cybersecurity. M.S. Cybersecurity candidate at NYU with experience at NYC Cyber Command and NYU Langone Health.",
   url: "https://ethansam.io",
-  ogImage: "/og-image.png",
 };

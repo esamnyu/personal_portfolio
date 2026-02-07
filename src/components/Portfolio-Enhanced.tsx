@@ -226,7 +226,7 @@ const PortfolioEnhanced: React.FC = () => {
         <div className="section-container">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="text-[var(--text-muted)] text-sm">
-              &copy; 2025 Ethan Sam. Crafted with precision.
+              &copy; 2026 Ethan Sam. Crafted with precision.
             </p>
             <div className="flex items-center gap-4">
               {footerSocialLinks.map((link) => (

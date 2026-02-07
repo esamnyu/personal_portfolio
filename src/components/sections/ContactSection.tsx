@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Mail, Linkedin, Github } from "lucide-react";
+import { Mail, Linkedin, Github, FileText } from "lucide-react";
 import { socialLinks } from "@/lib/data";
 
 export const ContactSection: React.FC = () => {
@@ -19,23 +19,39 @@ export const ContactSection: React.FC = () => {
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 text-gradient-gold">
             Let&apos;s Connect
           </h2>
-          <p className="text-[var(--text-secondary)] text-lg mb-10 leading-relaxed">
+          <p className="text-[var(--text-secondary)] text-lg mb-4 leading-relaxed">
             I&apos;m always interested in discussing new opportunities,
             innovative projects, or having a conversation about technology and
             security.
           </p>
+          <p className="text-[var(--text-muted)] text-sm mb-10">
+            Currently open to AI security engineering and technical leadership roles.
+          </p>
 
-          <motion.a
-            href={`mailto:${socialLinks.email}`}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-[var(--accent-gold)] text-[var(--bg-primary)] font-semibold rounded-full hover:bg-[var(--accent-gold-light)] transition-colors duration-300"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Mail className="w-5 h-5" />
-            Get In Touch
-          </motion.a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+            <motion.a
+              href={`mailto:${socialLinks.email}`}
+              className="inline-flex items-center gap-3 px-8 py-4 bg-[var(--accent-gold)] text-[var(--bg-primary)] font-semibold rounded-full transition-opacity duration-300 hover:opacity-90"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Mail className="w-5 h-5" />
+              Get In Touch
+            </motion.a>
+            <motion.a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-[var(--border-medium)] text-[var(--text-primary)] hover:border-[var(--accent-gold)] hover:text-[var(--accent-gold)] transition-colors duration-300 font-semibold"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <FileText className="w-5 h-5" />
+              Resume
+            </motion.a>
+          </div>
 
-          <div className="flex items-center justify-center gap-6 mt-10">
+          <div className="flex items-center justify-center gap-6">
             <a
               href={socialLinks.linkedin}
               target="_blank"

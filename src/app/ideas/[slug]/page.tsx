@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ideas } from "@/lib/data";
 import { ideasContent } from "@/lib/ideas-content";
-import ParticlesBackground from "@/components/ParticlesBackground";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import CompoundInterestChart from "@/components/CompoundInterestChart";
@@ -134,13 +133,9 @@ export default function IdeaPage() {
 
   return (
     <div className="relative min-h-screen">
-      <ParticlesBackground />
-
-      {/* Readable background overlay */}
-      <div className="fixed inset-0 bg-[var(--bg-primary)]/40 pointer-events-none z-0" />
 
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-[var(--bg-primary)]/90 backdrop-blur-xl border-b border-[var(--border-subtle)]">
+      <header className="sticky top-0 z-50 bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-[var(--border-subtle)]">
         <div className="max-w-3xl mx-auto px-6 lg:px-8">
           <div className="flex items-center h-20">
             <Link
@@ -155,10 +150,10 @@ export default function IdeaPage() {
       </header>
 
       {/* Article */}
-      <article className="py-12 md:py-20 relative z-10">
+      <article className="py-12 md:py-20">
         <div className="max-w-3xl mx-auto px-6 lg:px-8">
           {/* Article container with subtle background for readability */}
-          <div className="bg-[var(--bg-primary)]/80 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-[var(--border-subtle)]">
+          <div className="rounded-2xl p-8 md:p-12">
             {/* Article header */}
             <motion.header
               className="mb-12"
@@ -238,10 +233,10 @@ export default function IdeaPage() {
       </article>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-[var(--border-subtle)] relative z-10">
+      <footer className="py-12 border-t border-[var(--border-subtle)]">
         <div className="max-w-3xl mx-auto px-6 lg:px-8">
           <p className="text-[var(--text-muted)] text-sm text-center">
-            &copy; 2025 Ethan Sam. Crafted with precision.
+            &copy; 2026 Ethan Sam. Crafted with precision.
           </p>
         </div>
       </footer>
