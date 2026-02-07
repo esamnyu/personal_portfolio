@@ -13,9 +13,9 @@ export const projects: Project[] = [
   {
     title: "Anchor",
     description:
-      "Full-stack habit tracking social app with real-time messaging, friend system, and streak analytics. Built with React 19, Supabase with 26 RLS security policies, and Capacitor for iOS deployment. Features TensorFlow.js integration for AI-powered insights.",
+      "Shipped a habit-tracking social app to iOS with 26 row-level security policies covering every database table. Real-time messaging, friend system, and on-device TensorFlow.js inference for AI-powered streak insights — all running through Supabase with zero exposed endpoints.",
     tech: ["React 19", "Supabase", "Capacitor", "TensorFlow.js", "Framer Motion"],
-    metrics: "Production-ready with 8.2/10 deployment score, 9/10 security rating",
+    metrics: "26 RLS policies | On-device ML inference | iOS-deployed",
     github: "https://github.com/esamnyu/Habitual",
     demo: "https://anchor.camp",
     image: "/images/anchor-cover.png",
@@ -23,18 +23,18 @@ export const projects: Project[] = [
   {
     title: "Campaign Insights Bot",
     description:
-      "Built an AI-powered Slack alert system for AdTech campaign monitoring. Features real-time anomaly detection using Z-score analysis, GPT-generated insights, and a closed-loop feedback system. Created proactively for interview process—demonstrating product thinking before ever speaking with the team.",
+      "Built before the interview, not after. Designed an AI-powered Slack monitoring system with Z-score anomaly detection and GPT-generated campaign insights. Closed-loop feedback lets the model improve from analyst corrections in real time.",
     tech: ["React", "Recharts", "OpenAI GPT", "Tailwind CSS", "Vercel"],
-    metrics: "Secured AI Engineer role through demonstrated initiative",
+    metrics: "Built proactively — secured the role before the first interview",
     github: "https://github.com/esamnyu/slackbot",
     demo: "https://slackbot-puce.vercel.app",
   },
   {
     title: "Roomies App",
     description:
-      "Co-founded a mobile app for roommate coordination with robust security. Implemented cryptography techniques and consensus-driven AI framework for household challenges.",
+      "Co-founded a mobile app for roommate coordination with end-to-end encrypted data. Built a consensus-driven AI framework inspired by Waze — LLM-powered task aggregation resolves household conflicts through anonymous proposals.",
     tech: ["React Native", "Firebase", "AI/ML", "Cryptography"],
-    metrics: "Enhanced user engagement, improved communication",
+    metrics: "E2E encryption | LLM consensus engine | Anonymous proposals",
   },
 ];
 

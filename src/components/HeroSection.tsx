@@ -134,11 +134,25 @@ export const HeroSection: React.FC = () => {
         {/* Description - concise */}
         <motion.p
           variants={itemVariants}
-          className="text-[var(--text-secondary)] text-base md:text-lg max-w-xl mx-auto mb-8 leading-relaxed"
+          className="text-[var(--text-secondary)] text-base md:text-lg max-w-xl mx-auto mb-3 leading-relaxed"
           style={{ fontFamily: 'var(--font-body)' }}
         >
-          Building secure, intelligent systems at the intersection of AI and cybersecurity.
+          Building secure AI systems and using AI to break insecure ones.
         </motion.p>
+
+        {/* Availability signal */}
+        <motion.div
+          variants={itemVariants}
+          className="flex items-center justify-center gap-2 mb-8"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+          </span>
+          <span className="text-[var(--text-muted)] text-xs font-body tracking-wide">
+            Open to opportunities
+          </span>
+        </motion.div>
 
         {/* Social links + CTA in one row */}
         <motion.div

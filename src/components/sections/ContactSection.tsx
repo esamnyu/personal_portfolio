@@ -20,12 +20,12 @@ export const ContactSection: React.FC = () => {
             Let&apos;s Connect
           </h2>
           <p className="text-[var(--text-secondary)] text-lg mb-4 leading-relaxed">
-            I&apos;m always interested in discussing new opportunities,
-            innovative projects, or having a conversation about technology and
-            security.
+            Looking for roles where I can secure AI systems at scale —
+            guardrails, red teaming, model governance, or building the
+            infrastructure that makes AI safe to deploy.
           </p>
           <p className="text-[var(--text-muted)] text-sm mb-10">
-            Currently open to AI security engineering and technical leadership roles.
+            Also open to collaborating on AI security research and open-source tooling.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">

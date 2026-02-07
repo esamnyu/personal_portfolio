@@ -131,8 +131,29 @@ export default function IdeaPage() {
     );
   }
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: idea.title,
+    description: idea.excerpt,
+    datePublished: idea.publishedAt,
+    author: {
+      "@type": "Person",
+      name: "Ethan Sam",
+      url: "https://ethansam.io",
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Ethan Sam",
+    },
+  };
+
   return (
     <div className="relative min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
 
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-[var(--border-subtle)]">

@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/HeroSection";
 import ParticlesBackground from "./ParticlesBackground";
 import {
   ProjectsSection,
+  SkillsSection,
   ExperienceSection,
   EducationSection,
   IdeasSection,
@@ -215,6 +216,7 @@ const PortfolioEnhanced: React.FC = () => {
 
       {/* Page Sections */}
       <HeroSection />
+      <SkillsSection />
       <ProjectsSection />
       <ExperienceSection />
       <EducationSection />
