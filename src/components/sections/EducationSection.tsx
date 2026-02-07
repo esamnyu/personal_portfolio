@@ -29,6 +29,7 @@ export const EducationSection: React.FC = () => {
               subtitle={edu.degree}
               date={edu.date}
               location={edu.gpa ? `GPA: ${edu.gpa}` : undefined}
+              credentials={edu.credentials}
               highlights={edu.highlights}
               index={index}
               icon={<GraduationCap className="w-4 h-4" />}

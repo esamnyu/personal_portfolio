@@ -50,7 +50,7 @@ const jsonLd = {
   "@type": "Person",
   name: siteConfig.name,
   url: siteConfig.url,
-  jobTitle: "AI Security Engineer",
+  jobTitle: "Associate, Innovation & Automation",
   description: siteConfig.description,
   alumniOf: [
     {
@@ -61,6 +61,28 @@ const jsonLd = {
     {
       "@type": "CollegeOrUniversity",
       name: "CUNY Lehman College",
+    },
+  ],
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "NSA-CAE Defense",
+      credentialCategory: "Certificate",
+      recognizedBy: {
+        "@type": "Organization",
+        name: "National Centers of Academic Excellence in Cybersecurity (NCAE-C)",
+      },
+      url: "https://credentials.engineering.nyu.edu/c94a17cc-1767-4461-add1-6b1ee67244a8",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Exploring Adversarial Machine Learning",
+      credentialCategory: "Certificate",
+      recognizedBy: {
+        "@type": "Organization",
+        name: "NVIDIA Deep Learning Institute",
+      },
+      url: "https://learn.nvidia.com/certificates?id=aRX4vd7lRvyYXO4rbpfE0w",
     },
   ],
   sameAs: [socialLinks.github, socialLinks.linkedin],

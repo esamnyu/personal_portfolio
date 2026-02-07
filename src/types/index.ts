@@ -16,11 +16,18 @@ export interface Experience {
   highlights: string[];
 }
 
+export interface Credential {
+  name: string;
+  issuer: string;
+  url: string;
+}
+
 export interface Education {
   school: string;
   degree: string;
   date: string;
   gpa?: string;
+  credentials?: Credential[];
   highlights: string[];
 }
 

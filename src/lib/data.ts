@@ -1,4 +1,4 @@
-import { Project, Experience, Education, NavLink, Idea } from "@/types";
+import { Project, Experience, Education, NavLink, Idea, Credential } from "@/types";
 
 export const navLinks: NavLink[] = [
   { id: "home", label: "Home" },
@@ -40,9 +40,21 @@ export const projects: Project[] = [
 
 export const experiences: Experience[] = [
   {
+    company: "MiQ Digital",
+    role: "Associate, Innovation & Automation",
+    date: "2025 - Present",
+    location: "New York, NY",
+    highlights: [
+      "Built Daily Briefing Buddy — AI agent with 93% adoption across US org and 46K+ conversations",
+      "Designed push-based agent architecture integrating Slack, Gmail, and Google Calendar",
+      "Shipped Account Snapshot, Deal Desk assistant, and Weekly Outlook agents on Glean platform",
+      "Pioneered zero-friction deployment model for AI agents across 1,400-person organization",
+    ],
+  },
+  {
     company: "Roomies",
     role: "Co-Founder & Lead Developer",
-    date: "Feb 2024 - Present",
+    date: "Feb 2024 - 2025",
     location: "New York, NY",
     highlights: [
       "Implemented cryptography techniques to secure sensitive user data",
@@ -82,10 +94,21 @@ export const education: Education[] = [
     degree: "M.S. Cybersecurity",
     date: "Aug 2022 - June 2025",
     gpa: "3.96",
+    credentials: [
+      {
+        name: "NSA-CAE Defense",
+        issuer: "National Centers of Academic Excellence in Cybersecurity (NCAE-C)",
+        url: "https://credentials.engineering.nyu.edu/c94a17cc-1767-4461-add1-6b1ee67244a8",
+      },
+      {
+        name: "Exploring Adversarial Machine Learning",
+        issuer: "NVIDIA Deep Learning Institute",
+        url: "https://learn.nvidia.com/certificates?id=aRX4vd7lRvyYXO4rbpfE0w",
+      },
+    ],
     highlights: [
       "Key Coursework: Network Security, Digital Forensics, Cloud Security, Applied Cryptography",
       "Co-developed CNN-based phishing detection system at CSAW (Best Challenge Award)",
-      "Active participant in capture-the-flag competitions",
     ],
   },
   {
@@ -102,6 +125,16 @@ export const education: Education[] = [
 ];
 
 export const ideas: Idea[] = [
+  {
+    slug: "daily-briefing-buddy",
+    title: "How I Built an AI Agent That 93% of My Company Actually Uses",
+    excerpt:
+      "Most enterprise AI tools die the same death: a flashy launch, then silence. Here's how a push-based design pattern broke that cycle — 46,000 conversations and counting.",
+    category: "Build Log",
+    readTime: "8 min read",
+    publishedAt: "2026-02-07",
+    featured: true,
+  },
   {
     slug: "top-3-ai-skills-2026",
     title: "The 3 AI Skills That Actually Matter in 2026",
@@ -120,7 +153,6 @@ export const ideas: Idea[] = [
     category: "Finance",
     readTime: "8 min read",
     publishedAt: "2026-01-26",
-    featured: true,
   },
   {
     slug: "reverse-engineering-recruiter-search",
@@ -144,6 +176,6 @@ export const siteConfig = {
   name: "Ethan Sam",
   title: "Ethan Sam - AI Security Engineer & Full-Stack Developer",
   description:
-    "Building secure, intelligent systems at the intersection of AI and cybersecurity. M.S. Cybersecurity candidate at NYU with experience at NYC Cyber Command and NYU Langone Health.",
+    "Building AI agents and secure systems at MiQ Digital. NYU M.S. with experience at NYC Cyber Command and NYU Langone Health.",
   url: "https://ethansam.io",
 };

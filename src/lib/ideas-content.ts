@@ -1,4 +1,82 @@
 export const ideasContent: Record<string, string> = {
+  "daily-briefing-buddy": `
+Most enterprise AI tools die the same death: a flashy launch, a few curious clicks, then silence. The graveyard of internal tools is full of dashboards nobody opens and chatbots nobody chats with.
+
+So when I built the Daily Briefing Buddy at MiQ Digital — an AI agent that scans your Slack, Gmail, and Google Calendar overnight and drops a personalized morning brief into your Slack DMs before you've finished your coffee — I wasn't expecting what happened next.
+
+93% of the US organization adopted it. Over 46,000 conversations in the weeks following launch. Not because anyone was told to use it. Because people wanted to.
+
+Here's what I learned building it, and why I think most internal AI tools get the adoption equation backwards.
+
+---
+
+## The Problem Was Hiding in Plain Sight
+
+MiQ is a 1,400-person programmatic advertising company. On any given morning, an Account Manager might need to check Slack for overnight client escalations, scan Gmail for creative approvals, review their calendar for back-to-back client calls, and cross-reference campaign pacing in our ad platforms — all before their first meeting at 9 AM.
+
+Nobody complained about this. It was just... the water everyone swam in. Thirty minutes of context-gathering that felt like "getting ready for work" rather than a solvable problem.
+
+But multiply 30 minutes by 290 employees by 250 working days, and you're looking at over 36,000 hours a year spent on the same ritual: figuring out what happened while you were asleep.
+
+## The Design Principle That Changed Everything
+
+I'd already built several AI agents on our Glean platform — an Account Snapshot tool, a Deal Desk assistant, a Weekly Outlook planner. They were technically solid. Some were genuinely sophisticated. But adoption was lukewarm.
+
+The pattern I kept seeing: **pull-based tools require motivation. Push-based tools create habits.**
+
+Every other agent I'd built required someone to think "I need help with X," navigate to the tool, and ask the right question. That's three friction points before any value is delivered.
+
+The Daily Briefing Buddy flipped the model. It comes to you. Every morning, same time, same place — your Slack DMs. No login. No prompt engineering. No remembering it exists.
+
+The insight wasn't technical. It was behavioral: **the best internal tool is the one that does the work before you realize you needed it done.**
+
+## How It Works
+
+The architecture is straightforward, which is part of the point:
+
+1. **Overnight scan** — The agent pulls from three sources: Slack messages in your relevant channels, Gmail threads you're part of, and your Google Calendar for the day ahead.
+2. **Personalized synthesis** — Rather than dumping raw data, the agent identifies what actually matters: escalations, deadlines, meeting prep context, and threads that need your response.
+3. **Slack DM delivery** — A clean, scannable brief lands in your DMs before your workday starts. No app to open. No dashboard to check.
+
+The technical challenge wasn't the AI — it was the plumbing. Getting authentication right across three data sources, handling edge cases (What if someone has 200 unread Slack messages? What about calendar events with no context?), and formatting output that's genuinely scannable at 8 AM took more iteration than the core intelligence layer.
+
+## Launch Day Was a Monday (On Purpose)
+
+We shipped on a Monday morning. Not a Thursday demo. Not a Friday "soft launch." Monday, when the pain of context-gathering is sharpest after a weekend.
+
+Within the first hour, my VP Anthony Perez flagged some formatting issues in the output. I debugged and patched them same-day. By that afternoon, Christy announced it company-wide alongside our YouTube Assistant agent. Anthony posted a how-to video in #us-team and publicly credited the work.
+
+That speed mattered. Enterprise AI tools often die in the gap between "announced" and "actually working." Closing that gap to zero — launching when it's ready and fixing in real-time — meant the first impression was the working product, not a promise.
+
+## What 46,000 Conversations Taught Me
+
+Three things stood out as usage scaled:
+
+**1. People personalize around the tool, not the other way around.**
+I expected requests for customization — "Can I filter out certain channels?" "Can I get it at 7 AM instead of 8?" What actually happened is people adjusted their own workflows. Some started using it as their meeting prep. Others forwarded briefs to their teams. The tool didn't need to be infinitely configurable; it needed to be consistently useful.
+
+**2. The "aha moment" is the first morning, not a training session.**
+We didn't do enablement workshops or create a slide deck explaining the value proposition. The agent showed up in your DMs on Monday morning with a summary of what you missed. That was the training.
+
+**3. Daily frequency builds trust faster than anything else.**
+When a tool delivers value 5 days a week, users develop intuition for what it's good at and where its limits are. They stop asking "Can I trust this?" and start asking "What else can it do?" That trust transfer is the real unlock for broader AI adoption.
+
+## The Uncomfortable Truth About AI Adoption
+
+Here's what I don't see discussed enough in enterprise AI circles: **the sophistication of your AI doesn't predict adoption. The proximity to a daily habit does.**
+
+My Weekly Outlook Agent is technically the most advanced thing I've built — deeper integrations, more complex reasoning, cross-functional data synthesis. It's still in user testing. The Daily Briefing Buddy, which is architecturally simpler, became the most-used AI tool in the company within weeks.
+
+The lesson isn't "build simple things." It's **build things that attach to existing behaviors.** People already check Slack every morning. Meeting them there, with something useful, at the moment they need it — that's the entire trick.
+
+## What I'd Tell Anyone Building Internal AI Tools
+
+Stop building tools that require people to change their behavior. Start building tools that improve the behavior they already have.
+
+Find the daily ritual. Find the friction hidden inside it. Then deliver value to the place they're already looking — before they ask for it.
+
+That's it. That's the 93%.
+`,
   "engineer-guide-to-wealth": `
 After landing a new AI role in New York, something shifted in how I think about money. It's not just that NYC is expensive—though breathing here basically requires a subscription. It's that a real salary forced me to confront a question I'd been avoiding: *what happens next?*
 
