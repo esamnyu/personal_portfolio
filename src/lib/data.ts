@@ -99,6 +99,7 @@ export const education: Education[] = [
         name: "NSA-CAE Defense",
         issuer: "National Centers of Academic Excellence in Cybersecurity (NCAE-C)",
         url: "https://credentials.engineering.nyu.edu/c94a17cc-1767-4461-add1-6b1ee67244a8",
+        image: "/images/nsa-cae-certificate.png",
       },
       {
         name: "Exploring Adversarial Machine Learning",

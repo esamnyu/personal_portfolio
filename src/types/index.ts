@@ -20,6 +20,7 @@ export interface Credential {
   name: string;
   issuer: string;
   url: string;
+  image?: string;
 }
 
 export interface Education {

@@ -1,9 +1,9 @@
 "use client";
 
-import React from 'react';
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { MapPin, Award, ExternalLink } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { MapPin, Award, ExternalLink, X } from 'lucide-react';
+import Image from 'next/image';
 import { Credential } from '@/types';
 
 interface TimelineItemProps {
@@ -29,6 +29,7 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   return (
     <motion.div
@@ -98,8 +99,8 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
         {credentials && credentials.length > 0 && (
           <div className="mb-5 space-y-2">
             {credentials.map((cred, idx) => (
+              <React.Fragment key={idx}>
               <motion.a
-                key={idx}
                 href={cred.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -123,6 +124,31 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
                 </div>
                 <ExternalLink className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-[var(--accent-gold)] transition-colors flex-shrink-0" />
               </motion.a>
+              {cred.image && (
+                <motion.button
+                  onClick={() => setLightboxImage(cred.image!)}
+                  className="mt-2 rounded-lg overflow-hidden border border-[var(--border-subtle)] hover:border-[var(--border-accent)] transition-all duration-500 cursor-pointer group/cert"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.15 + idx * 0.1 + 0.5,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  whileHover={{ scale: 1.01 }}
+                >
+                  <div className="relative w-full aspect-[1056/816]">
+                    <Image
+                      src={cred.image}
+                      alt={`${cred.name} Certificate`}
+                      fill
+                      className="object-cover opacity-90 group-hover/cert:opacity-100 transition-opacity duration-300"
+                      sizes="(max-width: 768px) 100vw, 600px"
+                    />
+                  </div>
+                </motion.button>
+              )}
+            </React.Fragment>
             ))}
           </div>
         )}
@@ -148,6 +174,56 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
           ))}
         </ul>
       </motion.div>
+      {/* Certificate Lightbox */}
+      <AnimatePresence>
+        {lightboxImage && (
+          <motion.div
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => setLightboxImage(null)}
+          >
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+            <motion.div
+              className="relative max-w-3xl w-full"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setLightboxImage(null)}
+                className="absolute -top-12 right-0 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <div className="rounded-xl overflow-hidden border border-[var(--border-subtle)] shadow-2xl">
+                <Image
+                  src={lightboxImage}
+                  alt="Certificate"
+                  width={1056}
+                  height={816}
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="mt-4 text-center">
+                <a
+                  href={credentials?.find(c => c.image === lightboxImage)?.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-[var(--accent-gold)] hover:text-[var(--accent-warm)] transition-colors"
+                >
+                  Verify credential
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
