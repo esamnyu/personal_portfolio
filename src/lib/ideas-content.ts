@@ -44,7 +44,7 @@ The technical challenge wasn't the AI — it was the plumbing. Getting authentic
 
 We shipped on a Monday morning. Not a Thursday demo. Not a Friday "soft launch." Monday, when the pain of context-gathering is sharpest after a weekend.
 
-Within the first hour, my VP Anthony Perez flagged some formatting issues in the output. I debugged and patched them same-day. By that afternoon, Christy announced it company-wide alongside our YouTube Assistant agent. Anthony posted a how-to video in #us-team and publicly credited the work.
+Within the first hour, my VP flagged some formatting issues in the output. I debugged and patched them same-day. By that afternoon, leadership announced it company-wide alongside our YouTube Assistant agent. My VP posted a how-to video in #us-team and publicly credited the work.
 
 That speed mattered. Enterprise AI tools often die in the gap between "announced" and "actually working." Closing that gap to zero — launching when it's ready and fixing in real-time — meant the first impression was the working product, not a promise.
 
