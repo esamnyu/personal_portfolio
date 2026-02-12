@@ -1,7 +1,20 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Syne, Outfit } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import { siteConfig, socialLinks } from "@/lib/data";
+
+const syne = Syne({
+  subsets: ["latin"],
+  variable: "--font-syne",
+  display: "swap",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -103,7 +116,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className={`h-full ${syne.variable} ${outfit.variable}`} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"

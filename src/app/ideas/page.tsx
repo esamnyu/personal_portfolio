@@ -73,7 +73,7 @@ export default function IdeasPage() {
       <footer className="py-12 border-t border-[var(--border-subtle)]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <p className="text-[var(--text-muted)] text-sm text-center">
-            &copy; 2026 Ethan Sam. Crafted with precision.
+            &copy; {new Date().getFullYear()} Ethan Sam. Crafted with precision.
           </p>
         </div>
       </footer>

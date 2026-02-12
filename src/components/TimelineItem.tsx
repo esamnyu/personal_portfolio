@@ -31,6 +31,20 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
+  // Escape key closes lightbox + body scroll lock
+  React.useEffect(() => {
+    if (!lightboxImage) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxImage(null);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [lightboxImage]);
+
   return (
     <motion.div
       ref={ref}
@@ -179,6 +193,9 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
         {lightboxImage && (
           <motion.div
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Certificate preview"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -197,6 +214,8 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
               <button
                 onClick={() => setLightboxImage(null)}
                 className="absolute -top-12 right-0 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                aria-label="Close certificate preview"
+                autoFocus
               >
                 <X className="w-6 h-6" />
               </button>

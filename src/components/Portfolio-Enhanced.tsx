@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import { HeroSection } from "@/components/HeroSection";
@@ -21,44 +21,77 @@ const footerSocialLinks = [
   { icon: Mail, href: `mailto:${socialLinks.email}`, label: "Email" },
 ];
 
+const SCROLL_HEADER_THRESHOLD = 50;
+const SECTION_DETECT_OFFSET = 100;
+const MENU_CLOSE_DELAY = 300;
+
 const PortfolioEnhanced: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+
+  // Close mobile menu on Escape key
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > SCROLL_HEADER_THRESHOLD);
 
-      const sections = navLinks.map((link) => link.id);
-      const currentSection = sections.find((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
+          const sections = navLinks.map((link) => link.id);
+          const currentSection = sections.find((section) => {
+            const element = document.getElementById(section);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              return rect.top <= SECTION_DETECT_OFFSET && rect.bottom >= SECTION_DETECT_OFFSET;
+            }
+            return false;
+          });
 
-      if (currentSection) {
-        setActiveSection(currentSection);
+          if (currentSection) {
+            setActiveSection(currentSection);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = useCallback((sectionId: string) => {
     setIsMobileMenuOpen(false);
-    setTimeout(() => {
+    menuButtonRef.current?.focus();
+    clearTimeout(scrollTimeoutRef.current);
+    scrollTimeoutRef.current = setTimeout(() => {
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
         setActiveSection(sectionId);
       }
-    }, 300);
-  };
+    }, MENU_CLOSE_DELAY);
+  }, []);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => clearTimeout(scrollTimeoutRef.current);
+  }, []);
 
   return (
     <div className="relative min-h-screen">
@@ -132,9 +165,11 @@ const PortfolioEnhanced: React.FC = () => {
 
             {/* Mobile Menu Button */}
             <button
+              ref={menuButtonRef}
               className="md:hidden text-[var(--text-secondary)] hover:text-[var(--text-primary)] p-2 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
             >
               <AnimatePresence mode="wait">
                 {isMobileMenuOpen ? (
@@ -226,7 +261,7 @@ const PortfolioEnhanced: React.FC = () => {
         <div className="section-container">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="text-[var(--text-muted)] text-sm">
-              &copy; 2026 Ethan Sam. Crafted with precision.
+              &copy; {new Date().getFullYear()} Ethan Sam. Crafted with precision.
             </p>
             <div className="flex items-center gap-4">
               {footerSocialLinks.map((link) => (
