@@ -304,6 +304,143 @@ The ground is shifting. The question isn't whether to adapt—it's whether you'l
 
 *This piece draws on data from the [World Economic Forum's Future of Jobs Report](https://www.weforum.org/stories/2025/01/future-of-jobs-report-2025-jobs-of-the-future-and-the-skills-you-need-to-get-them/), [Second Talent's salary analysis](https://www.secondtalent.com/resources/most-in-demand-ai-engineering-skills-and-salary-ranges/), and [CIO's 2026 skills survey](https://www.cio.com/article/4096592/the-10-hottest-it-skills-for-2026.html).*
 `,
+  "enterprise-ai-building-gap": `
+Last week, I helped run a two-day hackathon at the adtech company where I work. Sixteen people — account managers, traders, sales leaders, BI analysts — sat down with a low-code platform, a cloud data warehouse, and an AI coding assistant to build internal tools from scratch.
+
+The thesis was simple: AI has made building software accessible to everyone. Give smart domain experts the right tools and get out of their way.
+
+Here's what actually happened — and why I think most enterprises aren't ready for what comes next.
+
+---
+
+## The Stack
+
+Our platform was a low-code tool builder popular for internal applications. It connects to databases, APIs, and third-party services through a drag-and-drop interface, with a built-in AI assistant for generating components and queries. Our data lived in a cloud data warehouse that ingests from a CRM platform, an ad operations system, and several demand-side platforms. We also had access to an AI coding assistant capable of generating full React components, writing SQL queries, and scaffolding application logic from natural language.
+
+On paper, this is everything you need. A data layer, a presentation layer, and an AI layer to bridge the two. Three vendors sent representatives to embed with us during the build.
+
+And yet.
+
+---
+
+## Hour 1: The Walls Appear
+
+The first thing I tried to do was install the AI coding assistant on my company laptop. It requires a command-line tool installed via a package manager. My company's IT policy requires admin approval for any software installation. I couldn't even update existing applications without filing a ticket.
+
+This isn't unusual. Most enterprise IT environments lock down developer tooling for legitimate security reasons. But it means the "anyone can build with AI" premise has an asterisk: *anyone with the right permissions, on the right machine, with the right licenses already provisioned.*
+
+I spent forty minutes finding a workaround — generating an API token through the platform's web interface and authenticating through an alternate route. Others on my team never got past the wall. By the time we started building, our AI-assisted workforce had already stratified: those who could access the AI tools and those who couldn't.
+
+Meanwhile, several team members discovered they didn't have enterprise licenses for the AI assistant at all. The invoice from the AI provider had been sitting unpaid in our finance department. In a hackathon explicitly designed around AI-assisted building, the AI tool was unavailable to a significant portion of the participants.
+
+---
+
+## The Build: A Servicing Hub in Two Days
+
+Despite the access issues, we built something real.
+
+Our team's scope was a campaign servicing dashboard — the tool account managers would open first thing every morning instead of their sprawling personal spreadsheets. The target user is someone who manages dozens of active advertising campaigns across multiple platforms, each with its own support tickets, delivery metrics, budget pacing data, and stakeholder communications.
+
+Day 1 started with a structured lab exercise: building a campaign validation workflow. Data ingestion, AI-powered evaluation of campaign parameters, branched routing based on risk flags, automated notifications. The exercise demonstrated the architectural pattern — trigger, process, branch, notify — that would underpin everything we built after.
+
+Then we split into teams. My partner took the ticketing integration: building a workflow where clicking a campaign row opens a drawer, displays related support tickets from our project management system, and lets the user create new tickets that automatically link back to the campaign. I took the data layer: writing queries against the data warehouse to surface campaign status, delivery metrics, and budget pacing in a unified view.
+
+By the end of Day 2, the ticketing integration worked end-to-end — you could click a campaign, see all its associated tickets with live status, and create new ones that immediately appeared in both the platform and the external system. The data layer was functional but revealed a much deeper problem.
+
+---
+
+## The Data Legibility Problem
+
+The low-code platform and the AI assistant were both excellent at their jobs. The platform's drag-and-drop interface made it fast to assemble UI components. The AI assistant could generate SQL queries, suggest component layouts, and debug JavaScript errors in real time. When I needed to format an array of ticket IDs into a comma-separated string for a query language I'd never used before, I fed the AI the platform's complete documentation and it found the right method in seconds.
+
+But none of that mattered until I could figure out what data to query.
+
+Our data warehouse contains tables from multiple source systems. The CRM calls the person managing a campaign an "account manager." The ad operations platform calls the same person "client services." Both systems have a concept of a campaign identifier, but one calls it "opportunity_id" and the other calls it "booking_id." They can be joined, but the join isn't clean — the naming conventions diverged years ago, and nobody unified them.
+
+I spent more time during the hackathon figuring out which table contained the columns I needed, debugging naming mismatches across systems, and waiting for a BI engineer to build a joined table than I spent on any UI or application logic.
+
+This is the part of the enterprise AI building story that nobody talks about.
+
+Every vendor pitch focuses on the presentation layer: look how fast you can build a dashboard, look how the AI generates components, look how drag-and-drop makes everyone a developer. And they're right — the presentation layer is largely solved. If you know what data you want and where it lives, building a beautiful interface around it is genuinely fast.
+
+But in most enterprises, **knowing what data you want and where it lives is the hard part.**
+
+The ad operations system has a campaign status field that distinguishes between "spending," "not spending," and "invoiced." That field exists in a table in the data warehouse, but it wasn't included in the pre-joined table our BI team had prepared. Getting it required a new materialized view that an engineer promised to build "in an hour" — which meant our demo relied on incomplete data and manual workarounds.
+
+One data source only refreshes every four hours. Another depends on manual inputs from a different team. A third has regional variations in how fields are populated — one international office uses entirely different naming conventions for campaign types. Paid social campaigns show as "not delivered" because the operations system receives those inputs manually on a monthly basis, not in real time.
+
+None of these are technology problems. They're organizational sediment — layers of decisions made by different teams at different times for different reasons, accumulated over years. AI tools can query this data instantly. But they can't make it legible.
+
+---
+
+## The User in the Room
+
+The most valuable moments of the hackathon had nothing to do with code.
+
+An account manager on our team — someone who would actually use the servicing hub daily — watched us build and offered running commentary. When we showed her a chart of campaign pacing over time, she said: "An account manager wouldn't understand multiple campaigns displayed as pacing over time. Just tell me: is it on pace, or not on pace."
+
+When we demonstrated the ticketing integration, she immediately asked about adding a notes field — so when her sales partner asks why a campaign hasn't launched, she doesn't have to go look it up.
+
+When we showed her the launch calendar view, she requested a nickname column: "If I have five campaigns for the same advertiser, I need to know which one is the display buy and which one is video without opening each one."
+
+These aren't feature requests. They're windows into how someone actually works — the mental models, the daily rituals, the specific friction points that no requirements document would capture. Having her in the room while we built changed what we built. Not incrementally. Fundamentally.
+
+She also gave us the positioning for the product. When someone asked what this tool is and what it isn't, she said: **"Today, it is not a tool replacement. Today, it is an organizational tool."**
+
+That single sentence is worth more than any product strategy deck. It tells you exactly what adoption looks like: not convincing people to abandon their spreadsheets, but giving them something that answers their most common morning question faster than the spreadsheet can.
+
+---
+
+## The Capability Gradient
+
+By the end of Day 2, a clear gradient had emerged.
+
+Our VP had been working with AI coding tools for months. He could generate entire custom React components, deploy them through a command-line interface, and embed them into the platform. He was operating at a fundamentally different level.
+
+I figured out the access workaround and could use the AI for query generation, debugging, and documentation lookup. My partner learned the platform's event handler system and API integration patterns from zero — genuinely impressive progress in two days, but still within the platform's native capabilities.
+
+Other team members hit the IT access wall and couldn't use the AI tools at all. One team tried the data warehouse's built-in natural language query tool and hit compute timeouts with no technical support available — the vendor's engineers had left early.
+
+AI-assisted building doesn't create a flat playing field. It creates a steeper gradient. The people who can prompt effectively, navigate tooling friction, and chain multiple AI capabilities together pull ahead exponentially. The people who get stuck on access, permissions, or initial setup fall behind just as fast. In a two-day hackathon, the gap is manageable. Over months of daily work, it compounds.
+
+This has workforce implications that most AI adoption narratives gloss over. The question isn't whether AI makes everyone more productive. It's whether the productivity gains distribute evenly — and from what I observed, they very much do not.
+
+---
+
+## Three Gaps That Need Closing
+
+I came away from the hackathon with a thesis that I think applies beyond my company:
+
+**The AI building tools are ready. The enterprise operating environment is not.**
+
+Specifically:
+
+| Gap | What it looks like | What needs to change |
+|-----|-------------------|---------------------|
+| **Access** | IT lockdowns, unpaid licenses, CLI restrictions | Treat AI tooling provisioning as a first-class workflow |
+| **Data legibility** | Inconsistent naming, fragmented tables, stale refreshes | Invest in making existing data queryable by humans and AIs |
+| **Capability distribution** | Power users accelerate; others get stuck on setup | Plan for the gradient instead of pretending everyone benefits equally |
+
+None of these are arguments against AI building tools. They're arguments for taking the organizational environment as seriously as the tooling. The hackathon proved that a cross-functional team can build meaningful internal software in two days. It also proved that the distance between "meaningful prototype" and "production system people rely on" is mostly organizational, not technical.
+
+---
+
+## The Uncomfortable Truth
+
+Every vendor pitch I've seen in the last year says the same thing: AI will let anyone build software. And technically, they're right. But technically right is not the same as operationally true.
+
+The enterprise AI building gap isn't about model capability. It's about licensing procurement timelines, IT security policies designed for a pre-AI world, data governance that makes the same information illegible across systems, and a capability gradient where the people who can prompt effectively pull ahead while everyone else gets stuck on setup.
+
+We built a working servicing hub in 48 hours. It connects to live production data, integrates with our ticketing system, and surfaces the information account managers actually need. The tools worked.
+
+What nearly stopped us — every time — was everything around the tools.
+
+The question isn't whether AI can help your team build faster. It can. The question is whether your organization is ready to let it.
+
+---
+
+*I'm an AI Automation Engineer at a mid-size adtech company, building internal tools and AI workflows. This piece is based on a real hackathon; company and vendor names have been anonymized. Opinions are my own.*
+`,
   "reverse-engineering-recruiter-search": `
 I didn't apply for my current role. A recruiter at a staffing firm I'd never heard of found me on LinkedIn and reached out. After the offer letter was signed, I got curious: *why me?*
 

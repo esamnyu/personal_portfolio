@@ -1,4 +1,11 @@
-import { Project, Experience, Education, NavLink, Idea, Credential } from "@/types";
+import {
+  Project,
+  Experience,
+  Education,
+  NavLink,
+  Idea,
+  Credential,
+} from "@/types";
 
 export const navLinks: NavLink[] = [
   { id: "home", label: "Home" },
@@ -15,7 +22,13 @@ export const projects: Project[] = [
     title: "Anchor",
     description:
       "Shipped a habit-tracking social app to iOS with 26 row-level security policies covering every database table. Real-time messaging, friend system, and on-device TensorFlow.js inference for AI-powered streak insights — all running through Supabase with zero exposed endpoints.",
-    tech: ["React 19", "Supabase", "Capacitor", "TensorFlow.js", "Framer Motion"],
+    tech: [
+      "React 19",
+      "Supabase",
+      "Capacitor",
+      "TensorFlow.js",
+      "Framer Motion",
+    ],
     metrics: "26 RLS policies | On-device ML inference | iOS-deployed",
     github: "https://github.com/esamnyu/Habitual",
     demo: "https://anchor.camp",
@@ -98,7 +111,8 @@ export const education: Education[] = [
     credentials: [
       {
         name: "NSA-CAE Defense",
-        issuer: "National Centers of Academic Excellence in Cybersecurity (NCAE-C)",
+        issuer:
+          "National Centers of Academic Excellence in Cybersecurity (NCAE-C)",
         url: "https://credentials.engineering.nyu.edu/c94a17cc-1767-4461-add1-6b1ee67244a8",
         image: "/images/nsa-cae-certificate.png",
       },
@@ -114,7 +128,7 @@ export const education: Education[] = [
     ],
   },
   {
-    school: "CUNY Lehman College",
+    school: "CUNY Hunter College",
     degree: "B.S. Computer Science",
     date: "Sep 2018 - June 2022",
     gpa: "3.90",
@@ -127,6 +141,17 @@ export const education: Education[] = [
 ];
 
 export const ideas: Idea[] = [
+  {
+    slug: "enterprise-ai-building-gap",
+    title:
+      "The Enterprise AI Building Gap: What 48 Hours With AI Tools Taught Me",
+    excerpt:
+      "We gave AI building tools to non-engineers at a two-day hackathon. The tools worked. Everything around the tools nearly stopped us.",
+    category: "Build Log",
+    readTime: "10 min read",
+    publishedAt: "2026-02-21",
+    featured: true,
+  },
   {
     slug: "daily-briefing-buddy",
     title: "How I Built an AI Agent That 93% of My Company Actually Uses",
