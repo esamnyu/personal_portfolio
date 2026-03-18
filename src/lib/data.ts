@@ -33,6 +33,8 @@ export const projects: Project[] = [
     github: "https://github.com/esamnyu/Habitual",
     demo: "https://anchor.camp",
     image: "/images/anchor-cover.png",
+    featured: true,
+    tagline: "Build better habits with friends",
   },
   {
     title: "Campaign Insights Bot",

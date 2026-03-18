@@ -73,7 +73,7 @@ const jsonLd = {
     },
     {
       "@type": "CollegeOrUniversity",
-      name: "CUNY Lehman College",
+      name: "CUNY Hunter College",
     },
   ],
   hasCredential: [
@@ -116,7 +116,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`h-full ${syne.variable} ${outfit.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`h-full ${syne.variable} ${outfit.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script
           type="application/ld+json"

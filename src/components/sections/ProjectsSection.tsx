@@ -3,10 +3,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Code } from "lucide-react";
-import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectCard, FeaturedProjectCard } from "@/components/ProjectCard";
 import { projects } from "@/lib/data";
 
 export const ProjectsSection: React.FC = () => {
+  const featured = projects.find((p) => p.featured);
+  const rest = projects.filter((p) => !p.featured);
+
   return (
     <section id="projects" className="py-16 md:py-24 relative">
       <div className="section-container">
@@ -21,9 +24,21 @@ export const ProjectsSection: React.FC = () => {
           Featured Projects
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+        {/* Featured project — full width */}
+        {featured && (
+          <div className="mb-8">
+            <FeaturedProjectCard project={featured} index={0} />
+          </div>
+        )}
+
+        {/* Remaining projects — 2 column grid */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {rest.map((project, index) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={index + 1}
+            />
           ))}
         </div>
       </div>
